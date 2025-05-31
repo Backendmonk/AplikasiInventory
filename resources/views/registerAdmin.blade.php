@@ -10,17 +10,21 @@
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" action="logincek" method="post">
+                        <form id="login-form" class="form" action="/registerUser" method="post">
                             @csrf
-                            <h3 class="text-center text-info">Silahkan Register</h3>
-                             <div class="form-group">
-                                <label for="nama" class="text-info">Nama:</label><br>
-                                <input type="text" name="nama" id="nama" class="form-control">
-                            </div>
+                            <h3 class="text-center text-info">Silahkan Login</h3>
+                            
                             <div class="form-group">
                                 <label for="username" class="text-info">Username:</label><br>
                                 <input type="text" name="username" id="username" class="form-control">
                             </div>
+
+                             <div class="form-group">
+                                <label for="username" class="text-info">Username:</label><br>
+                                <input type="text" name="username" id="username" class="form-control">
+                            </div>
+
+
                             <div class="form-group">
                                 <label for="password" class="text-info">Password:</label><br>
                                 <input type="text" name="password" id="password" class="form-control">
@@ -29,10 +33,15 @@
                                 <br>
                                 <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
                             </div>
+                     
                             <div id="register-link" class="text-right">
-                                <a href="#" class="text-info">Register here</a>
+                                <a href="/" class="text-info">Sudah Ada Akun</a>
                             </div>
-                        </form>
+
+                            <br>
+
+                               </form>
+                     
                     </div>
                 </div>
             </div>
@@ -52,7 +61,7 @@ body {
 #login .container #login-row #login-column #login-box {
   margin-top: 120px;
   max-width: 600px;
-  height: 320px;
+  height: auto;
   border: 1px solid #9C9C9C;
   background-color: #EAEAEA;
 }

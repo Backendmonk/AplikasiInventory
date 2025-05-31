@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 route::middleware(['guest'])->group(function(){
     Route::controller(ControllerAuthUser::class)->group(function(){
         route::get('/','DirrectLoginNonUser');
-        route::get('/TambahUser','UseraddBackend');
+        route::get('/tambahuser','UseraddBackend');
     });
     
 
