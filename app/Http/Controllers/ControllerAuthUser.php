@@ -75,7 +75,7 @@ class ControllerAuthUser extends Controller
 
         $nama = $reqdatainput->nama;
         $username = $reqdatainput->username;
-        $password = $reqdatainput->password;
+        $password = bcrypt($reqdatainput->password);
         $JA = $reqdatainput->jenisAkun;
 
         $cekketersediaaan  = User::where('username','=',$username)->count();
