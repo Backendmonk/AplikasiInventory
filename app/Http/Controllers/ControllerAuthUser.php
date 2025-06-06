@@ -12,8 +12,20 @@ class ControllerAuthUser extends Controller
     
 
     public function DirrectLoginNonUser(){
+         if (Auth::check()) {
+        if (Auth::user()->jenis_akun == 'Admin') {
+            return redirect('Admin/Home');
+        } elseif (Auth::user()->jenis_akun == 'Kasir') {
+            return redirect('Kasir/Home');
+        }
+    }
 
-        return view('welcome');
+    return response()
+        ->view('welcome')
+        ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+        ->header('Pragma', 'no-cache')
+        ->header('Expires', '0');
+       
     }
 
     public function UseraddBackend(){
@@ -21,23 +33,30 @@ class ControllerAuthUser extends Controller
         return view('registerAdmin');
     }
 
+    public function logout(){
 
-    public function dirrectuseradmin(){
+         Auth::logout();
+            request()->session()->invalidate();
+            request()->session()->regenerateToken();
 
-        return redirect('Admin/Home');
+            return redirect()->route('login');
     }
+
 
 
 
     ///Proses login
     //public proses login untuk mengambil data dari user
        public function proseslogin(Request $reqcredential){
-        
-            $usercredential =[
+           
+
+                $usercredential =[
 
                 'username'=>$reqcredential->username,
                 'password'=>$reqcredential->password
             ];
+       
+           
 
 
             ///pass ke fungsi login dengan membawa isi usercredential
@@ -55,12 +74,13 @@ class ControllerAuthUser extends Controller
             }
             else{
                 if (Auth::attempt($usercredential)) {
-                    
-
                     if (Auth::user()->jenis_akun =='Admin') {
-                        return $this->dirrectuseradmin();
+                         return redirect('Admin/Home');
                     }elseif (Auth::user()->jenis_akun =='Kasir') {
-                        echo "kasir";
+                        return redirect('Kasir/Home');
+                    }else{
+                        Auth::logout();
+                        return redirect()->route('login');
                     }
                 }else{
 

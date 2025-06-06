@@ -23,7 +23,12 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                //cek default route untuk setiap user
+                if(Auth::user()->jenis_akun=='Admin'){
+                    return redirect('Admin/Home');
+                }elseif (Auth::user()->jenis_akun=='Kasir') {
+                    return redirect('Kasir/Home');
+                }
             }
         }
 

@@ -1,0 +1,95 @@
+Catatan untuk login 2 autentikasi
+
+- Memerlukan Middleware custom dengan nama UserAuth, yang berisikan jenis akun sebagai keynya
+
+contoh"
+ public function handle(Request $request, Closure $next,$jenis_akun)
+    {
+        if(auth()->user()->jenis_akun==$jenis_akun){
+
+            return $next($request);
+        }
+
+        return redirect('');
+       
+    }
+"- pada Middleware redirctifauth contoh "
+
+ public function handle(Request $request, Closure $next, ...$guards)
+    {
+        $guards = empty($guards) ? [null] : $guards;
+
+        foreach ($guards as $guard) {
+            if (Auth::guard($guard)->check()) {
+                //cek default route untuk setiap user
+                if(Auth::user()->jenis_akun=='Admin'){
+                    return redirect('Admin/Home');
+                }elseif (Auth::user()->jenis_akun=='Kasir') {
+                    return redirect('Kasir/Home');
+                }
+            }
+        }
+
+        return $next($request);
+    }
+}
+"
+
+
+
+contoh Skrip login yang aman dimana mengambil data akan dilakukan public, dan logika untuk login akan dilakukan secara private
+
+"
+
+
+/public proses login untuk mengambil data dari user
+       public function proseslogin(Request $reqcredential){
+           
+
+                $usercredential =[
+
+                'username'=>$reqcredential->username,
+                'password'=>$reqcredential->password
+            ];
+       
+           
+
+
+            ///pass ke fungsi login dengan membawa isi usercredential
+        return $this->login($usercredential);
+    }
+
+    //fugnsi private login akan mengambil data dari proses login dan di eksekusi secara private untuk logika dengan mangambil isi berupa usercredentiala
+
+        
+        private function login( $usercredential){
+
+            if (  empty($usercredential['username']) ||
+                  empty($usercredential['password'])){
+                return redirect()->route('login')->with('nullfield','');
+            }
+            else{
+                if (Auth::attempt($usercredential)) {
+                    if (Auth::user()->jenis_akun =='Admin') {
+                         return redirect('Admin/Home');
+                    }elseif (Auth::user()->jenis_akun =='Kasir') {
+                        return redirect('Kasir/Home');
+                    }else{
+                        Auth::logout();
+                        return redirect()->route('login');
+                    }
+                }else{
+
+                    return redirect()->route('login')->with('nullakun','');
+                    
+                }
+           
+        }
+    }
+
+
+
+"
+
+
+pada route, akses yang tidak memerlukan login akan ditaruh di grou ['guest'], sedangkan yang login akan ditaruh di route['auth'] kemudian akan dibungkus dengan authtentikasi masing masing
