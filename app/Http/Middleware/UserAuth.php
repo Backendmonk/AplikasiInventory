@@ -14,9 +14,9 @@ class UserAuth
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next,$role)
+    public function handle(Request $request, Closure $next,$jenis_akun)
     {
-        if(auth()->user()->role==$role){
+        if(auth()->user()->jenis_akun==$jenis_akun){
 
             return $next($request);
         }

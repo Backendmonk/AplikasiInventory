@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ControllerAuthUser;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,8 +23,20 @@ route::middleware(['guest'])->group(function(){
 
         route::post('/registerUser','Registeruser');
         route::post('/logincek','proseslogin');
+        route::get('/home','homelogout');
     });
     
+
+});
+
+route::middleware(['auth'])->group(function(){
+    
+    route::middleware('userauth:Admin')->group(function(){
+        route::controller(AdminController::class)->group(function(){
+            route::get('/Admin/Home','HomeAdmin');
+        });
+        
+    });
 
 });
 

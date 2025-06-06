@@ -22,6 +22,13 @@ class ControllerAuthUser extends Controller
     }
 
 
+    public function dirrectuseradmin(){
+
+        return redirect('Admin/Home');
+    }
+
+
+
     ///Proses login
     //public proses login untuk mengambil data dari user
        public function proseslogin(Request $reqcredential){
@@ -51,7 +58,7 @@ class ControllerAuthUser extends Controller
                     
 
                     if (Auth::user()->jenis_akun =='Admin') {
-                        echo "admin";
+                        return $this->dirrectuseradmin();
                     }elseif (Auth::user()->jenis_akun =='Kasir') {
                         echo "kasir";
                     }
