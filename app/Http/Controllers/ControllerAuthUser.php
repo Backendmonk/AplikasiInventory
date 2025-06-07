@@ -13,25 +13,27 @@ class ControllerAuthUser extends Controller
 
     public function DirrectLoginNonUser(){
          if (Auth::check()) {
-        if (Auth::user()->jenis_akun == 'Admin') {
-            return redirect('Admin/Home');
-        } elseif (Auth::user()->jenis_akun == 'Kasir') {
-            return redirect('Kasir/Home');
-        }
+                if (Auth::user()->jenis_akun == 'Admin') {
+                    return redirect('Admin/Home');
+                } elseif (Auth::user()->jenis_akun == 'Kasir') {
+                    return redirect('Kasir/Home');
+                }
     }
 
-    return response()
-        ->view('welcome')
-        ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
-        ->header('Pragma', 'no-cache')
-        ->header('Expires', '0');
-       
+                return response()
+                    ->view('welcome')
+                    ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+                    ->header('Pragma', 'no-cache')
+                    ->header('Expires', '0');
+                
     }
 
     public function UseraddBackend(){
 
         return view('registerAdmin');
     }
+
+    
 
     public function logout(){
 
