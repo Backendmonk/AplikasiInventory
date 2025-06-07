@@ -28,12 +28,14 @@ class ControllerAuthUser extends Controller
                 
     }
 
+    
+
     public function UseraddBackend(){
 
         return view('registerAdmin');
     }
 
-    
+
 
     public function logout(){
 
