@@ -19,7 +19,7 @@ class AdminController extends Controller
 
     public function ProfileAdmin(){
 
-        
+        return view('Admin.ProfileAdmin');
     }
 
 

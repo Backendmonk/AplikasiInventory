@@ -53,16 +53,33 @@
                     </div>
 
                     <!-- Content Row -->
-                    <div class="row">
-                        @yield('Content1')
-                        
-                    </div>
+                  <!-- Content Row -->
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">@yield('tittleCard')</h6>
+            </div>
+            <div class="card-body">
+                @yield('Content1')
+            </div>
+        </div>
+    </div>
+</div>
 
-                    <!-- Content Row -->
-
-                    <div class="row">
-                        @yield('Content2')
-                    </div>
+{{-- <!-- Content Row -->
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">@yield('CardTitle2', 'Section 2')</h6>
+            </div>
+            <div class="card-body">
+                @yield('Content2')
+            </div>
+        </div>
+    </div>
+</div> --}}
 
                 </div>
                 <!-- /.container-fluid -->
