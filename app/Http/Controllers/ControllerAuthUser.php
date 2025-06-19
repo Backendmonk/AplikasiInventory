@@ -111,6 +111,11 @@ class ControllerAuthUser extends Controller
 
         $cekketersediaaan  = User::where('username','=',$username)->count();
 
+        
+            $reqdatainput->validate([
+                'username' => ['required', 'string', 'regex:/^\S*$/u'] // tidak boleh mengandung spasi               
+            ]);
+
         //cek apakah akun tersedia atau tidak ?
     
         if ($cekketersediaaan > 0) {
