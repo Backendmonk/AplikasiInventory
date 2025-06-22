@@ -55,6 +55,9 @@ Route::middleware(['auth'])->group(function(){
 
             route::post('/Admin/Barang/TambahKategori','TambahKategoriBarang');
             route::post('/Admin/Barang/AddKatagori','KatagoriBarangAdd');
+
+            //route nama route {yang akan di pass}
+            route::get('Admin/kategori/edit/{id}','EditKategori');
          });
     });
 

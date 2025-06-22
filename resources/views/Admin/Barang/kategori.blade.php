@@ -64,16 +64,19 @@
                                                     <td>{{ $data['id'] }}</td>
                                                     <td>{{ $data['Kategori'] }}</td>
                                                     <td>
-                                                             
+                                                      
+                                            <div class="select-wrapper">
+                                               <select class="select-button-style" onchange="handleSelectRedirect(this)">
+                                                <option selected disabled>Ubah</option>
+                                                <option value="{{ url('Admin/kategori/edit/' . $data->id) }}">Edit</option>
+                                                <option value="{{ url('Admin/kategori/hapus/' . $data->id) }}">Hapus</option>
+                                                </select>
+                                                                 </div>
+                                                       
 
-                                                        <select class="select-button-style">
-                                                        <option selected disabled>Ubah</option>
-                                                        <option value="edit">Edit</option>
-                                                        <option value="hapus">Hapus</option>
-                                                        <option value="detail">Detail</option>
-                                                        </select>
 
-                                                               
+                                                                
+                                                                                                               
                                                     </td>
                                             
                                             </tr>

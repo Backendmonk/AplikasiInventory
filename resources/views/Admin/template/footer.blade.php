@@ -66,21 +66,46 @@
 
 </html>
 
-
- <style>
+<style>
 .select-button-style {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   padding: 0.5rem 1.5rem;
-  background-color: #3954f1; /* ungu */
+  background-color: #4d90f5;
   color: white;
   border: none;
-  border-radius: 9999px; /* rounded-pill */
+  border-radius: 9999px;
   font-weight: 500;
-  background-repeat: no-repeat;
-  background-position: right 1rem center;
-  background-size: 10px 6px;
   padding-right: 2.5rem;
+  position: relative;
+}
+
+.select-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.select-wrapper::after {
+  content: "▼"; /* Panah ▼ Unicode */
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: white;
+  font-size: 0.7rem;
 }
 </style>
+
+
+                                                        <script>
+                                                        function handleSelectRedirect(selectElement) {
+                                                            const selectedUrl = selectElement.value;
+                                                            if (selectedUrl) {
+                                                            window.location.href = selectedUrl;
+                                                            }
+                                                        }
+                                                        </script>
+
+

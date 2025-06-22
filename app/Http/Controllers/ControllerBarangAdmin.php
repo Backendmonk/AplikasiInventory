@@ -64,4 +64,10 @@ class ControllerBarangAdmin extends Controller
             }
 
          }
+
+
+         public function EditKategori($id){
+
+            echo $id;
+         }
 }

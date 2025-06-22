@@ -62,10 +62,20 @@
             </div>
             <div class="card-body">
                 @yield('Content1')
+
+                                                   
+                                                            
+                                                         
+                                                        
             </div>
         </div>
     </div>
 </div>
+
+
+
+                                                     
+                                                                     
 
 {{-- <!-- Content Row -->
 <div class="row">
