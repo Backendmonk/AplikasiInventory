@@ -54,6 +54,7 @@
                                         <tr>
                                             <th>id</th>
                                             <th>Nama Kategori</th>
+                                            <th>Tools</th>
                                         </tr>
                                     </thead>
                                     
@@ -62,6 +63,7 @@
                                              <tr>
                                                     <td>{{ $data['id'] }}</td>
                                                     <td>{{ $data['Kategori'] }}</td>
+                                                    <td><i ><a class="fa fa-cogs" style="text-decoration:none;color:lightblue" href="">Edit</a></i> || <i ><a class="fa fa-cogs" style="text-decoration:none;color:lightblue" href="">Edit</a></i></td>
                                             
                                             </tr>
                                         @endforeach
