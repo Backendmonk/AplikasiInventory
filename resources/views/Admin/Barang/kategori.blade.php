@@ -7,36 +7,12 @@
     <h2>Kategori Barang</h2>
 @endsection
 @section('Content1')
-
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
-
-  @if (session()->has('MsgAkunada'))
-  <script>
-
-    Swal.fire({
-    title: "Perhatian",
-    text: "Username Tersebut Sudah Ada",
-    icon: "warning"
-    });
-</script>
-      
-  @endif
-
-    @if (session()->has('MsgBerhasilUp'))
+@if (session()->has('msgdone'))
   <script>
 
     Swal.fire({
     title: "Berhasil",
-    text: "Berhasil Update",
+    text: "Berhasil Tambah Kategori",
     icon: "success"
     });
 </script>
@@ -82,11 +58,14 @@
                                     </thead>
                                     
                                     <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
+                                        @foreach ($Datakategori as $data)
+                                             <tr>
+                                                    <td>{{ $data['id'] }}</td>
+                                                    <td>{{ $data['Kategori'] }}</td>
                                             
-                                        </tr>
+                                            </tr>
+                                        @endforeach
+                                       
                                         
                                     </tbody>
                                 </table>

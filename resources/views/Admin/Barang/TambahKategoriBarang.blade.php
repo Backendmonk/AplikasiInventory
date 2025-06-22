@@ -8,53 +8,11 @@
 @endsection
 @section('Content1')
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 
 
-  @if (session()->has('MsgAkunada'))
-  <script>
 
-    Swal.fire({
-    title: "Perhatian",
-    text: "Username Tersebut Sudah Ada",
-    icon: "warning"
-    });
-</script>
-      
-  @endif
 
-    @if (session()->has('MsgBerhasilUp'))
-  <script>
-
-    Swal.fire({
-    title: "Berhasil",
-    text: "Berhasil Update",
-    icon: "success"
-    });
-</script>
-      
-  @endif
-
- 
-    @if (session()->has('gagal'))
-  <script>
-
-    Swal.fire({
-    title: "Gagal",
-    text: "Gagal Update",
-    icon: "error"
-    });
-</script>
-      
-  @endif
+    
 
 <!--        
 
@@ -63,7 +21,7 @@
 
 
 
-   <form method="POST" action="/Admin/UpdateDataAdmin">
+   <form method="POST" action="/Admin/Barang/AddKatagori">
     @csrf
 
  
@@ -85,8 +43,8 @@
 
 
 
-  <button type="submit" name="submit" value = "input" class="btn btn-primary">Update Data</button>
-  <button type="submit" name="cancel"  value ="cancel" class="btn btn-danger">Cancle</button>
+  <button type="submit" name="submit" value = "input" class="btn btn-primary">Tambah Kategori</button>
+
 </form>
 
    

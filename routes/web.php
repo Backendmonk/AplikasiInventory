@@ -51,9 +51,10 @@ Route::middleware(['auth'])->group(function(){
         });
 
          Route::controller(ControllerBarangAdmin::class)->group(function(){
-            route::get('/Admin/Barang/Kategori','KategoriBarangView');
+            route::get('/Admin/Barang/Kategori','KategoriBarangView')->name('Kategori');
 
             route::post('/Admin/Barang/TambahKategori','TambahKategoriBarang');
+            route::post('/Admin/Barang/AddKatagori','KatagoriBarangAdd');
          });
     });
 
