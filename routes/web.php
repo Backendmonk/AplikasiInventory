@@ -51,14 +51,15 @@ Route::middleware(['auth'])->group(function(){
         });
 
          Route::controller(ControllerBarangAdmin::class)->group(function(){
-            route::get('/Admin/Barang/Kategori','KategoriBarangView')->name('Kategori');
+            //Barang
+            route::get('/Admin/Barang/DataBarang','DataBarang')->name('Barang');
 
+
+            //Kategori
+            route::get('/Admin/Barang/Kategori','KategoriBarangView')->name('Kategori');
             route::post('/Admin/Barang/TambahKategori','TambahKategoriBarang');
             route::post('/Admin/Barang/AddKatagori','KatagoriBarangAdd');
-
-            //route nama route {yang akan di pass}
             route::POST('/Admin/Barang/ToolsEdit','ToolsKategori');
-
             route::post ('/Admin/Barang/EditKatagori','EditKategori');
          });
     });

@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 
 class ControllerBarangAdmin extends Controller
 {
+   //////////////////////////////// FUNGSI FUNGSI KATEGORI BARANG ADA DISINI////////////////////////////////////////////////////////
+
          public function KategoriBarangView(request $request){
             //memberikan limit untuk di load 
         
@@ -137,4 +139,12 @@ class ControllerBarangAdmin extends Controller
             
 
          }
+
+
+//////////////////////////////// FUNGSI FUNGSI BARANG ADA DISINI////////////////////////////////////////////////////////
+         Public function DataBarang(){
+
+            return view('Admin.Barang.DataBarang');
+         }
+
 }
