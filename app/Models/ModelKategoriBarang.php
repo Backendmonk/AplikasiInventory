@@ -19,4 +19,14 @@ class ModelKategoriBarang extends Model
     public $timestamps = false;
 
     public $incrementing = true;
+
+
+
+
+    /// pada tabel barang ada banyak Kategori Has many
+
+    public function barangAdm(){
+        // return saat memanggil fungsi barangadm dimana daman model barang ada banyak id kategori
+        return $this->hasMany(ModelBarang::class,'id_kategori');
+    }
 }

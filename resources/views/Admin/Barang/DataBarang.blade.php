@@ -60,7 +60,7 @@
 
     Table Kategori Barang
 -->
-<form action="/Admin/Barang/TambahBarang" method="POST">
+<form action="/Admin/Barang/DashboardBarang" method="POST">
   @csrf
     <!-- Kerjakan ini nanti -->
   <button type="submit" name = "tambah" value ="tambah" class = "btn btn-primary"><i class="fa fa-folder-open" aria-hidden="true"> Tambah Barang</i></button>
