@@ -45,7 +45,6 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/logout','logout');
 
 
-            ///barang
          
 
         });
@@ -53,6 +52,7 @@ Route::middleware(['auth'])->group(function(){
          Route::controller(ControllerBarangAdmin::class)->group(function(){
             //Barang
             route::get('/Admin/Barang/DataBarang','DataBarang')->name('Barang');
+            route::post('/Admin/Barang/TambahBaran','TambahBarang');
 
 
             //Kategori

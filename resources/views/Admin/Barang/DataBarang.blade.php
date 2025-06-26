@@ -60,13 +60,25 @@
 
     Table Kategori Barang
 -->
-<form action="/Admin/Barang/DashboardBarang" method="POST">
-  @csrf
-    <!-- Kerjakan ini nanti -->
-  <button type="submit" name = "tambah" value ="tambah" class = "btn btn-primary"><i class="fa fa-folder-open" aria-hidden="true"> Tambah Barang</i></button>
-  <button type="submit" name = "cekstok" value = "cekstok" class = "btn btn-info"><i class="fa fa-info-circle" aria-hidden="true"> Cek Stok Rendah</i></button>
+<div class="d-flex">
+  <form action="/Admin/Barang/TambahBarang" method="POST" class="mr-2">
+    @csrf
+    <button type="submit" name="tambah" value="tambah" class="btn btn-primary">
+      <i class="fa fa-folder-open" aria-hidden="true"></i> Tambah Barang
+    </button>
+  </form>
+
+  <form action="/Admin/Barang/CekStokBarang" method="POST">
+    @csrf
+    <button type="submit" name="cekstok" value="cekstok" class="btn btn-info">
+      <i class="fa fa-info-circle" aria-hidden="true"></i> Cek Stok Rendah
+    </button>
+  </form>
+</div>
+
+
+
  
-</form>
  <br>
 <div class="card shadow mb-4">
                         <div class="card-header py-3">
