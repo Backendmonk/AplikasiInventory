@@ -9,7 +9,7 @@ class ModelBarang extends Model
 {
     use HasFactory;
 
-    protected $table = 'tb__kategori__barang__admin';
+    protected $table = 'tb_barang';
 
     protected $primaryKey = 'id';
     protected $fillable  = ['id','nama_barang','id_kategori','stok_barang'];

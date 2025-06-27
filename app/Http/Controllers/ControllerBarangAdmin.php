@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\ModelBarang;
 use App\Models\ModelKategoriBarang;
 use Illuminate\Http\Request;
 
@@ -144,7 +145,11 @@ class ControllerBarangAdmin extends Controller
 //////////////////////////////// FUNGSI FUNGSI BARANG ADA DISINI////////////////////////////////////////////////////////
          Public function DataBarang(){
 
-            return view('Admin.Barang.DataBarang');
+            $Arrdatabarang = [
+               'databarang'=>ModelBarang::with('Kategoribr')->get()
+            ];
+
+            return view('Admin.Barang.DataBarang',$Arrdatabarang);
          }
 
 
@@ -155,6 +160,45 @@ class ControllerBarangAdmin extends Controller
             ];
 
             return view('Admin.Barang.TambahBarang',$ArrGetKategori);
+         }
+
+
+         public function Addbarang(Request $reqdatabarang){
+
+            $databarang=[
+               'id'=>$reqdatabarang->id,
+               'namabarang'=>$reqdatabarang->namabarang,
+               'kategori'=>$reqdatabarang->kategori,
+               'qty'=>$reqdatabarang->qty
+
+            ];
+
+
+            return $this->prosesTambahBarang($databarang);
+         }
+
+         private function prosesTambahBarang($databarang){
+
+            $InputToDb = new ModelBarang();
+
+            $InputToDb -> fill([
+               
+               'id'=>$databarang['id'],
+               'nama_barang'=>$databarang['namabarang'],
+               'id_kategori'=>$databarang['kategori'],
+               'stok_barang'=>$databarang['qty']
+
+               
+            ]);
+
+            try {
+               $InputToDb->save();
+
+               return redirect()->route('Barang')->with('msgdone','');
+            } catch (\Throwable $th) {
+               //throw $th;
+               return redirect()->route('Barang')->with('gagal','');
+            }
          }
 
 }

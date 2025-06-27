@@ -1,10 +1,10 @@
 @extends('Admin.template.main')
 
 @section('judul')
-        barang
+        Tambah barang
 @endsection
 @section('tittleCard')
-    <h2>Barang</h2>
+    <h2>Tambah Barang</h2>
 @endsection
 @section('Content1')
 
@@ -31,12 +31,12 @@
         $randomnumber = rand(1,999999);
     @endphp
     <label for="exampleInputEmail1" class="form-label">Id</label>
-    <input type="number"  class="form-control" id="exampleInputEmail1"  name = "id" value = {{ $randomnumber }} aria-describedby="emailHelp">
+    <input type="number" required  class="form-control" id="exampleInputEmail1"  name = "id" value = {{ $randomnumber }} aria-describedby="emailHelp">
   </div>
 
    <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Nama Barang</label>
-    <input type="text"  class="form-control" id="exampleInputEmail1" name = "kategori" aria-describedby="emailHelp">
+    <input type="text" required  class="form-control" id="exampleInputEmail1" name = "namabarang" aria-describedby="emailHelp">
     
   </div>
 
@@ -48,7 +48,7 @@
    <select id="Dropdown-data" name="kategori" class="form-control">
     <option value="">Pilih Kategori...</option>
     @foreach($datakategori as $kategori)
-        <option value="{{ $kategori->id }}">{{ $kategori->Kategori }}</option>
+        <option value="{{ $kategori->id }}">{{ $kategori->id }} - {{ $kategori->Kategori }}</option>
     @endforeach
 </select>
 
@@ -57,7 +57,7 @@
 
      <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Qty Barang</label>
-    <input type="number"  class="form-control" id="exampleInputEmail1" name = "kategori" aria-describedby="emailHelp">
+    <input type="number" required   class="form-control" id="exampleInputEmail1" name = "qty" aria-describedby="emailHelp">
     
   </div>
 

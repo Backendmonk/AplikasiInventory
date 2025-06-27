@@ -56,6 +56,13 @@
       
   @endif
 
+  @if(session('msgerror'))
+    <div class="alert alert-danger">
+        {{ session('msgerror') }}
+    </div>
+@endif
+
+
 <!--        
 
     Table Kategori Barang
@@ -98,10 +105,14 @@
                                     </thead>
                                     
                                     <tbody>
-                                        {{-- @foreach ($Datakategori as $data)
+                                        @foreach ($databarang as $data)
                                              <tr>
                                                     <td>{{ $data['id'] }}</td>
-                                                    <td>{{ $data['Kategori'] }}</td>
+                                                    <td>{{ $data['nama_barang'] }}</td>
+                                                    
+                                                     <td>{{ $data->Kategoribr->Kategori }} <!-- Memanggil Join --></td>
+                                                     <td>{{ $data['stok_barang'] }}</td>
+
                                                     <td>
                                                       <div class="dropdown">
                                                           <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
@@ -122,7 +133,7 @@
                                                     </td>
                                             
                                             </tr>
-                                        @endforeach --}}
+                                        @endforeach
                                        
                                         
                                     </tbody>
