@@ -146,7 +146,7 @@ class ControllerBarangAdmin extends Controller
          Public function DataBarang(){
 
             $Arrdatabarang = [
-               'databarang'=>ModelBarang::with('Kategoribr')->get()
+               'databarang'=>ModelBarang::with('Kategoribr')->where('Status','=','Aktif')->get()
             ];
 
             return view('Admin.Barang.DataBarang',$Arrdatabarang);
@@ -180,13 +180,14 @@ class ControllerBarangAdmin extends Controller
          private function prosesTambahBarang($databarang){
 
             $InputToDb = new ModelBarang();
-
+            $status = 'Aktif';
             $InputToDb -> fill([
                
                'id'=>$databarang['id'],
                'nama_barang'=>$databarang['namabarang'],
                'id_kategori'=>$databarang['kategori'],
-               'stok_barang'=>$databarang['qty']
+               'stok_barang'=>$databarang['qty'],
+               'Status'=>$status
 
                
             ]);
@@ -199,6 +200,56 @@ class ControllerBarangAdmin extends Controller
                //throw $th;
                return redirect()->route('Barang')->with('gagal','');
             }
+         }
+
+
+
+         public function ToolsEditBarang(request $reqTools){
+
+            $tools = [
+               'edit'=>$reqTools->edit,
+               'hapus'=>$reqTools->hapus,
+               'sembunyi'=>$reqTools->sembunyi,
+               'id'=>$reqTools->idbarang
+
+
+            ];
+
+             $id = $tools['id'];
+
+            if ($tools['edit'] != Null) {
+              
+               //edit di sini
+               return $this->EditbarangView($id);
+            }elseif ($tools['hapus'] != NUll) {
+               # code...//LOGIKA DITAMBHKAN KETIKA SUDAH MENGERJAKAN TRANSAKSI
+               ModelBarang::where('id','=',$id)->delete();
+               return redirect()->route('Barang')->with('msgdonehps','');
+             
+            }elseif ($tools['sembunyi'] !=Null) {
+               # code...
+               //sembunyikan Baragn
+              
+               $statusHidden = 'Sembunyi';
+               $updatestatus = ModelBarang::find($id);
+               $updatestatus -> Status = $statusHidden;
+
+               $updatestatus->save();
+                return redirect()->route('Barang')->with('msgdoneEdt','');
+
+               
+            }
+
+
+         }
+
+
+         public function EditbarangView($id){
+            $databarang =[
+               'barang'=>ModelBarang::with('Kategoribr')->where('id','=',$id)->first(),
+               'datakategori'=>ModelKategoriBarang::all()
+            ];
+            return view('Admin.Barang.Editbarang',$databarang);
          }
 
 }

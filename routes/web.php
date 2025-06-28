@@ -54,6 +54,7 @@ Route::middleware(['auth'])->group(function(){
             route::get('/Admin/Barang/DataBarang','DataBarang')->name('Barang');
             route::post('/Admin/Barang/TambahBarang','TambahBarang');
             route::post('/Admin/Barang/AddBarang','Addbarang');
+            route::post('/Admin/Barang/ToolsEditBarang','ToolsEditBarang');
 
 
             //Kategori

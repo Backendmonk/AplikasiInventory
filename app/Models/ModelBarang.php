@@ -12,7 +12,7 @@ class ModelBarang extends Model
     protected $table = 'tb_barang';
 
     protected $primaryKey = 'id';
-    protected $fillable  = ['id','nama_barang','id_kategori','stok_barang'];
+    protected $fillable  = ['id','nama_barang','id_kategori','stok_barang','Status'];
 
     public $timestamps = false;
 
