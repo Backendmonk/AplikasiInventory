@@ -169,7 +169,9 @@ class ControllerBarangAdmin extends Controller
                'id'=>$reqdatabarang->id,
                'namabarang'=>$reqdatabarang->namabarang,
                'kategori'=>$reqdatabarang->kategori,
-               'qty'=>$reqdatabarang->qty
+               'qty'=>$reqdatabarang->qty,
+               'hargabeli'=>$reqdatabarang->hargabeli,
+               'hargajual'=>$reqdatabarang->hargajual
 
             ];
 
@@ -187,7 +189,9 @@ class ControllerBarangAdmin extends Controller
                'nama_barang'=>$databarang['namabarang'],
                'id_kategori'=>$databarang['kategori'],
                'stok_barang'=>$databarang['qty'],
-               'Status'=>$status
+               'Status'=>$status,
+               'HargaJual'=>$databarang['hargajual'],
+               'HargaBeli'=>$databarang['hargabeli']
 
                
             ]);
