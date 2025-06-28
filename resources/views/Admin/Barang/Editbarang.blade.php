@@ -35,14 +35,14 @@
 
     <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Nama Barang</label>
-    <input type="text"  class="form-control" id="exampleInputEmail1" name = "kategori"  value = {{ $barang['nama_barang']}} aria-describedby="emailHelp">
+    <input type="text"  class="form-control" id="exampleInputEmail1" name = "namabarang"  value = {{ $barang['nama_barang']}} aria-describedby="emailHelp">
     
   </div>
 
 <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Kategori Barang</label>
    <select id="Dropdown-data" name="kategori" class="form-control">
-    <option value="">{{$barang->Kategoribr->id}} - {{$barang->Kategoribr->Kategori}}</option>
+    <option value="{{$barang->Kategoribr->id}}">{{$barang->Kategoribr->id}} - {{$barang->Kategoribr->Kategori}}</option>
     @foreach($datakategori as $kategori)
         <option value="{{ $kategori->id }}">{{ $kategori->id }} - {{ $kategori->Kategori }}</option>
     @endforeach

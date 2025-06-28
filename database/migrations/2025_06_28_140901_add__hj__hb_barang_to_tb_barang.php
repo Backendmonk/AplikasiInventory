@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::table('tb_barang', function (Blueprint $table) {
             //
-            $table->string('Status');
+             $table->string('HargaJual');
+             $table->string('HargaBeli');
            
         });
     }
