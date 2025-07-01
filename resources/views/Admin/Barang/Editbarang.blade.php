@@ -59,9 +59,10 @@
 
     <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Harga Beli</label>
-    <input type="text"  class="form-control" id="exampleInputEmail1" name = "hargamodal"  value = {{ $barang['HargaModal']}} aria-describedby="emailHelp">
+    <input type="text"  class="form-control" id="exampleInputEmail1" name = "hargamodal" value = {{ $barang['HargaBeli']}} aria-describedby="emailHelp">
     
   </div>
+  <input type="text" hidden  class="form-control" id="exampleInputEmail1" name = "hargamodalawal" value = {{ $barang['HargaBeli']}} aria-describedby="emailHelp">
 
 
 

@@ -271,4 +271,43 @@ class ControllerBarangAdmin extends Controller
 
          }
 
+
+         public function EditBarang(request $EditDataBarang){
+               
+            $databarang = [
+
+               'namabarang'=>$EditDataBarang->namabarang,
+               'id'=>$EditDataBarang->id,
+               'kategori'=>$EditDataBarang->kategori,
+               'hargajual'=>$EditDataBarang->hargajual,
+               'hargamodal'=>$EditDataBarang->hargamodal,
+               'hargamodalawal'=>$EditDataBarang->hargamodalawal
+
+            ];
+            return $this->ProseEditBarang($databarang);
+         }
+         private function ProseEditBarang($databarang){
+            $id = $databarang['id'];
+            $Avg_Modal = ($databarang['hargamodalawal']+$databarang['hargamodal'])/2;
+            $Updatebarang = ModelBarang::find($id);
+            try {
+               //code...
+               $Updatebarang->fill([
+                  'nama_barang'=> $databarang['namabarang'],
+                  'id_kategori'=>$databarang['kategori'],
+                  'HargaJual'=>$databarang['hargajual'],
+                  'HargaBeli'=>$Avg_Modal
+                  
+               ]);
+
+               $Updatebarang->save();
+
+               return redirect()->route('Barang')->with('msgdoneEdt','');
+            } catch (\Throwable $th) {
+               //throw $th;
+
+                return redirect()->route('Barang')->with('gagal','');
+            }
+         }
+
 }
