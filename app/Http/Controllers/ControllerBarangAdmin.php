@@ -310,4 +310,13 @@ class ControllerBarangAdmin extends Controller
             }
          }
 
+
+         public function BarangOff(){
+            $ArrayBarangoff  =[
+
+               'DatabarangOff'=>ModelBarang::With('Kategoribr')->Where('Status','=','Sembunyi')->get(),
+            ];
+            return view('Admin.Barang.DataBarangOff',$ArrayBarangoff);
+         }
+
 }

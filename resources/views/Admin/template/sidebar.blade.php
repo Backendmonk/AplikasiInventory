@@ -34,7 +34,7 @@
                         <h6 class="collapse-header">Barang:</h6>
                         <a class="collapse-item" href="/Admin/Barang/DataBarang">Data Barang</a>
                         <a class="collapse-item" href="/Admin/Barang/Kategori">Kategori Barang</a>
-                        <a class="collapse-item" href="forgot-password.html">Barang Off</a>
+                        <a class="collapse-item" href="/Admin/Barang/BarangOff">Barang Off</a>
                        
                     </div>
                 </div>
