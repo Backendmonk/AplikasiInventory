@@ -119,13 +119,13 @@
                                                             Menus
                                                           </button>
                                                           <ul class="dropdown-menu">
-                                                            <form action="/Admin/Barang/ToolsEditBarangOff" method="POST">
+                                                            <form action="/Admin/Barang/ToolsEditBarang" method="POST">
                                                               @csrf
                                                               
                                                               <input type="text" hidden name = "idbarang" value="{{ $data['id'] }}">
 
                                                               <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail</button></li>
-                                                             <li><button class="dropdown-item" type="submit" name ="kembalikan" value ="sembunyi">Kembalikan</button></li>
+                                                             <li><button class="dropdown-item" type="submit" name ="kembalikan" value ="kembalikan">Kembalikan</button></li>
                                                           
                                                             </form>
                                                           </ul>

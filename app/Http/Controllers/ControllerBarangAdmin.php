@@ -215,7 +215,8 @@ class ControllerBarangAdmin extends Controller
                'hapus'=>$reqTools->hapus,
                'sembunyi'=>$reqTools->sembunyi,
                'detail'=>$reqTools->detail,
-               'id'=>$reqTools->idbarang
+               'id'=>$reqTools->idbarang,
+               'kembalikan'=>$reqTools->kembalikan
 
 
             ];
@@ -247,6 +248,19 @@ class ControllerBarangAdmin extends Controller
               
                   return $this->DetailBarang($id);
                
+            }
+            elseif ($tools['kembalikan'] != NULL){
+               # code...
+               //sembunyikan Baragn
+              
+               $statusHidden = 'Aktif';
+               $updatestatus = ModelBarang::find($id);
+               $updatestatus -> Status = $statusHidden;
+
+               $updatestatus->save();
+                return redirect()->route('Barang')->with('msgdoneEdt','');
+
+
             }
 
 
