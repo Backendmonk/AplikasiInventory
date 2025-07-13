@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\ModelAlurStok;
 use App\Models\ModelBarang;
 use App\Models\ModelKategoriBarang;
+use App\Models\ModelStok;
 use Illuminate\Http\Request;
 
 class ControllerBarangAdmin extends Controller
@@ -196,8 +198,33 @@ class ControllerBarangAdmin extends Controller
                
             ]);
 
+            //manajemen stok
+            //input ke alur stok
+            $inputtoAlurStok = new ModelAlurStok();
+            $keterangan ='Stok Ditambahkan';
+            $inputtoAlurStok->fill([
+
+               'idbarang'=>$databarang['id'],
+               'Stok_Awal'=>'0',
+               'Stok_Akhir'=>$databarang['qty'],
+               'keterangan'=>$keterangan
+            ]);
+
+            $inputtoStok = new ModelStok();
+            $date = date("Y-m-d");
+            $inputtoStok->fill([
+
+               'idbarang'=>$databarang['id'],
+               'stok'=>$databarang['qty'],
+               'pertanggal'=>$date
+            ]);
+
+
+
             try {
                $InputToDb->save();
+               $inputtoAlurStok->save();
+               $inputtoStok->Save();
 
                return redirect()->route('Barang')->with('msgdone','');
             } catch (\Throwable $th) {
@@ -333,4 +360,5 @@ class ControllerBarangAdmin extends Controller
             return view('Admin.Barang.DataBarangOff',$ArrayBarangoff);
          }
 
+      
 }
