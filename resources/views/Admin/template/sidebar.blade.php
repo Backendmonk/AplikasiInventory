@@ -67,9 +67,9 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Stock:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Jumlah Stok Barang</a>
-                        <a class="collapse-item" href="utilities-border.html">Stock Opname</a>
-                        <a class="collapse-item" href="utilities-animation.html">Alur Stok</a>
+                        <a class="collapse-item" href="/Admin/JumlahStokBarang">Jumlah Stok Barang</a>
+                        <a class="collapse-item" href="/Admin/Stockopname">Stock Opname</a>
+                        <a class="collapse-item" href="/Admin/AlurStok">Alur Stok</a>
                        
                     </div>
                 </div>
