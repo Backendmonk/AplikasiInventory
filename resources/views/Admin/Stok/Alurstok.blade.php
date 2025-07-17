@@ -1,10 +1,10 @@
 @extends('Admin.template.main')
 
 @section('judul')
-        Detail Barang
+        Detail  Alur Stok Barang
 @endsection
 @section('Judulisi')
-    <h2>Detail Barang</h2>
+    <h2>Detail Alur Stok Barang</h2>
 @endsection
 @section('Content1')
     <style>
@@ -45,7 +45,7 @@
 
   <div class="container">
     <div class="box-detail">
-      <div class="title">Detail Produk</div>
+      <div class="title">Alur Stok Produk</div>
 
       <div class="row row-detail">
         <div class="col-md-6">
@@ -90,7 +90,7 @@
   
 <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Data Stok</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Alur Stok</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
