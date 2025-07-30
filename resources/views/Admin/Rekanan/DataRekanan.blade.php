@@ -12,7 +12,7 @@
 
     Swal.fire({
     title: "Berhasil",
-    text: "Berhasil Tambah Barang",
+    text: "Berhasil Tambah Rekanan",
     icon: "success"
     });
 </script>
@@ -68,7 +68,7 @@
     Table Kategori Barang
 -->
 <div class="d-flex">
-  <form action="/Admin/Barang/Tambahrekanan" method="POST" class="mr-2">
+  <form action="/Admin/Rekanan/Tambahrekanan" method="POST" class="mr-2">
     @csrf
     <button type="submit" name="tambah" value="tambah" class="btn btn-primary">
       <i class="fa fa-user" aria-hidden="true"></i> Tambah Rekanan

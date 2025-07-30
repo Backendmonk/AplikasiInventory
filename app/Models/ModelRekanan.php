@@ -14,7 +14,7 @@ class ModelRekanan extends Model
     protected $table = 'tb_rekanan';
 
     protected $primaryKey = 'id';
-    protected $fillable  = ['id','nama_rekanan','alamat'];
+    protected $fillable  = ['id','nama_rekanan','alamat_rekanan'];
 
     public $timestamps = false;
 
