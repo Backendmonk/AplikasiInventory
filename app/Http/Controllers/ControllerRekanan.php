@@ -64,4 +64,42 @@ class ControllerRekanan extends Controller
        
 
      }
+
+     public function ToolsRekanan(Request $reqtools){
+
+            $id = $reqtools->idRekanan;
+            $tools  = [
+
+                'edit' => $reqtools->edit,
+                'detail'=>$reqtools->detail
+            ];
+
+
+            if ($tools['edit'] !=NUll){
+
+                $getdata = [
+                    
+                    'datarekanan'=> ModelRekanan::where('id','=',$id)->first(),
+
+                ];
+
+                return view('Admin.Rekanan.EditRekanan',$getdata);
+                
+            }elseif($tools['detail'] !=NULL){
+
+                echo "detail";
+            }
+        
+        }
+
+        public function Editrekanan(request $reqdataRekananEdit){
+
+            $DataRekananEdit =[
+                'id'=>$reqdataRekananEdit->id,
+                'nama_rekanan'=>$reqdataRekananEdit->rekanan,
+                'alamat'=>$reqdataRekananEdit->alamat
+            ];
+            return $this->ProsesEditRekanan ($DataRekananEdit);
+
+        }
 }

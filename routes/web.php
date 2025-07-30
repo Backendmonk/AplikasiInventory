@@ -81,10 +81,10 @@ Route::middleware(['auth'])->group(function(){
          route::controller(ControllerRekanan::class)->group(function(){
 
             route::get('/Admin/Rekanan','RekananView')->name('rekanan');
-
-            route::post('/Admin/Rekanan/Tambahrekanan','TambahRekananView');
-            
+            route::post('/Admin/Rekanan/Tambahrekanan','TambahRekananView'); 
             route::post('/Admin/Rekanan/Addrekanan','Addrekanan');
+            route::post('/Admin/Barang/ToolsRekanan','ToolsRekanan');
+            route::post('/Admin/Rekanan/Editrekanan','Editrekanan');
 
             
          });

@@ -111,15 +111,15 @@
                                                             Menus
                                                           </button>
                                                           <ul class="dropdown-menu">
-                                                            <form action="/Admin/Barang/ToolsEditBarang" method="POST">
+                                                            <form action="/Admin/Barang/ToolsRekanan" method="POST">
                                                               @csrf
                                                               
-                                                              <input type="text" hidden name = "idbarang" value="{{ $data['id'] }}">
+                                                              <input type="text" hidden name = "idRekanan" value="{{ $data['id'] }}">
 
                                                               <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail</button></li>
 
                                                             <li><button class="dropdown-item" type="submit" name ="edit" value = "edit">Edit</button></li>
-                                                            <li><button class="dropdown-item" type="submit" name ="hapus" value ="hapus">Hapus</button>
+                                                            {{-- <li><button class="dropdown-item" type="submit" name ="hapus" value ="hapus">Hapus</button> --}}
                                                           
                                                             </form>
                                                           </ul>
