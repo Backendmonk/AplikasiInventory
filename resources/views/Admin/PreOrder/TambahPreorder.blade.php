@@ -1,10 +1,10 @@
 @extends('Admin.template.main')
 
 @section('judul')
-       Data barang
+       Tambah Pre Order
 @endsection
 @section('tittleCard')
-    <h2>Data Barang</h2>
+    <h2>Tambah Pre Order</h2>
 @endsection
 @section('Content1')
 @if (session()->has('msgdone'))
@@ -88,7 +88,7 @@
             </tbody>
         </table>
 
-        <button type="button" class="btn btn-primary mb-3" id="addRow">Tambah Baris</button>
+        <button type="button" class="btn btn-primary mb-3" id="addRow"><i class="fa fa-plus" aria-hidden="true"></i></button>
         <button type="submit" class="btn btn-success">Simpan</button>
     </form>
 </div>

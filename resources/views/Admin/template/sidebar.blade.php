@@ -45,16 +45,23 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-book"></i>
-                    <span>Nota</span>
+                    <span>Penjualan</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Nota:</h6>
+                         <a class="collapse-item" href="buttons.html">Data Pre Order</a>
+                        <a class="collapse-item" href="/Admin/PreOrder/AddPreOrder">Input Pre Order</a>
                         <a class="collapse-item" href="buttons.html">Data Nota</a>
                         <a class="collapse-item" href="cards.html">Input Nota</a>
                     </div>
                 </div>
             </li>
+
+
+
+
+            
 
                 <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">

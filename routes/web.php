@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ControllerAuthUser;
 use App\Http\Controllers\ControllerBarangAdmin;
+use App\Http\Controllers\ControllerPreorder;
 use App\Http\Controllers\ControllerRekanan;
 use App\Http\Controllers\ControllerStokAdmin;
 use Illuminate\Support\Facades\Auth;
@@ -88,6 +89,11 @@ Route::middleware(['auth'])->group(function(){
             route::get('/Admin/Rekanan/PO','PO');
 
             
+         });
+
+
+         route::controller(ControllerPreorder::class)->group(function(){
+            route::get('/Admin/PreOrder/AddPreOrder','TambahPreorder');
          });
 
 
