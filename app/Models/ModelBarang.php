@@ -28,5 +28,11 @@ class ModelBarang extends Model
     public function adabarangdiStok(){
         return $this->hasmany(ModelStok::class,'idbarang')
                     ->hasmany(ModelAlurStok::class,'idbarang');
+                    
+    }
+
+    public function adadetailPO(){
+        return $this->hasmany(ModelDetailPO::class,'id_barang');
+
     }
 }

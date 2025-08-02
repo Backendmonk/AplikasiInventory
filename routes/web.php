@@ -86,7 +86,7 @@ Route::middleware(['auth'])->group(function(){
             route::post('/Admin/Rekanan/Addrekanan','Addrekanan');
             route::post('/Admin/Barang/ToolsRekanan','ToolsRekanan');
             route::post('/Admin/Rekanan/Editrekanan','Editrekanan');
-            route::get('/Admin/Rekanan/PO','PO');
+            // route::get('/Admin/Rekanan/PO','PO');
 
             
          });
@@ -94,6 +94,8 @@ Route::middleware(['auth'])->group(function(){
 
          route::controller(ControllerPreorder::class)->group(function(){
             route::get('/Admin/PreOrder/AddPreOrder','TambahPreorder');
+
+            route::post('/Admin/PO/TambahPO','ProsesPO');
          });
 
 

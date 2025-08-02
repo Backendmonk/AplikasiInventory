@@ -21,4 +21,33 @@ class ControllerPreorder extends Controller
             return view('Admin.PreOrder.TambahPreorder',$datPerlu);
         }
 
+    public function ProsesPO(request $reqDataPO){
+
+        $dataPO = [
+                'id'=>$reqDataPO->idrek,
+                'pesan'=>$reqDataPO->pesan,
+                'item'=>$reqDataPO->items
+
+
+        ];
+
+        return $this->TambahPOKeDB($dataPO);
+
+    }
+
+    private function TambahPOKeDB($dataPO){
+
+        $id = $dataPO['id'];
+
+        $pesan = $dataPO['pesan'];
+
+        $items = $dataPO['item'];
+        $i = 0;
+
+        foreach ($items as $item) {
+            
+            
+        }
+    }
+
 }

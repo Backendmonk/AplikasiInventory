@@ -21,4 +21,10 @@ class ModelRekanan extends Model
     public $incrementing = true;
 
 
+      public function rekanandiPO(){
+        return $this->hasmany(ModelDetailPO::class,'id_rekanan');
+
+    }
+
+
 }

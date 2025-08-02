@@ -1,10 +1,10 @@
 @extends('Admin.template.main')
 
 @section('judul')
-       Tambah Pre Order
+       Tambah Purchase Order
 @endsection
 @section('tittleCard')
-    <h2>Tambah Pre Order</h2>
+    <h2>Tambah Purchase Order</h2>
 @endsection
 @section('Content1')
 @if (session()->has('msgdone'))
@@ -65,12 +65,12 @@
     <h4>Input Data Transaksi</h4>
 
 
-    <form action="" method="POST">
+    <form action="/Admin/PO/TambahPO" method="POST">
         
         @csrf
 
         
-    <select name="id" class="form-control barang-dropdown w-50" >
+    <select name="idrek" class="form-control barang-dropdown w-50" >
         <br>
                             <option value="">Pilih Pelanggan</option>
                             @foreach($dataRekanan as $rekanan)
@@ -79,6 +79,15 @@
                         </select>
 
                         <br>
+
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Pesan</label>
+                            <textarea name = "pesan" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            
+                        </div>
+
+                        <br>
+
 
 
         <table class="table table-bordered" id="tableInput">
@@ -154,7 +163,6 @@
                 </select>
             </td>
             <td><input type="number" name="items[${rowIndex}][jumlah]" class="form-control" required></td>
-            <td><input type="number" name="items[${rowIndex}][harga]" class="form-control" required></td>
             <td><button type="button" class="btn btn-danger btn-sm remove-row">Hapus</button></td>
         `;
 

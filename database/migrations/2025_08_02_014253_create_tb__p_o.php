@@ -15,7 +15,11 @@ return new class extends Migration
     {
         Schema::create('tb__p_o', function (Blueprint $table) {
             $table->id();
+            $table->string('total');
+            $table->string('keterangan');
             $table->timestamps();
+
+            
         });
     }
 
