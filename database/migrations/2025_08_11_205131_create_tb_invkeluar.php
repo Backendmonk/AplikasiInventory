@@ -13,38 +13,25 @@ return new class extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('tb__p_o_detail')) {
-        Schema::create('tb__p_o_detail', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_po');
-            $table->unsignedBigInteger('id_rekanan');
+        Schema::create('tb_invkeluar', function (Blueprint $table) {
+            $table->unsignedBigInteger('id_wo');
             $table->unsignedBigInteger('id_barang');
             $table->string('qty');
-            $table->string('status');
-            $table->string('catatan');
 
-
-
-             $table->foreign('id_po')
-                ->references('id')->on('tb_po')// refrensi diambil dari id yang ada pada tb kategori
+            
+             $table->foreign('id_wo')
+                ->references('id')->on('tb_wo')// refrensi diambil dari id yang ada pada tb kategori
                 ->onUpdate('cascade') // Jika nama kategori diubah, foreign key tetap valid
                 ->onDelete('restrict');// jika ada barang maka tidak bisa dihapus;
 
-                $table->foreign('id_rekanan')
-                ->references('id')->on('tb_rekanan')// refrensi diambil dari id yang ada pada tb kategori
-                ->onUpdate('cascade') // Jika nama kategori diubah, foreign key tetap valid
-                ->onDelete('restrict');// jika ada barang maka tidak bisa dihapus;
-
-                    $table->foreign('id_barang')
+               $table->foreign('id_barang')
                 ->references('id')->on('tb_barang')// refrensi diambil dari id yang ada pada tb kategori
                 ->onUpdate('cascade') // Jika nama kategori diubah, foreign key tetap valid
                 ->onDelete('restrict');// jika ada barang maka tidak bisa dihapus;
 
 
-
             $table->timestamps();
         });
-
-    }
     }
 
     /**
@@ -54,6 +41,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tb__p_o_detail');
+        Schema::dropIfExists('tb_invkeluar');
     }
 };
