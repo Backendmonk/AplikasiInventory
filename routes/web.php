@@ -6,6 +6,7 @@ use App\Http\Controllers\ControllerBarangAdmin;
 use App\Http\Controllers\ControllerPreorder;
 use App\Http\Controllers\ControllerRekanan;
 use App\Http\Controllers\ControllerStokAdmin;
+use App\Http\Controllers\ControllerWO;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -92,13 +93,21 @@ Route::middleware(['auth'])->group(function(){
          });
 
 
-         route::controller(ControllerPreorder::class)->group(function(){
-            route::get('/Admin/PreOrder/AddPreOrder','TambahPreorder');
-            route::get('/Admin/PO/DataPO','DataPO')->name('PurOrder');
+        //  route::controller(ControllerPreorder::class)->group(function(){
+        //     route::get('/Admin/PreOrder/AddPreOrder','TambahPreorder');
+        //     route::get('/Admin/PO/DataPO','DataPO')->name('PurOrder');
 
-            route::post('/Admin/PO/TambahPO','ProsesPO');
-            route::post('/Admin/PO/ToolsPO','detailPO');
-         });
+        //     route::post('/Admin/PO/TambahPO','ProsesPO');
+        //     route::post('/Admin/PO/ToolsPO','detailPO');
+        //  });
+
+
+
+        route::controller(ControllerWO::class)->group(function(){
+
+            route::get('/Admin/Sales/WorkOrder','Wodashboard')->name('workorder');
+            
+        });
 
 
          
