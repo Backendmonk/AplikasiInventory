@@ -35,4 +35,10 @@ class ModelBarang extends Model
         return $this->hasmany(ModelDetailPO::class,'id_barang');
 
     }
+
+
+     public function adadetailbarangwo(){
+        return $this->hasmany(ModelInvKeluar::class,'id_barang');
+
+    }
 }
