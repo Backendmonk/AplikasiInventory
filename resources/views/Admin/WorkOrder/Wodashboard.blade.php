@@ -106,7 +106,28 @@
                                                <td>{{ $data->nama_pesanan }}</td>
                                               <td>{{ $data->diterimaTanggal }}</td>
                                               <td>{{ $data->status }}</td>
-                                              <td>tools</td>
+                                               <td>
+                                                      <div class="dropdown">
+                                                          <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                            Menus
+                                                          </button>
+                                                          <ul class="dropdown-menu">
+                                                            <form action="/Admin/Barang/ToolsEditBarang" method="POST">
+                                                              @csrf
+                                                              
+                                                              <input type="text" hidden name = "idbarang" value="{{ $data['id'] }}">
+
+                                                              <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail</button></li>
+
+                                                            <li><button class="dropdown-item" type="submit" name ="edit" value = "edit">Selesai</button></li>
+                                                           
+                                                          
+                                                            </form>
+                                                          </ul>
+                                                        </div>
+
+                                                                                     
+                                                    </td>
                                              
                                             </tr>
                                        @endforeach
