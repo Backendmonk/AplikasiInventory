@@ -70,7 +70,7 @@
         <!-- Reproduksi -->
         <div class="mb-3">
             <label class="form-label">Reproduksi</label><br>
-            @foreach (['Cetak Offset', 'Porporasi', 'Cetak Perfor', 'Folio', 'P52', 'P58', 'P72'] as $item)
+            @foreach (['Cetak Offset', 'Sablon'] as $item)
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="reproduksi" value="{{ $item }}">
                     <label class="form-check-label">{{ $item }}</label>
@@ -78,31 +78,37 @@
             @endforeach
         </div>
 
-        <!-- Lainnya -->
+
+        <!-- Sistem Jilid -->
         <div class="mb-3">
-            <label class="form-label">Lainnya</label><br>
-            @foreach (['Sablon', 'Lem (Atas/Samping)', 'Cetak Ulang'] as $item)
+            <label class="form-label">Sistem Jilid</label><br>
+            @foreach ([ 'Porporasi', 'Lem(Atas)','Lem(Samping)'] as $item)
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="lainnya" value="{{ $item }}">
+                    <input class="form-check-input" type="radio" name="sistem_jidil" value="{{ $item }}">
                     <label class="form-check-label">{{ $item }}</label>
                 </div>
             @endforeach
         </div>
 
-        <!-- Sistem Jilid -->
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <label class="form-label">Sistem Jilid</label>
-                <input type="text" class="form-control" name="sistem_jilid">
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Status Order</label>
-                <input type="text" class="form-control" name="status_order">
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Plat</label>
-                <input type="text" class="form-control" name="plat">
-            </div>
+              <div class="mb-3">
+            <label class="form-label">Status Order</label><br>
+            @foreach ([ 'Cetal Pertama','Cetak Ulang'] as $item)
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="status_order" value="{{ $item }}">
+                    <label class="form-check-label">{{ $item }}</label>
+                </div>
+            @endforeach
+        </div>
+
+
+             <div class="mb-3">
+            <label class="form-label">Plat</label><br>
+            @foreach ([ 'folio','P 52','P 58','P 72'] as $item)
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="plat" value="{{ $item }}">
+                    <label class="form-check-label">{{ $item }}</label>
+                </div>
+            @endforeach
         </div>
 
         <!-- Nomorator & Tinta -->
@@ -126,6 +132,14 @@
             <div class="col-md-6">
                 <label class="form-label">Harga</label>
                 <input type="text" class="form-control" name="harga">
+            </div>
+        </div>
+
+
+         <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Keterangan Tambahan</label>
+                <textarea name="keterangan" cols="30" rows="10"  class="form-control"  ></textarea>
             </div>
         </div>
 

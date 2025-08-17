@@ -51,6 +51,7 @@ class ControllerWO extends Controller
                 'warnatinta'              => $reqDataWo->warna_tinta2,
                 'isiperbuku'              => $reqDataWo->isi_perbuku,
                 'harga'                   => $reqDataWo->harga,
+                'keterangan'              => $reqDataWo->keterangan,
                 'status'                  => $status
 
         ];
@@ -84,11 +85,36 @@ class ControllerWO extends Controller
                 'warnatinta'            => $dataWO['warnatinta'] ?? null,
                 'isiperbuku'            => $dataWO['isiperbuku'] ?? null,
                 'harga'                 => $dataWO['harga'] ?? null,
-                'status'                => $dataWO['status'] ?? null
+                'status'                => $dataWO['status'] ?? null,
+                'keterangan'            => $dataWO['keterangan'] ?? null,
             ]);
 
 
             $prosesaddtowo->save();
             return redirect()->route('workorder')->with('msgdone','');
+    }
+
+
+
+    public function toolswo(Request $reqtoolswo){
+
+        $toolswo = [
+
+            'detail'=>$reqtoolswo->detail,
+            'selesai'=>$reqtoolswo->selesai,
+            'idwo' =>$reqtoolswo->idwo
+        ];
+
+        if ($toolswo['detail'] != NULL) {
+            $data  = [
+
+                'datawoperid' => ModelWO::where('id','=',$toolswo['idwo'])->first()
+            ];
+            return view('Admin.WorkOrder.wodetail',$data);
+        }elseif ($toolswo['selesai']) {
+            # code...
+        }
+
+
     }
 }

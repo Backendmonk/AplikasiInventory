@@ -20,7 +20,7 @@ return new class extends Migration
 
             
              $table->foreign('id_wo')
-                ->references('id')->on('tb_wo')// refrensi diambil dari id yang ada pada tb kategori
+                ->references('id')->on('tb__wo')// refrensi diambil dari id yang ada pada tb kategori
                 ->onUpdate('cascade') // Jika nama kategori diubah, foreign key tetap valid
                 ->onDelete('restrict');// jika ada barang maka tidak bisa dihapus;
 

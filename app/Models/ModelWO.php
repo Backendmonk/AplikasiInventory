@@ -31,7 +31,7 @@ class ModelWO extends Model
         'nomoratorstart',
         'warnatinta',
         'isiperbuku',
-        'harga','status'];
+        'harga','status','keterangan'];
 
     public $timestamps = false;
 
