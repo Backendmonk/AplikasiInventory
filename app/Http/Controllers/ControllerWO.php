@@ -102,6 +102,7 @@ class ControllerWO extends Controller
 
             'detail'=>$reqtoolswo->detail,
             'selesai'=>$reqtoolswo->selesai,
+            'hapus'=>$reqtoolswo->hapus,
             'idwo' =>$reqtoolswo->idwo
         ];
 
@@ -113,6 +114,8 @@ class ControllerWO extends Controller
             return view('Admin.WorkOrder.wodetail',$data);
         }elseif ($toolswo['selesai']) {
             # code...
+        }elseif ($toolswo['hapus'] !=NULL) {
+          
         }
 
 

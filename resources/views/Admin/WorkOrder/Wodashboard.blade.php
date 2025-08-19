@@ -120,6 +120,8 @@
                                                               <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail</button></li>
 
                                                             <li><button class="dropdown-item" type="submit" name ="edit" value = "edit">Selesai</button></li>
+                                                            
+                                                            <li><button class="dropdown-item" type="submit" name ="edit" value = "hapus">Hapus</button></li>
                                                            
                                                           
                                                             </form>
