@@ -27,8 +27,16 @@
         <div class="row mb-3">
             <div class="col-md-4">
                 <label class="form-label">Nama Pemesan</label>
-                <input type="text" class="form-control" name="nama_pemesan">
+                <input list="rekananlist" placeholder="pilih atau ketik rekanan" name="nama_pemesan" class="form-control">
+                <datalist id = "rekananlist">
+                
+                @foreach($getdataRekanan as $rekanan)
+                    <option value="{{ $rekanan->nama_rekanan }}">{{ $rekanan->nama_rekanan }}</option>
+                @endforeach
+                </datalist>
             </div>
+
+           
             <div class="col-md-4">
                 <label class="form-label">Jenis Pesanan</label>
                 <input type="text" class="form-control" name="jenis_pesanan">
@@ -92,7 +100,7 @@
 
               <div class="mb-3">
             <label class="form-label">Status Order</label><br>
-            @foreach ([ 'Cetal Pertama','Cetak Ulang'] as $item)
+            @foreach ([ 'Cetak Pertama','Cetak Ulang'] as $item)
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="status_order" value="{{ $item }}">
                     <label class="form-check-label">{{ $item }}</label>

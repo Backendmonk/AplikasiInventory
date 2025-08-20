@@ -45,17 +45,33 @@
   @endif
 
  
-    @if (session()->has('gagal'))
+    @if (session()->has('gagalhapus'))
   <script>
 
     Swal.fire({
     title: "Gagal",
-    text: "Kesalahan",
+    text: "Data Sudah Ada Transaksi",
     icon: "error"
     });
 </script>
       
   @endif
+
+  
+    @if (session()->has('warningTransaksi'))
+  <script>
+
+    Swal.fire({
+    title: "Warning",
+    text: "Selesaikan Transaksi di Inventory Keluar",
+    icon: "warning"
+    });
+</script>
+      
+  @endif
+
+
+
 
   @if(session('msgerror'))
     <div class="alert alert-danger">
@@ -119,9 +135,16 @@
 
                                                               <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail</button></li>
 
-                                                            <li><button class="dropdown-item" type="submit" name ="edit" value = "edit">Selesai</button></li>
+
+                                                              @if ($data->status == "Open")
+
+                                                                      <li><button class="dropdown-item" type="submit" name ="selesaikan" value = "edit">Selesai</button></li>
+                                                                  
+                                                              @endif
+
+                                                    
                                                             
-                                                            <li><button class="dropdown-item" type="submit" name ="edit" value = "hapus">Hapus</button></li>
+                                                            <li><button class="dropdown-item" type="submit" name ="hapus" value = "hapus">Hapus</button></li>
                                                            
                                                           
                                                             </form>

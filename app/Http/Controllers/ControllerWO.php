@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\ModelInvKeluar;
+use App\Models\ModelRekanan;
 use App\Models\ModelWO;
 use Illuminate\Http\Request;
 
@@ -25,7 +27,12 @@ class ControllerWO extends Controller
 
     public function Addwo(){
 
-        return view ('Admin.Workorder.WoAdd'); 
+        $data = [
+
+                'getdataRekanan' => ModelRekanan::all(),
+        ] ;  
+
+        return view ('Admin.Workorder.WoAdd',$data); 
     }
 
     public function ProsesAddWo( Request $reqDataWo){
@@ -105,6 +112,8 @@ class ControllerWO extends Controller
             'hapus'=>$reqtoolswo->hapus,
             'idwo' =>$reqtoolswo->idwo
         ];
+        //cekketersediaan   
+        $cekbarang = ModelInvKeluar::where('id_wo','=',$toolswo['idwo'])->count();
 
         if ($toolswo['detail'] != NULL) {
             $data  = [
@@ -113,9 +122,26 @@ class ControllerWO extends Controller
             ];
             return view('Admin.WorkOrder.wodetail',$data);
         }elseif ($toolswo['selesai']) {
-            # code...
+
+                  $getdata  = [
+
+
+                  ];
+
+
+                  return view('Admin.WorkOrder.InvKeluar',$getdata);
+                  
         }elseif ($toolswo['hapus'] !=NULL) {
-          
+            
+
+            if ($cekbarang > 0) {
+               return redirect()->route('workorder')->with('gagalhapus','');
+            }else{
+
+                ModelWO::where('id','=',$toolswo['idwo'])->delete();
+                return redirect()->route('workorder')->with('msgdonehps','');
+
+            }
         }
 
 
