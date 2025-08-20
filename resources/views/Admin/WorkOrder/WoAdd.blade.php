@@ -27,7 +27,7 @@
         <div class="row mb-3">
             <div class="col-md-4">
                 <label class="form-label">Nama Pemesan</label>
-                <input list="rekananlist" placeholder="pilih atau ketik rekanan" name="nama_pemesan" class="form-control">
+                <input autocomplete="off" list="rekananlist" placeholder="pilih atau ketik rekanan" name="nama_pemesan" class="form-control">
                 <datalist id = "rekananlist">
                 
                 @foreach($getdataRekanan as $rekanan)

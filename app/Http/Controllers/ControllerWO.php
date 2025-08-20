@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\ModelBarang;
 use App\Models\ModelInvKeluar;
 use App\Models\ModelRekanan;
 use App\Models\ModelWO;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class ControllerWO extends Controller
@@ -108,7 +110,7 @@ class ControllerWO extends Controller
         $toolswo = [
 
             'detail'=>$reqtoolswo->detail,
-            'selesai'=>$reqtoolswo->selesai,
+            'selesai'=>$reqtoolswo->selesaikan,
             'hapus'=>$reqtoolswo->hapus,
             'idwo' =>$reqtoolswo->idwo
         ];
@@ -123,7 +125,10 @@ class ControllerWO extends Controller
             return view('Admin.WorkOrder.wodetail',$data);
         }elseif ($toolswo['selesai']) {
 
-                  $getdata  = [
+                  $getdata  = [ 
+
+                    'databarang'=>ModelBarang::all(),
+                    'datawo'=>ModelWO::where('id','=',$toolswo['idwo'])->first()
 
 
                   ];
