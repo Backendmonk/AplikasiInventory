@@ -85,10 +85,10 @@
     Table Kategori Barang
 -->
 <div class="d-flex">
-  <form action="/Admin/wo/Addwo" method="POST" class="mr-2">
+  <form action="/Admin/sales/Addnota" method="POST" class="mr-2">
     @csrf
     <button type="submit" name="tambah" value="tambah" class="btn btn-primary">
-      <i class="fa fa-list" aria-hidden="true"></i> Tambah Work Order
+      <i class="fa fa-list" aria-hidden="true"></i> Tambah Nota
     </button>
   </form>
 

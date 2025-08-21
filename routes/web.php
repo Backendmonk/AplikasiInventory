@@ -109,6 +109,9 @@ Route::middleware(['auth'])->group(function(){
             route::post('/Admin/wo/Addwo','Addwo');
             route::post('/Admin/Wo/ProsesAddwo','ProsesAddWo');
             route::post('/Admin/wo/Toolswo','toolswo');
+            route::get('/Admin/Sales/Nota','Notadashboard')->name('nota');
+            route::post('/Admin/sales/Addnota','Addnotavw');
+            route::post('/Admin/Sales/NotaItems','NotaItems');
             
         });
 

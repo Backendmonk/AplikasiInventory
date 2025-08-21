@@ -1,10 +1,10 @@
 @extends('Admin.template.main')
 
 @section('judul')
-        Dashboard Work Order
+        Dashboard Nota Tambah
 @endsection
 @section('Judulisi')
-    <h2>Dashboard Work Order</h2>
+    <h2>Dashboard Nota Tambah</h2>
 @endsection
 @section('Content1')
    
@@ -84,15 +84,15 @@
 
     Table Kategori Barang
 -->
-<div class="d-flex">
-  <form action="/Admin/wo/Addwo" method="POST" class="mr-2">
+{{-- <div class="d-flex">
+  <form action="/Admin/sales/Addnota" method="POST" class="mr-2">
     @csrf
     <button type="submit" name="tambah" value="tambah" class="btn btn-primary">
-      <i class="fa fa-list" aria-hidden="true"></i> Tambah Work Order
+      <i class="fa fa-list" aria-hidden="true"></i> Tambah Nota
     </button>
   </form>
 
-</div>
+</div> --}}
 
 
 
@@ -100,7 +100,7 @@
  <br>
 <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Data Barang</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Tambah Nota</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -128,24 +128,12 @@
                                                             Menus
                                                           </button>
                                                           <ul class="dropdown-menu">
-                                                            <form action="/Admin/wo/Toolswo" method="POST">
+                                                            <form action="/Admin/Sales/NotaItems" method="POST">
                                                               @csrf
                                                               
                                                               <input type="text" hidden name = "idwo" value="{{ $data['id'] }}">
 
-                                                              <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail</button></li>
-
-
-                                                              @if ($data->status == "Open")
-
-                                                                      <li><button class="dropdown-item" type="submit" name ="selesaikan" value = "edit">Inventory</button></li>
-                                                                  
-                                                              @endif
-
-                                                    
-                                                            
-                                                            <li><button class="dropdown-item" type="submit" name ="hapus" value = "hapus">Hapus</button></li>
-                                                           
+                                                              <li><button class="dropdown-item" type="submit" name ="add" value ="detail">Tambah Nota</button></li>                                                           
                                                           
                                                             </form>
                                                           </ul>

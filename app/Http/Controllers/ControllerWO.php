@@ -151,4 +151,37 @@ class ControllerWO extends Controller
 
 
     }
+
+
+
+
+    public function Notadashboard(){
+         $reqdatawont  = [
+                
+                'datawo'=>ModelWO::where('Status','=','Selesai')->get(),
+
+            ];
+        return view('Admin.WorkOrder.Nota',$reqdatawont);
+    }
+
+    public function Addnotavw(){
+         $reqdatawont  = [
+                
+                'datawo'=>ModelWO::where('Status','=','Open')->get(),
+
+            ];
+        return view('Admin.WorkOrder.NotaAdd',$reqdatawont);
+
+    }
+
+
+
+    public function NotaItems(request $reqdata){
+
+        //ambil id untuk di pass dan pas ke halaman tambah item nota
+        $dataWOfNota = [
+
+            'datawoget'=>$reqdata
+        ];
+    }
 }
