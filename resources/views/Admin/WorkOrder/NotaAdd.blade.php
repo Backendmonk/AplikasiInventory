@@ -67,6 +67,18 @@
     icon: "warning"
     });
 </script>
+          
+  @endif  
+
+@if (session()->has('errorinv'))
+  <script>
+
+    Swal.fire({
+    title: "Gagal",
+    text: "Tambahkan Inventory Yang Keluar Terlebih Dahulu",
+    icon: "error"
+    });
+</script>
       
   @endif
 

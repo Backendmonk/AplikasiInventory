@@ -178,10 +178,26 @@ class ControllerWO extends Controller
 
     public function NotaItems(request $reqdata){
 
-        //ambil id untuk di pass dan pas ke halaman tambah item nota
+        //cek ketersediaan inventory 
+
+        $idwo = $reqdata->idwo;
+        $cekinv = ModelInvKeluar::where('id_wo','=',$idwo)->count();
+
         $dataWOfNota = [
 
-            'datawoget'=>$reqdata
-        ];
+                    'datawoget'=>ModelWO::where('id','=',$idwo)->first(),
+                    'datawo'=>ModelWO::where('Status','=','Open')->get(),
+                ];
+
+        if ($cekinv > 0 ) {
+            # code...   
+             return view('Admin.WorkOrder.Notaitem',$dataWOfNota);
     }
+        else{
+             return redirect()->route('notaadd')->with('errorinv',' ');
+        }
+
+    }
+
+       
 }

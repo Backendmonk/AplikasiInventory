@@ -110,7 +110,7 @@ Route::middleware(['auth'])->group(function(){
             route::post('/Admin/Wo/ProsesAddwo','ProsesAddWo');
             route::post('/Admin/wo/Toolswo','toolswo');
             route::get('/Admin/Sales/Nota','Notadashboard')->name('nota');
-            route::post('/Admin/sales/Addnota','Addnotavw');
+            route::get('/Admin/sales/Addnota','Addnotavw')->name('notaadd');
             route::post('/Admin/Sales/NotaItems','NotaItems');
             
         });
