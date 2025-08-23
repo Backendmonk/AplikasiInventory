@@ -133,17 +133,8 @@
                                                               
                                                               <input type="text" hidden name = "idwo" value="{{ $data['id'] }}">
 
-                                                              <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail</button></li>
-
-
-                                                              @if ($data->status == "Open")
-
-                                                                      <li><button class="dropdown-item" type="submit" name ="selesaikan" value = "edit">Inventory</button></li>
-                                                                  
-                                                              @endif
-
-                                                    
-                                                            
+                                                              <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail</button></li>                                                                                          <li><button class="dropdown-item" type="submit" name ="selesaikan" value = "edit">Inventory</button></li>
+                                                  
                                                             <li><button class="dropdown-item" type="submit" name ="hapus" value = "hapus">Hapus</button></li>
                                                            
                                                           

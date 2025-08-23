@@ -152,6 +152,56 @@ class ControllerWO extends Controller
 
     }
 
+        public function InvKeluar(request $reqdatainv){
+            $datainv =[
+
+                'item'=>$reqdatainv->items,
+                'idwo'=>$reqdatainv->idwo,
+                
+
+            ];
+
+            return $this->inputinvkeluar($datainv);
+        }
+
+
+        private function inputinvkeluar($datainv){
+
+            $items = $datainv['item'];
+            $idwo = $datainv['idwo'];
+            try {
+               foreach ($items as $item) {
+                 $inputketbInv = new ModelInvKeluar();
+                # code...
+                    $inputketbInv->fill([
+                        'id_wo'=>$idwo,
+                        'id_barang'=>$item['barang'],
+                        'qty'=>$item['jumlah']
+                    ]);
+
+                    $inputketbInv->save();   
+               }
+               return redirect()->route('workorder')->with('msgdone',' ');
+            } catch (\Throwable $th) {
+                  return redirect()->route('workorder')->with('error',' ');
+            }
+        }
+        //note yang harus ditambah
+        /*
+
+
+            1 .ubah logika untuk tombol selesai, dimana tombol inventory Keluar akan tidak bisa diakses lagi jika sudah ada barang keluar
+            2. tambahkan barang barang yang keluar di detail Wo
+            3. Kurangi barang yang keluar
+            4. cek barang yang keluar apakah stoknya ada atau tidak jika tidak maka akan tidak bisa di proses
+            5. Selesai apa bila nota sudah dibuat !
+
+        */
+
+
+
+    ///////// NOTA ///////////
+
 
 
 
