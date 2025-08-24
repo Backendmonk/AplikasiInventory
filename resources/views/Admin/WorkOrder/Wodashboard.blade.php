@@ -71,6 +71,19 @@
   @endif
 
 
+      @if (session()->has('SudahadanInv'))
+  <script>
+
+    Swal.fire({
+    title: "Warning",
+    text: "Inventory Sudah Ada",
+    icon: "warning"
+    });
+</script>
+      
+  @endif
+
+
 
 
   @if(session('msgerror'))

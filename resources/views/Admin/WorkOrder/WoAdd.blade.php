@@ -139,7 +139,7 @@
         <div class="row mb-3">
             <div class="col-md-6">
                 <label class="form-label">Harga</label>
-                <input type="text" class="form-control" name="harga">
+                <input readonly placeholder="Harga Nanti Keluar Jika Sudah Ada Nota " type="text" class="form-control" name="harga">
             </div>
         </div>
 

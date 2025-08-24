@@ -120,21 +120,25 @@ class ControllerWO extends Controller
         if ($toolswo['detail'] != NULL) {
             $data  = [
 
-                'datawoperid' => ModelWO::where('id','=',$toolswo['idwo'])->first()
+                'datawoperid' => ModelWO::where('id','=',$toolswo['idwo'])->first(),
+                'datainvwo'=>ModelInvKeluar::where('id_wo','=',$toolswo['idwo'])->with('databarangwo')->get()
             ];
             return view('Admin.WorkOrder.wodetail',$data);
         }elseif ($toolswo['selesai']) {
 
+            if ($cekbarang > 0) {
+                 return redirect()->route('workorder')->with('SudahadanInv','');
+            }else{
+
                   $getdata  = [ 
 
-                    'databarang'=>ModelBarang::all(),
+                    'databarang'=>ModelBarang::where('status','=','Aktif')->get(),
                     'datawo'=>ModelWO::where('id','=',$toolswo['idwo'])->first()
-
-
                   ];
 
 
                   return view('Admin.WorkOrder.InvKeluar',$getdata);
+            }
                   
         }elseif ($toolswo['hapus'] !=NULL) {
             
@@ -190,11 +194,12 @@ class ControllerWO extends Controller
         /*
 
 
-            1 .ubah logika untuk tombol selesai, dimana tombol inventory Keluar akan tidak bisa diakses lagi jika sudah ada barang keluar
-            2. tambahkan barang barang yang keluar di detail Wo
+            1 .ubah logika untuk tombol selesai, dimana tombol inventory Keluar akan tidak bisa diakses lagi jika sudah ada barang keluar (sudah)
+            2. tambahkan barang barang yang keluar di detail Wo (sudah)
             3. Kurangi barang yang keluar
-            4. cek barang yang keluar apakah stoknya ada atau tidak jika tidak maka akan tidak bisa di proses
+            4. cek barang yang keluar apakah stoknya ada atau tidak jika tidak maka akan tidak bisa di proses (sudah)
             5. Selesai apa bila nota sudah dibuat !
+            6. Harga Akan Keluar Jika Sudah Selesai Nota.. ! Hapus Harga di tambah Wo
 
         */
 
