@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\ModelAlurStok;
 use App\Models\ModelBarang;
 use App\Models\ModelInvKeluar;
 use App\Models\ModelRekanan;
@@ -188,7 +189,9 @@ class ControllerWO extends Controller
 
                     $Stoksistem =  $update->stok_barang;
               
-
+                        /*
+                                cek apakah qty keluar apakah lebih besar dari stok yang ada di sistem ?
+                        */
                     if ($item['jumlah'] > $Stoksistem) {
                          return redirect()->route('workorder')->with('Gagalinputbsr',' ');
                         break;
@@ -196,11 +199,30 @@ class ControllerWO extends Controller
                          $stokupdate = $Stoksistem - $item['jumlah'];
 
                          echo $stokupdate.'<br>';
+                        //jalankan stok update barang
+                         $update->stok_barang = $stokupdate;
+
+                        //input ke alur stok
+                         $inputtotbalurStok = new ModelAlurStok();
+                         $keterangan = "Stok Keluar di Work Order No-".$idwo;
+
+                         $inputtotbalurStok->fill([
+                                'idbarang'=>$item['barang'],
+                                'Stok_Awal'=>$Stoksistem, 
+                                'Stok_Akhir'=>$stokupdate,
+                                'keterangan'=>$keterangan
+
+                         ]);
+
+                         $update->save();
+                         $inputtotbalurStok->save(); 
+                           //input dan sesuaikan stok di db
+                         $inputketbInv->save();
                     }
-                        //input dan sesuaikan stok di db
-                    // $inputketbInv->save();   
+                        
+                     
                }
-            //    return redirect()->route('workorder')->with('msgdone',' ');
+              return redirect()->route('workorder')->with('msgdone',' ');
             } catch (\Throwable $th) {
                   return redirect()->route('workorder')->with('error',' ');
             }
