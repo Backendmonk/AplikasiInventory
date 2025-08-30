@@ -14,8 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tb__nota', function (Blueprint $table) {
-            $table->id();
-        
+            $table->integer('nonota');
+            $table->unsignedBigInteger('nomorwo');
+            $table->string('barang');
+            $table->string('qty');
+            $table->string('Harga');
+            $table->string('total');
             $table->timestamps();
         });
     }
