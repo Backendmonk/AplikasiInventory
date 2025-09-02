@@ -43,6 +43,11 @@ class ModelWO extends Model
 
     }
 
+       public function adawodinota(){
+        return $this->hasmany(ModelNota::class,'id_wo');
+
+    }
+
 
 
 

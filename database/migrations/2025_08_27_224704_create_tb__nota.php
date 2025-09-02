@@ -21,6 +21,13 @@ return new class extends Migration
             $table->string('Harga');
             $table->string('total');
             $table->timestamps();
+
+             $table->foreign('nomorwo')
+                ->references('id')->on('tb__wo')// refrensi diambil dari id yang ada pada tb kategori
+                ->onUpdate('cascade') // Jika nama kategori diubah, foreign key tetap valid
+                ->onDelete('restrict');// jika ada barang maka tidak bisa dihapus;
+
+
         });
     }
 

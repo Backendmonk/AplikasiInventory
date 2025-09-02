@@ -63,7 +63,7 @@
 @endif
 <div class="container mt-4">
 
-    <form action="/Admin/PO/TambahPO" method="POST">
+    <form action="/Admin/Sales/InputNota" method="POST">
        
         
         @csrf
@@ -147,9 +147,10 @@
 <br><br>
 <h2>Nota</h2>
 
+  
         <table class="table table-bordered" id="tableInput">
 
-            
+            <input type="text" hidden  value="{{ $datawo->id }}" name ="idwo">
              
 
 
@@ -166,7 +167,7 @@
                 <tr>
                     <td>
 
-                        <input type="text" name= "items[0][item]" class="form-control" >
+                        <input type="text" name= "items[0][barang]" class="form-control" >
 
                     </td>
                     <td><input type="number" name="items[0][jumlah]" class="form-control" required></td>
@@ -190,11 +191,7 @@
 <script>
     let rowIndex = 1;
 
-    // Simpan isi dropdown ke dalam variabel
-    const dropdownOptions = `
-      <input type="text" name= "items[0][item]" class="form-control" >
-
-    `;
+ 
 
     // Fungsi untuk inisialisasi TomSelect
     function initTomSelect(el) {
@@ -219,7 +216,7 @@
         row.innerHTML = `
             <td>
                 
-                 <input type="text" name= "items[${rowIndex}][item]" class="form-control" >
+                 <input type="text" name= "items[${rowIndex}][barang]" class="form-control" >
 
 
             </td>

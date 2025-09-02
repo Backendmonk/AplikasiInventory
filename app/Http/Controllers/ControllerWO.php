@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ModelAlurStok;
 use App\Models\ModelBarang;
 use App\Models\ModelInvKeluar;
+use App\Models\ModelNota;
 use App\Models\ModelRekanan;
 use App\Models\ModelWO;
 use Illuminate\Database\Eloquent\Model;
@@ -291,6 +292,70 @@ class ControllerWO extends Controller
              return redirect()->route('notaadd')->with('errorinv',' ');
         }
 
+    }
+
+
+
+    //oreder selesai ketika sudah ada nota
+    
+    //harga keluar jika sudah ada nota
+
+    private function updateworkroderHrST(){
+
+
+    }
+///// input ke nota/////
+    public function inputnota(Request $reqdatanota){
+
+       $datanota = [
+
+        'idwo'=>$reqdatanota->idwo,
+        'items'=>$reqdatanota->items
+       ];
+       
+
+
+       return $this->inputnotatodb($datanota);
+
+
+    }
+
+
+    private function inputnotatodb($datanota){
+
+        $idwo = $datanota['idwo'];
+        $items = $datanota['items'];
+        $tanggal = date('d');
+        $bulan  =date('m');
+        $nonota = $tanggal.$bulan.$idwo;
+     
+        $totalharga  = 0;
+
+        foreach ($items as $databarang ) {
+            $inputketbnota = new ModelNota();
+            $inputketbnota->fill([
+
+                'nonota'=>$nonota,
+                'nomorwo'=>$idwo,
+                'barang'=>$databarang['barang'],
+                'qty'=>$databarang['jumlah'],
+                'Harga'=>$databarang['harga'],
+                'total'=>$databarang['harga']*$databarang['jumlah']
+
+
+            ]);
+              //$inputketbnota->save();
+
+            $totalharga+= $inputketbnota['total'];
+        }
+
+        $dataupwo =[
+
+            'totalharga' => $totalharga,
+            'status'=>'Selesai'
+        ];
+
+        return $this->updateworkroderHrS($dataupwo);
     }
 
        
