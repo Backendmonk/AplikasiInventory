@@ -300,8 +300,19 @@ class ControllerWO extends Controller
     
     //harga keluar jika sudah ada nota
 
-    private function updateworkroderHrST(){
+    private function updateworkroderHrS($dataupwo){
 
+        $idwo = $dataupwo['idwo'];
+        $totalharga = $dataupwo['totalharga'];
+        $status = $dataupwo['status'];
+        $updatedatawosthr = ModelWO::find($idwo);
+
+        $inputkedb =[
+
+
+        ];
+
+        
 
     }
 ///// input ke nota/////
@@ -351,6 +362,7 @@ class ControllerWO extends Controller
 
         $dataupwo =[
 
+            'idwo'=>$idwo,
             'totalharga' => $totalharga,
             'status'=>'Selesai'
         ];
