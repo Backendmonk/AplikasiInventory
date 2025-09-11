@@ -1,5 +1,5 @@
-@include('Admin.template.header')
-@include('Admin.template.sidebar')
+@include('Kasir.template.header')
+@include('Kasir.template.sidebar')
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -27,7 +27,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="/Admin/profile">
+                                <a class="dropdown-item" href="/Kasir/profile">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -97,4 +97,4 @@
             </div>
             <!-- End of Main Content -->
 
-           @include('Admin.template.footer')
+           @include('Kasir.template.footer')

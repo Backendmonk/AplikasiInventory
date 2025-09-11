@@ -6,6 +6,7 @@ use App\Http\Controllers\ControllerBarangAdmin;
 use App\Http\Controllers\ControllerPreorder;
 use App\Http\Controllers\ControllerRekanan;
 use App\Http\Controllers\ControllerStokAdmin;
+use App\Http\Controllers\COntrollerStokKasir;
 use App\Http\Controllers\ControllerWO;
 use App\Http\Controllers\KasirController;
 use Illuminate\Support\Facades\Auth;
@@ -133,6 +134,17 @@ Route::middleware(['auth'])->group(function(){
                 Route::get('/Kasir/Home','HomeKasir')->name('DashboardKasir');
 
         });
+
+
+
+        route::controller(COntrollerStokKasir::class)->group(function(){
+            route::get('/Kasir/JumlahStokBarang','JumlahStokBarangView');
+            route::get('/Kasir/StokControll','StokControllview')->name('stokcontrol');
+            route::post('/Kasir/Stok/ToolsalurStok','ToolsAlurStok');
+            route::post('/Kasir/Stok/Opname','OpnameStok');
+            
+         });
+
 
     });
 
