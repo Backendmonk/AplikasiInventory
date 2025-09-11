@@ -1,4 +1,4 @@
-@extends('Admin.template.main')
+@extends('Kasir.template.main')
 
 @section('judul')
         Detail Work Order

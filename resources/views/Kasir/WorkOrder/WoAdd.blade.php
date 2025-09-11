@@ -1,4 +1,4 @@
-@extends('Admin.template.main')
+@extends('Kasir.template.main')
 
 @section('judul')
         Tambah Work Order
@@ -8,7 +8,7 @@
 @endsection
 @section('Content1')
    <div class="container mt-4">
-    <form  method="POST" action="/Admin/Wo/ProsesAddwo">
+    <form  method="POST" action="/Kasir/Wo/ProsesAddwo">
         @csrf
         <!-- Tanggal -->
        
@@ -39,7 +39,7 @@
            
             <div class="col-md-4">
                 <label class="form-label">Jenis Pesanan</label>
-                <input type="text" class="form-control" name="jenis_pesanan">
+                <input autocomplete="off" type="text" class="form-control" name="jenis_pesanan">
             </div>
             <div class="col-md-4">
                 <label class="form-label">Jumlah Pesanan</label>
@@ -51,15 +51,15 @@
         <div class="row mb-3">
             <div class="col-md-4">
                 <label class="form-label">Jenis Kertas</label>
-                <input type="text" class="form-control" name="jenis_kertas">
+                <input autocomplete="off" type="text" class="form-control" name="jenis_kertas">
             </div>
             <div class="col-md-4">
                 <label class="form-label">Warna Tinta</label>
-                <input type="text" class="form-control" name="warna_tinta">
+                <input autocomplete="off" type="text" class="form-control" name="warna_tinta">
             </div>
             <div class="col-md-4">
                 <label class="form-label">Ukuran Cetak</label>
-                <input type="text" class="form-control" name="ukuran_cetak">
+                <input  autocomplete="off"type="text" class="form-control" name="ukuran_cetak">
             </div>
         </div>
 
@@ -67,11 +67,11 @@
         <div class="row mb-3">
             <div class="col-md-4">
                 <label class="form-label">Ukuran Jadi</label>
-                <input type="text" class="form-control" name="ukuran_jadi">
+                <input autocomplete="off" type="text" class="form-control" name="ukuran_jadi">
             </div>
             <div class="col-md-4">
                 <label class="form-label">Rangka/Susunan</label>
-                <input type="text" class="form-control" name="rangka_susunan">
+                <input autocomplete="off" type="text" class="form-control" name="rangka_susunan">
             </div>
         </div>
 
@@ -123,15 +123,15 @@
         <div class="row mb-3">
             <div class="col-md-4">
                 <label class="form-label">Nomorator Start</label>
-                <input type="text" class="form-control" name="nomorator_start">
+                <input autocomplete="off" type="text" class="form-control" name="nomorator_start">
             </div>
             <div class="col-md-4">
                 <label class="form-label">Warna Tinta</label>
-                <input type="text" class="form-control" name="warna_tinta2">
+                <input autocomplete="off" type="text" class="form-control" name="warna_tinta2">
             </div>
             <div class="col-md-4">
                 <label class="form-label">Isi Perbuku</label>
-                <input type="text" class="form-control" name="isi_perbuku">
+                <input autocomplete="off" type="text" class="form-control" name="isi_perbuku">
             </div>
         </div>
 
@@ -147,7 +147,7 @@
          <div class="row mb-3">
             <div class="col-md-6">
                 <label class="form-label">Keterangan Tambahan</label>
-                <textarea name="keterangan" cols="30" rows="10"  class="form-control"  ></textarea>
+                <textarea required name="keterangan" cols="30" rows="10"  class="form-control"  ></textarea>
             </div>
         </div>
 

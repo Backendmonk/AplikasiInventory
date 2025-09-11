@@ -1,4 +1,4 @@
-@extends('Admin.template.main')
+@extends('Kasir.template.main')
 
 @section('judul')
         Dashboard Work Order
@@ -110,7 +110,7 @@
     Table Kategori Barang
 -->
 <div class="d-flex">
-  <form action="/Admin/wo/Addwo" method="POST" class="mr-2">
+  <form action="/Kasir/wo/Addwo" method="POST" class="mr-2">
     @csrf
     <button type="submit" name="tambah" value="tambah" class="btn btn-primary">
       <i class="fa fa-list" aria-hidden="true"></i> Tambah Work Order
@@ -153,7 +153,7 @@
                                                             Menus
                                                           </button>
                                                           <ul class="dropdown-menu">
-                                                            <form action="/Admin/wo/Toolswo" method="POST">
+                                                            <form action="/Kasir/wo/Toolswo" method="POST">
                                                               @csrf
                                                               
                                                               <input type="text" hidden name = "idwo" value="{{ $data['id'] }}">

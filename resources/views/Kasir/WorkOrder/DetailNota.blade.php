@@ -1,4 +1,4 @@
-@extends('Admin.template.main')
+@extends('Kasir.template.main')
 
 @section('judul')
     Nota Bpk/Ibu 

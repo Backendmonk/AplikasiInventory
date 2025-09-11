@@ -8,6 +8,7 @@ use App\Http\Controllers\ControllerRekanan;
 use App\Http\Controllers\ControllerStokAdmin;
 use App\Http\Controllers\COntrollerStokKasir;
 use App\Http\Controllers\ControllerWO;
+use App\Http\Controllers\ControllerWOKasir;
 use App\Http\Controllers\KasirController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -144,6 +145,24 @@ Route::middleware(['auth'])->group(function(){
             route::post('/Kasir/Stok/Opname','OpnameStok');
             
          });
+
+
+         
+        route::controller(ControllerWOKasir::class)->group(function(){
+
+            route::get('/Kasir/Sales/WorkOrder','Wodashboard')->name('workorder');
+            route::post('/Kasir/wo/Addwo','Addwo');
+            route::post('/Kasir/Wo/ProsesAddwo','ProsesAddWo');
+            route::post('/Kasir/wo/Toolswo','toolswo');
+            route::get('/Kasir/Sales/Nota','Notadashboard')->name('nota');
+            route::get('/Kasir/sales/Addnota','Addnotavw')->name('notaadd');
+            route::post('/Kasir/Sales/NotaItems','NotaItems');
+            route::post('/Kasir/Sales/InputNota','inputnota');
+            route::post('/Kasir/WO/InvKeluar','InvKeluar');
+
+            route::post('/Kasir/Sales/notaview','notaview');
+            
+        });
 
 
     });

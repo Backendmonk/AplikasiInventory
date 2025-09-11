@@ -1,4 +1,4 @@
-@extends('Admin.template.main')
+@extends('Kasir.template.main')
 
 @section('judul')
        Tambah Nota
@@ -63,7 +63,7 @@
 @endif
 <div class="container mt-4">
 
-    <form action="/Admin/Sales/InputNota" method="POST">
+    <form action="/Kasir/Sales/InputNota" method="POST">
        
         
         @csrf

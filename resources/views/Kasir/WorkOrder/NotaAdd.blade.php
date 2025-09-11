@@ -1,4 +1,4 @@
-@extends('Admin.template.main')
+@extends('Kasir.template.main')
 
 @section('judul')
         Dashboard Nota Tambah
@@ -97,7 +97,7 @@
     Table Kategori Barang
 -->
 {{-- <div class="d-flex">
-  <form action="/Admin/sales/Addnota" method="POST" class="mr-2">
+  <form action="/Kasir/sales/Addnota" method="POST" class="mr-2">
     @csrf
     <button type="submit" name="tambah" value="tambah" class="btn btn-primary">
       <i class="fa fa-list" aria-hidden="true"></i> Tambah Nota
@@ -140,7 +140,7 @@
                                                             Menus
                                                           </button>
                                                           <ul class="dropdown-menu">
-                                                            <form action="/Admin/Sales/NotaItems" method="POST">
+                                                            <form action="/Kasir/Sales/NotaItems" method="POST">
                                                               @csrf
                                                               
                                                               <input type="text" hidden name = "idwo" value="{{ $data['id'] }}">
