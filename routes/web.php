@@ -133,6 +133,7 @@ Route::middleware(['auth'])->group(function(){
     Route::middleware('userauth:Kasir')->group(function(){
         Route::controller(KasirController::class)->group(function(){
                 Route::get('/Kasir/Home','HomeKasir')->name('DashboardKasir');
+                Route::get('/logout','logout');
 
         });
 

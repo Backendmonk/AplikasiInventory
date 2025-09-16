@@ -71,11 +71,11 @@
                         </tr>
                         <tr>
                             <th>Deposit</th>
-                            <td class="text-end"><b>masih di develop</b></td>
+                            <td class="text-end"><b>Rp {{ number_format($pembayaran->deposit, 0, ',', '.') }}</b></td>
                         </tr>
                         <tr>
                             <th>Sisa</th>
-                            <td class="text-end"><b>masih di develop</b></td>
+                            <td class="text-end"><b>Rp {{ number_format($pembayaran->sisapembayaran, 0, ',', '.') }}</b></td>
                         </tr>
                     </table>
                     <p class="mt-4">Duta Utama Grafika</p>

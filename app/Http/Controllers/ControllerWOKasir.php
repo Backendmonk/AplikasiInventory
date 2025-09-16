@@ -7,6 +7,7 @@ use App\Models\ModelAlurStok;
 use App\Models\ModelBarang;
 use App\Models\ModelInvKeluar;
 use App\Models\ModelNota;
+use App\Models\ModelPembayaranNota;
 use App\Models\ModelRekanan;
 use App\Models\ModelWO;
 use Illuminate\Http\Request;
@@ -252,8 +253,9 @@ class ControllerWOKasir extends Controller
     public function Notadashboard(){
          $reqdatawont  = [
                 
-                'datawo'=>ModelWO::where('Status','=','Selesai')->get(),
-
+                'datawo'=>ModelWO::where('Status','=','Selesai')
+                ->orwhere('Status','=','Piutang')
+                ->get(),
             ];
         return view('Kasir.WorkOrder.Nota',$reqdatawont);
     }
@@ -347,6 +349,13 @@ class ControllerWOKasir extends Controller
         $tanggal = date('d');
         $bulan  =date('m');
         $nonota = $tanggal.$bulan.$idwo;
+        $deposit  = (int) preg_replace('/[^0-9]/', '',$datanota['deposit']);
+        $totalbayar  = (int) preg_replace('/[^0-9]/', '',$datanota['totalharga'])/100;
+
+
+        $sisa = $totalbayar - $deposit;
+    
+        
      
         $totalharga  = 0;
 
@@ -368,14 +377,40 @@ class ControllerWOKasir extends Controller
             $totalharga+= $inputketbnota['total'];
         }
 
-        $dataupwo =[
+
+        ///
+
+        $inpembayaran = new ModelPembayaranNota();
+
+        $inpembayaran->fill([
+            'id'=>$nonota,
+            'totalbayar'=>$totalharga,
+            'deposit'=>$deposit,
+            'sisapembayaran'=>$sisa,
+            'idwo'=>$idwo
+        ]);
+        $inpembayaran->save();
+
+        if ($sisa > 0) {
+           $dataupwo =[
+
+            'idwo'=>$idwo,
+            'totalharga' => $totalharga,
+            'status'=>'Piutang'
+        ];
+         return $this->updateworkroderHrS($dataupwo);
+        }else{
+            $dataupwo =[
 
             'idwo'=>$idwo,
             'totalharga' => $totalharga,
             'status'=>'Selesai'
         ];
+         return $this->updateworkroderHrS($dataupwo);
 
-        return $this->updateworkroderHrS($dataupwo);
+        }
+
+       
     }
     
 
@@ -388,9 +423,11 @@ class ControllerWOKasir extends Controller
             'wo'=>ModelWO::where('id','=',$idwo)->first(),
             'nota'=>ModelNota::where('nomorwo','=',$idwo)->first(),
             'notadata'=>ModelNota::where('nomorwo','=',$idwo)->get(),
+            'pembayaran'=>ModelPembayaranNota::where('idwo','=',$idwo)->first(),
         ];
 
 
         return view('Kasir.WorkOrder.DetailNota',$data);
     }
+       
 }

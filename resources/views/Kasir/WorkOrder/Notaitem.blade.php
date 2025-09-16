@@ -176,11 +176,27 @@
                 </tr>
             </tbody>
         </table>
+        
+   
+
+
 
         <button type="button" class="btn btn-primary mb-3" id="addRow">
             <i class="fa fa-plus" aria-hidden="true"></i>
         </button>
         <button type="submit" class="btn btn-success">Simpan</button>
+
+         <br>
+        <div class="row mt-4">
+    <div class="col-md-6">
+        <label for="deposit">Deposit</label>
+        <input type="number" class="form-control" name="deposit" id="deposit" value="0">
+        </div>
+        <div class="col-md-6">
+            <label for="total">Total Harga</label>
+            <input type="text" class="form-control" id="total" name="total" readonly>
+        </div>
+    </div>
     </form>
 </div>
 
@@ -240,6 +256,56 @@
             e.target.closest('tr').remove();
         }
     });
+
+
+    // Fungsi format Rupiah
+function formatRupiah(angka) {
+    return new Intl.NumberFormat('id-ID', { 
+        style: 'currency', 
+        currency: 'IDR' 
+    }).format(angka);
+}
+
+// Hitung total harga + sisa
+function calculateTotal() {
+    let total = 0;
+    document.querySelectorAll('#tbodyInput tr').forEach(row => {
+        let jumlah = parseFloat(row.querySelector('input[name*="[jumlah]"]').value) || 0;
+        let harga = parseFloat(row.querySelector('input[name*="[harga]"]').value) || 0;
+        total += jumlah * harga;
+    });
+
+    let deposit = parseFloat(document.getElementById('deposit').value) || 0;
+    let sisa = total - deposit;
+
+    // Tampilkan dalam format Rupiah
+    document.getElementById('total').value = formatRupiah(total);
+    document.getElementById('sisa').value = formatRupiah(sisa);
+}
+
+// Trigger hitung ulang ketika jumlah/harga berubah
+document.getElementById('tbodyInput').addEventListener('input', function(e) {
+    if (e.target.name.includes('[jumlah]') || e.target.name.includes('[harga]')) {
+        calculateTotal();
+    }
+});
+
+// Hitung ulang saat deposit diubah
+document.getElementById('deposit').addEventListener('input', calculateTotal);
+
+// Hitung ulang setiap kali row dihapus
+document.getElementById('tbodyInput').addEventListener('click', function(e) {
+    if (e.target.classList.contains('remove-row')) {
+        setTimeout(calculateTotal, 100); 
+    }
+});
+
+// Hitung ulang ketika row baru ditambah
+document.getElementById('addRow').addEventListener('click', function () {
+    setTimeout(calculateTotal, 200);
+});
+
+
 </script>
 
 @endsection

@@ -7,6 +7,7 @@ use App\Models\ModelAlurStok;
 use App\Models\ModelBarang;
 use App\Models\ModelInvKeluar;
 use App\Models\ModelNota;
+use App\Models\ModelPembayaranNota;
 use App\Models\ModelRekanan;
 use App\Models\ModelWO;
 use Illuminate\Database\Eloquent\Model;
@@ -252,7 +253,9 @@ class ControllerWO extends Controller
     public function Notadashboard(){
          $reqdatawont  = [
                 
-                'datawo'=>ModelWO::where('Status','=','Selesai')->get(),
+                'datawo'=>ModelWO::where('Status','=','Selesai')
+                ->orwhere('Status','=','Piutang')
+                ->get(),
 
             ];
         return view('Admin.WorkOrder.Nota',$reqdatawont);
@@ -327,7 +330,9 @@ class ControllerWO extends Controller
        $datanota = [
 
         'idwo'=>$reqdatanota->idwo,
-        'items'=>$reqdatanota->items
+        'items'=>$reqdatanota->items,
+        'deposit'=>$reqdatanota->deposit,
+        'totalharga'=>$reqdatanota->total
        ];
        
 
@@ -347,6 +352,13 @@ class ControllerWO extends Controller
         $tanggal = date('d');
         $bulan  =date('m');
         $nonota = $tanggal.$bulan.$idwo;
+        $deposit  = (int) preg_replace('/[^0-9]/', '',$datanota['deposit']);
+        $totalbayar  = (int) preg_replace('/[^0-9]/', '',$datanota['totalharga'])/100;
+
+
+        $sisa = $totalbayar - $deposit;
+    
+        
      
         $totalharga  = 0;
 
@@ -368,14 +380,40 @@ class ControllerWO extends Controller
             $totalharga+= $inputketbnota['total'];
         }
 
-        $dataupwo =[
+
+        ///
+
+        $inpembayaran = new ModelPembayaranNota();
+
+        $inpembayaran->fill([
+            'id'=>$nonota,
+            'totalbayar'=>$totalharga,
+            'deposit'=>$deposit,
+            'sisapembayaran'=>$sisa,
+            'idwo'=>$idwo
+        ]);
+        $inpembayaran->save();
+
+        if ($sisa > 0) {
+           $dataupwo =[
+
+            'idwo'=>$idwo,
+            'totalharga' => $totalharga,
+            'status'=>'Piutang'
+        ];
+         return $this->updateworkroderHrS($dataupwo);
+        }else{
+            $dataupwo =[
 
             'idwo'=>$idwo,
             'totalharga' => $totalharga,
             'status'=>'Selesai'
         ];
+         return $this->updateworkroderHrS($dataupwo);
 
-        return $this->updateworkroderHrS($dataupwo);
+        }
+
+       
     }
     
 
@@ -388,6 +426,7 @@ class ControllerWO extends Controller
             'wo'=>ModelWO::where('id','=',$idwo)->first(),
             'nota'=>ModelNota::where('nomorwo','=',$idwo)->first(),
             'notadata'=>ModelNota::where('nomorwo','=',$idwo)->get(),
+            'pembayaran'=>ModelPembayaranNota::where('idwo','=',$idwo)->first(),
         ];
 
 
