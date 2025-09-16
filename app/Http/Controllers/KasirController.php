@@ -19,7 +19,7 @@ class KasirController extends Controller
     }
 
 
-     public function logout(){
+     public function logoutkasir(){
 
          Auth::logout();
             request()->session()->invalidate();
