@@ -354,14 +354,8 @@ class ControllerWO extends Controller
         $nonota = $tanggal.$bulan.$idwo;
         $deposit  = (int) preg_replace('/[^0-9]/', '',$datanota['deposit']);
         $totalbayar  = (int) preg_replace('/[^0-9]/', '',$datanota['totalharga'])/100;
-
-
         $sisa = $totalbayar - $deposit;
-    
-        
-     
         $totalharga  = 0;
-
         foreach ($items as $databarang ) {
             $inputketbnota = new ModelNota();
             $inputketbnota->fill([
