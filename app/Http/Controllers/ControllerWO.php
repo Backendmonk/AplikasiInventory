@@ -424,8 +424,14 @@ class ControllerWO extends Controller
     
 
 
-     public function notaview(Request $reqidwo ){
-        $idwo = $reqidwo->idwo;
+     public function notatools(Request $reqdatanotas){
+
+        $tools = [
+
+            'detail'=>$reqdatanotas->detail,
+            'pelunasan'=>$reqdatanotas->pelunasan
+        ];
+        $idwo = $reqdatanotas->idwo;
         $data = [
 
 
@@ -435,8 +441,13 @@ class ControllerWO extends Controller
             'pembayaran'=>ModelPembayaranNota::where('idwo','=',$idwo)->first(),
         ];
 
-
+        if ($tools['detail'] !=NULL) {
         return view('Admin.WorkOrder.DetailNota',$data);
+        }elseif ($tools['pelunasan']!=NULL) {
+           return view('Admin.WorkOrder.pelunasan',$data);
+        }
+        
+       
     }
        
 }
