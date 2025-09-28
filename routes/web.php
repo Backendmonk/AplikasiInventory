@@ -109,8 +109,9 @@ Route::middleware(['auth'])->group(function(){
             route::post('/Admin/Sales/NotaItems','NotaItems');
             route::post('/Admin/Sales/InputNota','inputnota');
             route::post('/Admin/WO/InvKeluar','InvKeluar');
-
             route::post('/Admin/Sales/notaview','notatools');
+            route::post('/Admin/Sales/Pelunasan','pelunasan');
+            //pelunasan belum selesai
             
         });
 
@@ -123,6 +124,17 @@ Route::middleware(['auth'])->group(function(){
 
          
     });
+
+
+
+
+    /*
+
+
+            end of admin Route, Route dibawah adalah route yang digunakan untuk route kasir
+
+            route kasir dimulai dari auth 
+    */
 
 
 
