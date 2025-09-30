@@ -447,7 +447,8 @@ class ControllerWO extends Controller
         $tools = [
 
             'detail'=>$reqdatanotas->detail,
-            'pelunasan'=>$reqdatanotas->pelunasan
+            'pelunasan'=>$reqdatanotas->pelunasan,
+            'history'=>$reqdatanotas->history
         ];
         $idwo = $reqdatanotas->idwo;
         $data = [
@@ -463,6 +464,21 @@ class ControllerWO extends Controller
         return view('Admin.WorkOrder.DetailNota',$data);
         }elseif ($tools['pelunasan']!=NULL) {
            return view('Admin.WorkOrder.pelunasan',$data);
+        }elseif($tools['history'] !=NUll){
+
+        //ambil id wo terlebih dahulu untuk megecek karena pada tabel hostory pembayaran, karena pada fungsi ini idnota tidak terdefinisikan jadi akan diambil melalui modelpembayaran yang mengandung id nota sesuai dengan id wo terpilih
+         $getidwo = ModelPembayaranNota::where('idwo','=',$idwo)->first();
+         $idnota = $getidwo['id'];
+
+         //setelah id nota didapatkan maka proses view bisa dilanjutkan
+
+         $getdatahistory = [
+            
+         'history'=>ModelHistoryPembayaran::where('idNota','=',$idnota)->get()
+        
+        ];
+
+         return view('Admin.WorkOrder.HistoryTransaksi',$getdatahistory);
         }
         
        

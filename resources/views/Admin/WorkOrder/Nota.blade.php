@@ -144,7 +144,7 @@
                                                               @endphp
 
                                                               <li><button class="dropdown-item" type="submit" name ="detail" value="detail">Detail / Cetak</button></li>
-                                                              <li><button class="dropdown-item" type="submit" name ="detail" value="detail">History Transaksi</button></li>
+                                                              <li><button class="dropdown-item" type="submit" name ="history" value="detail">History Transaksi</button></li>
 
                                                             </form>
                                                           </ul>
