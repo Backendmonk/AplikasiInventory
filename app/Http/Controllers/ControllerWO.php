@@ -267,8 +267,7 @@ class ControllerWO extends Controller
     public function Notadashboard(){
          $reqdatawont  = [
                 
-                'datawo'=>ModelWO::where('Status','=','Selesai')
-                ->orwhere('Status','=','Piutang')
+                'datawo'=>ModelWO::where('Status','=','Piutang')
                 ->get(),
 
             ];
