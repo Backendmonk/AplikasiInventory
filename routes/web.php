@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ControllerAdminPembelianBarang;
 use App\Http\Controllers\ControllerAuthUser;
 use App\Http\Controllers\ControllerBarangAdmin;
+use App\Http\Controllers\ControllerChartofAccount;
 use App\Http\Controllers\ControllerPreorder;
 use App\Http\Controllers\ControllerRekanan;
 use App\Http\Controllers\ControllerStokAdmin;
@@ -120,10 +121,18 @@ Route::middleware(['auth'])->group(function(){
 
                 route::get('/Admin/Pembelian','PembelianView')->name('Pembelian');
         });
+        route::controller(ControllerChartofAccount::class)->group(function(){
+
+                route::get('/Admin/ChartOfAccount','Coadashboard')->name('COAHome');
+        });
 
 
          
     });
+
+
+
+
 
 
 
@@ -135,10 +144,6 @@ Route::middleware(['auth'])->group(function(){
 
             route kasir dimulai dari auth 
     */
-
-
-
-
   
     Route::middleware('userauth:Kasir')->group(function(){
         Route::controller(KasirController::class)->group(function(){
