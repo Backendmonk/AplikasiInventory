@@ -32,4 +32,14 @@ class ControllerChartofAccount extends Controller
     }
 
 
+    public function CoaAdd(Request $reqdatacoa ){
+
+        $datacoa = [
+                
+
+        ];
+
+    }
+
+
 }

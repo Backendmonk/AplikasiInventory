@@ -125,6 +125,7 @@ Route::middleware(['auth'])->group(function(){
 
                 route::get('/Admin/ChartOfAccount','Coadashboard')->name('COAHome');
                 route::post('/Admin/coa/TambahCOA','COAaddView');
+                route::post('/Admin/COA/CoaAdd','CoaAdd');
         });
 
 
