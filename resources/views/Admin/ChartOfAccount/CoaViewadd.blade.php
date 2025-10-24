@@ -61,8 +61,8 @@
 
   
      <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Harga Jual</label>
-    <input type="number" required   class="form-control" id="exampleInputEmail1" name = "hargajual" aria-describedby="emailHelp">
+    <label for="exampleInputEmail1" class="form-label">Tanggal Saldo Awal</label>
+    <input type="date" required   class="form-control" id="exampleInputEmail1" name = "hargajual" aria-describedby="emailHelp">
     
   </div>
 
