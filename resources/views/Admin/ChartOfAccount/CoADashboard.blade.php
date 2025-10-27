@@ -1,10 +1,10 @@
 @extends('Admin.template.main')
 
 @section('judul')
-       Data barang
+       Data COA
 @endsection
 @section('tittleCard')
-    <h2>Data Barang</h2>
+    <h2>Data COA</h2>
 @endsection
 @section('Content1')
 @if (session()->has('msgdone'))
@@ -12,7 +12,7 @@
 
     Swal.fire({
     title: "Berhasil",
-    text: "Berhasil Tambah Barang",
+    text: "Berhasil Tambah COA",
     icon: "success"
     });
 </script>
@@ -24,7 +24,7 @@
 
     Swal.fire({
     title: "Berhasil",
-    text: "Berhasil Edit Barang",
+    text: "Berhasil Edit COA",
     icon: "success"
     });
 </script>
@@ -80,7 +80,7 @@
 
 <!--        
 
-    Table Kategori Barang
+    Table Kategori COA
 -->
 <div class="d-flex">
   <form action="/Admin/coa/TambahCOA" method="POST" class="mr-2">
@@ -116,6 +116,7 @@
                                             <th>Jenis Akun</th>
                                             <th>Saldo</th>
                                             <th>Keterangan Akun</th>
+                                            <th>Tools</th>
                                         </tr>
                                     </thead>
                                     

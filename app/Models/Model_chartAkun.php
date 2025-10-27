@@ -11,7 +11,8 @@ class Model_chartAkun extends Model
 
      protected $table = 'tb_chart_akun';
     protected $fillable = [
-        'tipe_id',
+        'id',
+        'id_tipeakun',
         'kode',
         'nama',
         'keterangan',
@@ -25,6 +26,6 @@ class Model_chartAkun extends Model
     public $incrementing = true;
 
       public function tipeakun(){
-        return $this->belongsTo(Model_tipeakun::class,'tipe_id');
+        return $this->belongsTo(Model_tipeakun::class,'id_tipeakun');
     }
 }

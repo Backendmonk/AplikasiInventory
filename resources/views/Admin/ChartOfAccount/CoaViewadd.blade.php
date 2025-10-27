@@ -45,6 +45,14 @@
 
   </div>
 
+  
+
+     <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Kode Akun</label>
+    <input type="text" required autocomplete="false"   class="form-control" id="exampleInputEmail1" name = "kode_akun" aria-describedby="emailHelp">
+    
+  </div>
+
 
      <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Nama Akun</label>
