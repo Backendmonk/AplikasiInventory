@@ -127,7 +127,8 @@
                                                     <td>{{ $data['nama'] }}</td>
                                                     
                                                      <td>{{ $data->tipeakun->nama_code }} <!-- Memanggil Join --></td>
-                                                     <td>{{ $data['saldo'] }}</td>
+                                                     <td>Rp {{ number_format($data['saldo'], 0, ',', '.') }}</td>
+
                                                      <td>{{ $data['keterangan'] }}</td>
 
 
