@@ -29,6 +29,7 @@
 
     @php
         $randomnumber = rand(1,1000);
+        $randomid = rand(100,10000);
     @endphp
     <label for="exampleInputEmail1" class="form-label">Id</label>
     <input type="number" required  class="form-control" id="exampleInputEmail1"  name = "id" value = {{ $randomnumber }} aria-describedby="emailHelp">
@@ -49,7 +50,7 @@
 
      <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Kode Akun</label>
-    <input type="text" required autocomplete="false"   class="form-control" id="exampleInputEmail1" name = "kode_akun" aria-describedby="emailHelp">
+    <input type="text" required autocomplete="false"   class="form-control" id="exampleInputEmail1" name = "kode_akun" value = {{ $randomid }} aria-describedby="emailHelp">
     
   </div>
 

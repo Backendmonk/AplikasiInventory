@@ -18,7 +18,7 @@ class Model_tipeakun extends Model
     public $incrementing = true;
 
       public function kodeakun(){
-        return $this->hasmany(Model_chartAkun::class,'tipe_id');
+        return $this->hasmany(Model_chartAkun::class,'id_tipeakun');
 
     }
 
