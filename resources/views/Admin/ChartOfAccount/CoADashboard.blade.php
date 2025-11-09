@@ -53,7 +53,21 @@
     icon: "error"
     });
 </script>
+
+
       
+  @endif
+
+  
+    @if (session()->has('gagalCOA'))
+  <script>
+
+    Swal.fire({
+    title: "Gagal",
+    text: "Kesalahan Silahkan Coba Lagi",
+    icon: "error"
+    });
+</script>
   @endif
 
 

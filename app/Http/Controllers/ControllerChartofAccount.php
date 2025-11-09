@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Model_chartAkun;
 use App\Models\Model_tipeakun;
 use App\Models\MOdelJurnal;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ControllerChartofAccount extends Controller
@@ -88,9 +89,12 @@ class ControllerChartofAccount extends Controller
         $randomNota = rand(500,100000);
         if ($datacoa['saldoawal'] > 0) {
              $cekidModal = Model_chartAkun::where('nama','=','Saldo Awal')->first();
-             $idmodal = $cekidModal['id'];
-               $inputtodb->save(); //input COa ke db dengan jurnal
-            # code...
+                          
+         
+            if ($cekidModal !== NULL) {
+                $idmodal = $cekidModal['id']; 
+                 $inputtodb->save(); //input COa ke db dengan jurnal
+                
                 if ($balanceakunNormal =="Debit") {
                 ControllerJurnal::catatanjurnal($datacoa['id'],$datacoa['saldoawal'],0,$randomNota);
                 ControllerJurnal::catatanjurnal( $idmodal,0,$datacoa['saldoawal'],$randomNota);
@@ -101,14 +105,31 @@ class ControllerChartofAccount extends Controller
                 }else{
                     return redirect()->route('COAHome')->with('gagal','');
                 }    
+            }else{
+                    $inputModalAwal  = New Model_chartAkun();
+                    $now = Carbon::now();
+                      $inputModalAwal->fill([
+
+                            'id'=>"9992",
+                            'id_tipeakun'=>"15", // ini adalah id dari tipe akun 
+                            'kode'=>"01999",
+                            'nama'=>"Saldo Awal",
+                            'keterangan'=>"Equity",
+                            'saldo_awal'=>"0",
+                            'tanggal_saldo_awal'=>$now,
+                            'saldo'=>"0"
+                      ]);
+                      $inputModalAwal->save();
+
+                 return redirect()->route('COAHome')->with('gagalCOA','');
+
+            }
+                
         }else{
             $inputtodb->save();//input COa ke db tanpa jurnal
 
         }
 
-         
-        
-       
         return redirect()->route('COAHome')->with('msgdone','');
         } catch (\Throwable $th) {
             //throw $th;
