@@ -88,27 +88,35 @@ class ControllerChartofAccount extends Controller
         
         $randomNota = rand(500,100000);
         if ($datacoa['saldoawal'] > 0) {
-             $cekidModal = Model_chartAkun::where('nama','=','Saldo Awal')->first();
+             $cekidSaldo = Model_chartAkun::where('nama','=','Saldo Awal')->first();
                           
          
-            if ($cekidModal !== NULL) {
-                $idmodal = $cekidModal['id']; 
+            if ($cekidSaldo !== NULL) {
+                $idSaldo = $cekidSaldo['id']; 
                  $inputtodb->save(); //input COa ke db dengan jurnal
+
+                 $dataSaldoAwalJurnal = ['id'=>$idSaldo,
+                 'saldo'=>$datacoa['saldoawal']
+                 ];
                 
                 if ($balanceakunNormal =="Debit") {
                 ControllerJurnal::catatanjurnal($datacoa['id'],$datacoa['saldoawal'],0,$randomNota);
-                ControllerJurnal::catatanjurnal( $idmodal,0,$datacoa['saldoawal'],$randomNota);
+                ControllerJurnal::catatanjurnal( $idSaldo,0,$datacoa['saldoawal'],$randomNota);
+                
+                return $this->UpdateSaldoAwal($dataSaldoAwalJurnal); //untuk mengupdate dan menambahkan saldo awal
+                
                 }elseif ($balanceakunNormal =="Credit") {
                     # code...
                     ControllerJurnal::catatanjurnal($datacoa['id'],0,$datacoa['saldoawal'],$randomNota);
-                    ControllerJurnal::catatanjurnal( $idmodal,$datacoa['saldoawal'],0,$randomNota);
+                    ControllerJurnal::catatanjurnal( $idSaldo,$datacoa['saldoawal'],0,$randomNota);
+                    return $this->UpdateSaldoAwal($dataSaldoAwalJurnal);//untuk mengupdate dan menambahkan saldo awal
                 }else{
                     return redirect()->route('COAHome')->with('gagal','');
                 }    
             }else{
-                    $inputModalAwal  = New Model_chartAkun();
+                    $inputSaldoAwal  = New Model_chartAkun();
                     $now = Carbon::now();
-                      $inputModalAwal->fill([
+                      $inputSaldoAwal->fill([
 
                             'id'=>"9992",
                             'id_tipeakun'=>"15", // ini adalah id dari tipe akun 
@@ -119,7 +127,7 @@ class ControllerChartofAccount extends Controller
                             'tanggal_saldo_awal'=>$now,
                             'saldo'=>"0"
                       ]);
-                      $inputModalAwal->save();
+                      $inputSaldoAwal->save();
 
                  return redirect()->route('COAHome')->with('gagalCOA','');
 
@@ -137,6 +145,14 @@ class ControllerChartofAccount extends Controller
         }
 
        
+    }
+
+
+
+    private function UpdateSaldoAwal($dataSaldoAwalJurnal){
+
+        $saldoawalId= $dataSaldoAwalJurnal['id'];
+        $saldoawal = $dataSaldoAwalJurnal['saldo'];
     }
 
 
