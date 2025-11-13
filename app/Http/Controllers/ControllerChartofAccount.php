@@ -137,8 +137,6 @@ class ControllerChartofAccount extends Controller
             $inputtodb->save();//input COa ke db tanpa jurnal
 
         }
-
-        return redirect()->route('COAHome')->with('msgdone','');
         } catch (\Throwable $th) {
             //throw $th;
              return redirect()->route('COAHome')->with('gagal','');
@@ -153,6 +151,22 @@ class ControllerChartofAccount extends Controller
 
         $saldoawalId= $dataSaldoAwalJurnal['id'];
         $saldoawal = $dataSaldoAwalJurnal['saldo'];
+
+        $ambilsaldosekarang = Model_chartAkun::where('id','=',$saldoawalId)->first();
+        $saldosekarang = $ambilsaldosekarang['saldo'];
+
+        $saldoUpdated = $saldosekarang + $saldoawal;
+
+        $updateSaldoawal = Model_chartAkun::find($saldoawalId);
+        
+        $updateSaldoawal->fill([
+
+                'saldo' =>$saldoUpdated
+        ]);
+
+        $updateSaldoawal->save();
+
+         return redirect()->route('COAHome')->with('msgdone','');
     }
 
 

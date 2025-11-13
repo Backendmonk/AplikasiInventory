@@ -64,6 +64,13 @@
                 </div>
             </li>
 
+           
+            <li class="nav-item">
+                <a class="nav-link" href="/Admin/Rekanan">
+                    <i class="fas fa-fw fa-pie-chart"></i>
+                    <span>Laporan</span></a>
+            </li>
+
 
 
 
