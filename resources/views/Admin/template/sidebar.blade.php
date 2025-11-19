@@ -66,8 +66,8 @@
 
            
             <li class="nav-item">
-                <a class="nav-link" href="/Admin/Rekanan">
-                    <i class="fas fa-fw fa-pie-chart"></i>
+                <a class="nav-link" href="/Admin/laporan">
+                    <i class="fas fa-fw fa-calculator"></i>
                     <span>Laporan</span></a>
             </li>
 

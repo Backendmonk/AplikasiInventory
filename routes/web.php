@@ -5,6 +5,7 @@ use App\Http\Controllers\ControllerAdminPembelianBarang;
 use App\Http\Controllers\ControllerAuthUser;
 use App\Http\Controllers\ControllerBarangAdmin;
 use App\Http\Controllers\ControllerChartofAccount;
+use App\Http\Controllers\ControllerLaporan;
 use App\Http\Controllers\ControllerPreorder;
 use App\Http\Controllers\ControllerRekanan;
 use App\Http\Controllers\ControllerStokAdmin;
@@ -129,6 +130,11 @@ Route::middleware(['auth'])->group(function(){
         });
 
 
+        route::controller(ControllerLaporan::class)->group(function(){
+
+            route::get('/Admin/laporan','LaporanHome')->name('Laporan');
+
+        });
          
     });
 
