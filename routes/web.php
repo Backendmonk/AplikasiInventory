@@ -133,6 +133,7 @@ Route::middleware(['auth'])->group(function(){
         route::controller(ControllerLaporan::class)->group(function(){
 
             route::get('/Admin/laporan','LaporanHome')->name('Laporan');
+            route::get('Admin/laporan/jurnal','Jurnalselected');
 
         });
          
