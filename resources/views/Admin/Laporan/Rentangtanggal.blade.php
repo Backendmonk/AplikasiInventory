@@ -22,8 +22,7 @@
                 <input type="date" name="sampai" class="form-control" required>
             </div>
 
-            <input type="hidden" name="jenis" value="{{ $jenis ?? '' }}"> <!-- jurnal / labarugi / neraca -->
-
+            <input type="text" hidden name="jenis" value="{{ $selected }}"> 
             <button type="submit" class="btn btn-primary w-100 mt-3">Lihat Laporan</button>
         </form>
     </div>

@@ -13,4 +13,26 @@ class ControllerLaporan extends Controller
 
         return View('Admin.Laporan.Home');
     }
+
+
+    public function Jurnalselected(){
+
+        $tipeselected = ['selected'=>'Jurnal'];
+
+        return view('Admin.Laporan.Rentangtanggal',$tipeselected);
+    }
+
+     public function Labarugiselected(){
+
+        $tipeselected = ['selected'=>'Laba-Rugi'];
+
+        return view('Admin.Laporan.Rentangtanggal',$tipeselected);
+    }
+
+     public function Neracaselected(){
+
+        $tipeselected = ['selected'=>'Neraca'];
+
+        return view('Admin.Laporan.Rentangtanggal',$tipeselected);
+    }
 }

@@ -24,7 +24,7 @@
 
         <!-- Card Laba Rugi -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card shadow h-100 py-2 report-card" onclick="window.location.href='{{ url('laporan/labarugi') }}'">
+            <div class="card shadow h-100 py-2 report-card" onclick="window.location.href='{{ url('Admin/laporan/labarugi') }}'">
                 <div class="card-body text-center">
                     <i class="fas fa-chart-line fa-3x mb-3"></i>
                     <h5 class="font-weight-bold">Laba Rugi</h5>
@@ -35,7 +35,7 @@
 
         <!-- Card Neraca -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card shadow h-100 py-2 report-card" onclick="window.location.href='{{ url('laporan/neraca') }}'">
+            <div class="card shadow h-100 py-2 report-card" onclick="window.location.href='{{ url('Admin/laporan/neraca') }}'">
                 <div class="card-body text-center">
                     <i class="fas fa-balance-scale fa-3x mb-3"></i>
                     <h5 class="font-weight-bold">Neraca</h5>
