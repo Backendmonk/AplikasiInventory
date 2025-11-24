@@ -49,3 +49,4 @@ class ChartOfAccountsSeeder extends Seeder
 ]);
     }
 }
+
