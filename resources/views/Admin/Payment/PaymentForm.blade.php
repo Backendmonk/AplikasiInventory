@@ -36,9 +36,9 @@
 
 
    <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Kategori Payment</label>
-   <select id="Dropdown-data" name="kategoripayemnt" class="form-control">
-    <option value="">Pilih Kategori...</option>
+    <label for="exampleInputEmail1" class="form-label">Kategori Chart Akun</label>
+   <select id="Dropdown-data" name="kategoripayment" class="form-control">
+    <option value="">Pilih Kategori COA ...</option>
     @foreach($datacoa as $data)
         <option value="{{ $data->id }}">{{ $data->id }} - {{ $data->nama }}</option>
     @endforeach

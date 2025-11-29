@@ -108,7 +108,7 @@
                                             <th>Nama Payment</th>
                                             <th>Kategori</th>
                                         
-                                            <th>Tools</th>
+                                            {{-- <th>Tools</th> --}}
                                         </tr>
                                     </thead>
                                     
@@ -120,7 +120,7 @@
                                                      <td>{{ $data->metodebayar->nama }} <!-- Memanggil Join --></td>
                         
 
-                                                    <td>
+                                                    {{-- <td>
                                                       <div class="dropdown">
                                                           <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                                                             Menus
@@ -142,7 +142,7 @@
                                                         </div>
 
                                                                                      
-                                                    </td>
+                                                    </td> --}}
                                             
                                             </tr>
                                         @endforeach

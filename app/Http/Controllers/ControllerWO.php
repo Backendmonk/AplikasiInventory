@@ -7,6 +7,7 @@ use App\Models\ModelAlurStok;
 use App\Models\ModelBarang;
 use App\Models\ModelHistoryPembayaran;
 use App\Models\ModelInvKeluar;
+use App\Models\MOdelMetodeBayar;
 use App\Models\ModelNota;
 use App\Models\ModelPembayaranNota;
 use App\Models\ModelRekanan;
@@ -297,7 +298,8 @@ class ControllerWO extends Controller
 
                     'datawoget'=>ModelWO::where('id','=',$idwo)->first(),
                     'datawo'=>ModelWO::where('Status','=','Open')->first(),
-                    'databarangKeluar'=>ModelInvKeluar::where('id_wo','=',$idwo)->with('databarangwo')->get()
+                    'databarangKeluar'=>ModelInvKeluar::where('id_wo','=',$idwo)->with('databarangwo')->get(),
+                    'datametodebayar'=>MOdelMetodeBayar::all()
                 ];
 
         if ($cekinv > 0 ) {

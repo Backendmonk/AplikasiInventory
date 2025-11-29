@@ -64,8 +64,8 @@
 
     Swal.fire({
     title: "Gagal",
-    text: "Kesalahan Silahkan Coba Lagi",
-    icon: "error"
+    text: "Saldo Awal Tidak Ada, Kesalahan Silahkan Coba Lagi",
+    icon: "warning"
     });
 </script>
   @endif

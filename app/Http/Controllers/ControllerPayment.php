@@ -25,7 +25,7 @@ class ControllerPayment extends Controller
     public function Paymentaddform(){
 
         $getdatacoa = [
-            'datacoa'=>Model_chartAkun::all()
+            'datacoa'=>Model_chartAkun::where('keterangan','=','Kas dan Bank')->get()
         ];
         return view('Admin.Payment.PaymentForm',$getdatacoa);
     }
@@ -47,6 +47,26 @@ class ControllerPayment extends Controller
 
     private function inputpaymenttotb($datapayment){
 
-        
+        $namapayment = $datapayment['namapayment'];
+        $kategoriCOA = $datapayment['kategori'];
+
+
+        $inputtodb = new MOdelMetodeBayar();
+
+        try {
+            //code...
+            $inputtodb->fill([
+
+                'nama_metode'=>$namapayment,
+                'idcoa'=>$kategoriCOA
+
+              
+            ]);
+              $inputtodb->save();
+                return redirect()->route('payment')->with('msgdone','');
+        } catch (\Throwable $th) {
+            //throw $th;
+             return redirect()->route('payment')->with('gagal','');
+        }
     }
 }

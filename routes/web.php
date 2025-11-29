@@ -145,7 +145,7 @@ Route::middleware(['auth'])->group(function(){
         route::controller(ControllerPayment::class)->group(function(){
             route::get('/Admin/metodepembayaran','Homepayment')->name('payment');
             route::post('/Admin/Payment/TambahPayment','Paymentaddform');
-            route::post('/Admin/Payment/PaymentAdd','Payment');
+            route::post('/Admin/Payment/PaymentAdd','Paymentadd');
         });
          
     });
