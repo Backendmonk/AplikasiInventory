@@ -459,8 +459,23 @@ class ControllerWO extends Controller
             $updatecoaAsset = Model_chartAkun::find($idakunPembayaran);
             $updatecoaPenjualan = Model_chartAkun::find($idakunpenjualan);
 
-               //selesaikan esok  (todo list buat update coa, tapi pertama harus car iidulu berapa isi saldo coanya)
-      
+               //selesaikan Done (todo list buat update coa, tapi pertama harus car iidulu berapa isi saldo coanya)
+            $saldoAsset = $updatecoaAsset['saldo'];
+            $saldoPenjualan = $updatecoaPenjualan['saldo'];
+
+            $totalsaldoAsset = $saldoAsset+$totalharga;
+            $totalsaldopenjualan  = $saldoPenjualan+$totalharga;
+
+               $updatecoaAsset->fill([
+                    'saldo'=>$totalsaldoAsset
+               ]);
+
+               $updatecoaPenjualan->fill([
+                    'saldo'=>$totalsaldopenjualan
+               ]);
+
+               $updatecoaAsset->save();
+               $updatecoaPenjualan->save();
          return $this->updateworkroderHrS($dataupwo);
 
         }
