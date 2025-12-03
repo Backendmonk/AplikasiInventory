@@ -331,8 +331,9 @@ class ControllerWO extends Controller
 
         $dataWOfNota = [
 
-                    'datawoget'=>ModelWO::where('id','=',$idwo)->first(),
-                    'datawo'=>ModelWO::where('Status','=','Open')->first(),
+                    'datawo'=>ModelWO::where('id', $idwo)
+                                ->where('Status', 'Open')
+                                ->first(),
                     'databarangKeluar'=>ModelInvKeluar::where('id_wo','=',$idwo)->with('databarangwo')->get(),
                     'datametodebayar'=>MOdelMetodeBayar::all()
                 ];
@@ -489,8 +490,9 @@ class ControllerWO extends Controller
             $saldoPenjualan = $updatecoaPenjualan['saldo'];
             $saldoPiutang = $updatecoapiutang['saldo'];
 
+            $totalpiutang = $totalharga-$deposit;
             $totalsaldoAsset = $saldoAsset+$deposit;
-            $totalsaldopiutang = $saldoPiutang+$deposit;
+            $totalsaldopiutang = $totalpiutang;
             $totalsaldopenjualan  = $saldoPenjualan+$totalharga;
             
 
