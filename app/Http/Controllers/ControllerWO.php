@@ -473,10 +473,10 @@ class ControllerWO extends Controller
         $idakunpenjualan = $cekidpenjualan['id'];
         $idakunPembayaran = $cekidcoaMetodebayar['idcoa'];
         $idpiutang = $cekidpiutang['id'];
-
-        ControllerJurnal::catatanjurnal($idakunPembayaran,$deposit,0,$idwo);
-        ControllerJurnal::catatanjurnal($idpiutang,$deposit,0,$idwo);
-        ControllerJurnal::catatanjurnal( $idakunpenjualan,0,$totalharga,$idwo);
+        //pakaid nota
+        ControllerJurnal::catatanjurnal($idakunPembayaran,$deposit,0,$nonota);
+        ControllerJurnal::catatanjurnal($idpiutang,$deposit,0,$nonota);
+        ControllerJurnal::catatanjurnal( $idakunpenjualan,0,$totalharga,$nonota);
 
         //update coa besok copas dibawah
 
@@ -527,8 +527,8 @@ class ControllerWO extends Controller
         $idakunpenjualan = $cekidpenjualan['id'];
         $idakunPembayaran = $cekidcoaMetodebayar['idcoa'];
 
-        ControllerJurnal::catatanjurnal($idakunPembayaran,$totalharga,0,$idwo);
-        ControllerJurnal::catatanjurnal( $idakunpenjualan,0,$totalharga,$idwo);
+        ControllerJurnal::catatanjurnal($idakunPembayaran,$totalharga,0,$nonota);
+        ControllerJurnal::catatanjurnal( $idakunpenjualan,0,$totalharga,$nonota);
 
         //update Saldo COA
             $updatecoaAsset = Model_chartAkun::find($idakunPembayaran);
