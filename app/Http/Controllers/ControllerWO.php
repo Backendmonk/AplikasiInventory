@@ -446,7 +446,35 @@ class ControllerWO extends Controller
 
         //update coa besok copas dibawah
 
-        
+         $updatecoaAsset = Model_chartAkun::find($idakunPembayaran);
+         $updatecoaPenjualan = Model_chartAkun::find($idakunpenjualan);
+         $updatecoapiutang  = Model_chartAkun::find($idpiutang);
+
+               //selesaikan Done (todo list buat update coa, tapi pertama harus car iidulu berapa isi saldo coanya)
+            $saldoAsset = $updatecoaAsset['saldo'];
+            $saldoPenjualan = $updatecoaPenjualan['saldo'];
+            $saldoPiutang = $updatecoapiutang['saldo'];
+
+            $totalsaldoAsset = $saldoAsset+$deposit;
+            $totalsaldopiutang = $saldoPiutang+$deposit;
+            $totalsaldopenjualan  = $saldoPenjualan+$totalharga;
+            
+
+               $updatecoaAsset->fill([
+                    'saldo'=>$totalsaldoAsset
+               ]);
+
+               $updatecoaPenjualan->fill([
+                    'saldo'=>$totalsaldopenjualan
+               ]);
+               $updatecoapiutang->fill([
+
+                    'saldo'=>$totalsaldopiutang
+               ]);
+
+               $updatecoaAsset->save();
+               $updatecoaPenjualan->save();
+               $updatecoapiutang->save();
         
 
         
