@@ -48,4 +48,9 @@ class ModelWO extends Model
         return $this->hasmany(ModelNota::class,'id_wo');
 
     }
+
+           public function woinpbnota(){
+        return $this->hasmany(ModelPembayaranNota::class,'idwo');
+
+    }
 }

@@ -60,6 +60,8 @@
                         <a class="collapse-item" href="/Admin/PreOrder/AddPreOrder">Input Purchase Order</a> --}}
                         <a class="collapse-item" href="/Admin/Sales/WorkOrder">Work Order</a>
                         <a class="collapse-item" href="/Admin/Sales/Nota">Nota</a>
+                        <a class="collapse-item" href="/Admin/Sales/Sales">Laporan Penjualan</a>
+                        
                     </div>
                 </div>
             </li>

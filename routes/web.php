@@ -138,6 +138,7 @@ Route::middleware(['auth'])->group(function(){
             route::get('Admin/laporan/labarugi','Labarugiselected');
             route::get('Admin/laporan/neraca','Neracaselected');
             route::post('Admin/laporan/proses','ProsesLaporan');
+            route::get('/Admin/Sales/Sales','LaporanPenjualan');
 
         });
 

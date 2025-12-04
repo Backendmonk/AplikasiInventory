@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Model_chartAkun;
 use App\Models\MOdelJurnal;
+use App\Models\ModelNota;
+use App\Models\ModelPembayaranNota;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -36,6 +38,12 @@ class ControllerLaporan extends Controller
      public function Neracaselected(){
 
         $tipeselected = ['selected'=>'Neraca'];
+
+        return view('Admin.Laporan.Rentangtanggal',$tipeselected);
+    }
+    public function LaporanPenjualan(){
+
+        $tipeselected = ['selected'=>'LaporanPenjualan'];
 
         return view('Admin.Laporan.Rentangtanggal',$tipeselected);
     }
@@ -71,6 +79,8 @@ class ControllerLaporan extends Controller
                         }elseif ($jenislaporan=='Neraca') {
                             # code...
                              return $this->PanggilNeraca($tanggal);
+                        }elseif($jenislaporan=='LaporanPenjualan'){
+                            return $this->PanggilLapJul($tanggal);
                         }
                     }
 
@@ -181,4 +191,23 @@ class ControllerLaporan extends Controller
 
     return view('Admin.Laporan.neraca', compact('akun'));
 }
+
+
+    private function PanggilLapJul($tanggal){
+
+     $tanggalAwal = $tanggal['tanggalAwal'];
+    $tanggalAkhir = $tanggal['tanggalAkhir'];
+
+        $notabr =[
+            'nota'=>ModelPembayaranNota::whereBetween('created_at', [$tanggalAwal, $tanggalAkhir])
+                          ->with('ModelwoRS')
+                            ->get()
+        ];
+            # code...
+            
+         
+    return view('Admin.Laporan.LaporanPL',$notabr);
+
+    
+    }
 }

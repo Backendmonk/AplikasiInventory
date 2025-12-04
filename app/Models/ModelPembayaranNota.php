@@ -15,4 +15,9 @@ class ModelPembayaranNota extends Model
     public $timestamps = true;
 
     public $incrementing = false;
+
+    
+      public function ModelwoRS(){
+        return $this->belongsTo(ModelWO::class,'idwo');
+    }
 }
