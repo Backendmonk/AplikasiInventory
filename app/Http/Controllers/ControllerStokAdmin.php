@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Model_chartAkun;
 use App\Models\ModelAlurStok;
 use App\Models\ModelBarang;
 use App\Models\ModelStok;
@@ -97,6 +98,7 @@ class ControllerStokAdmin extends Controller
         //update tabel barang
         $opname_tbBarang  = ModelBarang::find($databarang['id']);
         $opname_tbBarang -> stok_barang = $databarang['stokupdate'];
+        $hpp = $opname_tbBarang['HargaBeli'];
 
 
         //update stok
@@ -119,6 +121,59 @@ class ControllerStokAdmin extends Controller
             'pesan'=>$databarang['pesan']
             
         ]);
+
+        $idselisihpersediaan = Model_chartAkun::where('nama','=','Beban Selisih Persediaan')->first();
+        $idpersediaanasset = Model_chartAkun::where('nama','=','Persediaan Asset')->first();
+       $idpendapatan = Model_chartAkun::where('nama','=','Pendapatan Selisih Persediaan')->first();
+       
+
+        $selisihunit = $databarang['stokawal']-$databarang['stokupdate'];
+        $selisihrupiah = abs($selisihunit*$hpp);
+
+        $idref = 07+rand(99,10000);
+        if ($databarang['stokupdate'] < $databarang['stokawal'] ) {
+            # code...
+            ControllerJurnal::catatanjurnal($idselisihpersediaan['id'],$selisihrupiah,0,$idref);
+            ControllerJurnal::catatanjurnal( $idpersediaanasset['id'],0,$selisihrupiah,$idref);
+
+            $updateslPersediaan = Model_chartAkun::find($idselisihpersediaan['id']);
+            $updatePersediaanAsst = Model_chartAkun::find($idpersediaanasset['id']);
+
+            $saldoSlPr = $updateslPersediaan['saldo']+$selisihrupiah;
+            $saldoPR = $updatePersediaanAsst['saldo']+$selisihrupiah;
+
+            $updatePersediaanAsst->fill([
+                'saldo'=>$saldoPR
+            ]);
+            $updateslPersediaan->fill([
+                'saldo'=>$saldoSlPr
+            ]);
+            $updatePersediaanAsst->save();
+            $updatePersediaanAsst->save();
+
+
+            //update harus
+        }elseif ($databarang['stokupdate'] > $databarang['stokawal']) {
+            # code...
+               ControllerJurnal::catatanjurnal( $idpersediaanasset['id'],$selisihrupiah,0,$idref);
+               ControllerJurnal::catatanjurnal($idpendapatan['id'],0,$selisihrupiah,$idref);
+
+                $updatependapatanPers = Model_chartAkun::find($idpendapatan['id']);
+                $updatePersediaanAsst = Model_chartAkun::find($idpersediaanasset['id']);
+
+            $saldoPen = $updatependapatanPers['saldo']+$selisihrupiah;
+            $saldoPR = $updatePersediaanAsst['saldo']+$selisihrupiah;
+
+            $updatePersediaanAsst->fill([
+                'saldo'=>$saldoPR
+            ]);
+            $updatependapatanPers->fill([
+                'saldo'=>$saldoPen
+            ]);
+            $updatePersediaanAsst->save();
+            $updatePersediaanAsst->save();
+            
+        }
 
 
         $opname_tbBarang ->save();

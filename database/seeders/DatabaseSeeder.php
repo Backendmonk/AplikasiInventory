@@ -324,6 +324,19 @@ class DatabaseSeeder extends Seeder
                 'saldo' => '0',
             ],
 
+             [
+                'id' => 767, // increment
+                'id_tipeakun' => 17, // ganti ke tipe akun Expense, bukan Income
+                'kode' => '6911',
+                'nama' => 'Pendapatan Selisih Persediaan',
+                'keterangan' => 'Income',
+                'saldo_awal' => 0.00,
+                'tanggal_saldo_awal' => '2025-11-04',
+                'created_at' => '2025-11-04 12:05:48',
+                'updated_at' => '2025-11-04 12:05:48',
+                'saldo' => '0',
+            ],
+
         ]);
     }
 }

@@ -3,172 +3,113 @@
 @section('judul')
        Data Penjualan
 @endsection
+
 @section('tittleCard')
     <h2>Data Penjualan</h2>
 @endsection
+
 @section('Content1')
-@if (session()->has('msgdone'))
-  <script>
 
-    Swal.fire({
-    title: "Berhasil",
-    text: "Berhasil Tambah Barang",
-    icon: "success"
-    });
-</script>
-      
-  @endif
+{{-- ===================== PRINT CSS ===================== --}}
+<style>
+@media print {
 
-  @if (session()->has('msgdoneEdt'))
-  <script>
+    /* sembunyikan elemen yang tidak boleh ikut tercetak */
+    .no-print,
+    nav,
+    header,
+    aside,
+    .sidebar,
+    .navbar,
+    .topbar,
+    footer {
+        display: none !important;
+    }
 
-    Swal.fire({
-    title: "Berhasil",
-    text: "Berhasil Edit Barang",
-    icon: "success"
-    });
-</script>
-      
-  @endif
+    /* khusus area yang ingin dicetak */
+    .print-area {
+        width: 100% !important;
+        margin: 0;
+        padding: 0;
+    }
+}
+</style>
 
-  @if (session()->has('msgdonehps'))
-  <script>
+{{-- ===================== PRINT AREA WRAPPER START ===================== --}}
+<div class="print-area">
 
-    Swal.fire({
-    title: "Berhasil",
-    text: "Berhasil Dihapus ",
-    icon: "success"
-    });
-</script>
-      
-  @endif
+    <h3 class="text-center mb-4 no-print">Laporan Penjualan – Utama Grafika</h3>
 
- 
-    @if (session()->has('gagal'))
-  <script>
+    <!-- Tombol print -->
+    <button onclick="window.print()" class="btn btn-primary mb-3 no-print">
+        Print Laporan
+    </button>
 
-    Swal.fire({
-    title: "Gagal",
-    text: "Kesalahan",
-    icon: "error"
-    });
-</script>
-      
-  @endif
+    {{-- ===================== TABEL ASLI (TIDAK DIUBAH) ===================== --}}
 
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Data Penjualan</h6>
+        </div>
 
-  
-    @if (session()->has('gagalhps'))
-  <script>
+        <div class="card-body">
+            <div class="table-responsive">
 
-    Swal.fire({
-    title: "Gagal",
-    text: "Inventory Sudah Ada Transaksi",
-    icon: "error"
-    });
-</script>
-      
-  @endif
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Nomor Nota</th>
+                            <th>Nama Pemesan</th>
+                            <th>Jenis Pesanan</th>
+                            <th>Total Bayar</th>
+                            <th>Dibayarkan</th>
+                            <th>Sisa</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
 
+                    <tbody>
+                        @php
+                            $totalbayar = 0;
+                            $totaldeposit = 0;
+                            $totalsisa = 0;
+                        @endphp
 
-  @if(session('msgerror'))
-    <div class="alert alert-danger">
-        {{ session('msgerror') }}
+                        @foreach ($nota as $data)
+                            <tr>
+                                <td>{{ $data['created_at'] }}</td>
+                                <td>{{ $data['id'] }}</td>
+                                <td>{{ $data->ModelwoRS->nama_pesanan }}</td>
+                                <td>{{ $data->ModelwoRS->jenis_pesanan }}</td>
+                                <td>Rp.{{ number_format($data['totalbayar'], 0, ',', '.') }}</td>
+                                <td>Rp.{{ number_format($data['deposit'], 0, ',', '.') }}</td>
+                                <td>Rp.{{ number_format($data['sisapembayaran'], 0, ',', '.') }}</td>
+                                <td>{{ $data->ModelwoRS->status }}</td>
+                            </tr>
+
+                            @php
+                                $totalbayar += $data['totalbayar'];
+                                $totaldeposit += $data['deposit'];
+                                $totalsisa += $data['sisapembayaran'];
+                            @endphp
+                        @endforeach
+                    </tbody>
+
+                    <tfoot>
+                        <th colspan="4"></th>
+                        <th>Total Pembayaran : Rp.{{ number_format($totalbayar, 0, ',', '.') }}</th>
+                        <th>Total Dibayarkan : Rp.{{ number_format($totaldeposit, 0, ',', '.') }}</th>
+                        <th>Total Sisa : Rp.{{ number_format($totalsisa, 0, ',', '.') }}</th>
+                        <th></th>
+                    </tfoot>
+                </table>
+
+            </div>
+        </div>
     </div>
-@endif
 
-
-<!--        
-
-    Table Kategori Barang
--->
-{{-- <div class="d-flex">
-  <form action="/Admin/Barang/TambahBarang" method="POST" class="mr-2">
-    @csrf
-    <button type="submit" name="tambah" value="tambah" class="btn btn-primary">
-      <i class="fa fa-folder-open" aria-hidden="true"></i> Tambah Barang
-    </button>
-  </form>
-
-  <form action="/Admin/Barang/CekStokBarang" method="POST">
-    @csrf
-    <button type="submit" name="cekstok" value="cekstok" class="btn btn-info">
-      <i class="fa fa-info-circle" aria-hidden="true"></i> Cek Stok Rendah
-    </button>
-  </form>
-</div> --}}
-
-
-
- 
- <br>
-<div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Data Penjualan</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
- <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Nomor Nota</th>
-                                            <th>Nama Pemesan</th>
-                                            <th>Jenis Pesanan</th>
-                                            <th>Total Bayar</th>
-                                            <th>Dibayarkan</th>
-                                            <th>Sisa</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                              
-                                    <tbody>
-                                        @php
-                                            $totalbayar = 0;
-                                            $totaldeposit = 0;
-                                            $totalsisa = 0;
-
-                                        @endphp
-                                        @foreach ($nota as $data)
-                                             <tr>
-                                                    <td>{{ $data['id'] }}</td>
-                                                    <td>{{ $data->ModelwoRS->nama_pesanan }}</td>
-                                                    <td>{{ $data->ModelwoRS->jenis_pesanan }}</td>
-                                                    <td>Rp.{{ number_format($data['totalbayar'], 0, ',', '.')}}</td>
-                                                    <td>RP.{{ number_format($data['deposit'], 0, ',', '.')}}</td>
-                                                    <td>Rp.{{ number_format($data['sisapembayaran'], 0, ',', '.')}}</td>
-                                                    <td>{{ $data->ModelwoRS->status }}</td>
-
-                                                    
-                                                    
-                                                     
-                                                    
-                                            
-                                            </tr>
-
-                                            @php
-                                                $totalbayar+=$data['totalbayar'];
-                                                $totaldeposit+=$data['deposit'];
-                                                $totalsisa+=$data['sisapembayaran'];
-                                            @endphp
-                                        @endforeach
-                                       
-                                        
-                                    </tbody>
-                                          <tfoot>
-                                        <th colspan="3"></th>
-                                            <th >Total  Pembayaran :Rp.{{ number_format($totalbayar, 0, ',', '.') }} </th>
-                                            <th>Total Dibayarkan   : Rp.{{ number_format($totaldeposit, 0, ',', '.') }}</th>
-                                            <th>Total Sisa   : Rp.{{ number_format($totalsisa, 0, ',', '.') }}</th>
-                                            <th></th>
-
-                                    </tfoot>
-                                </table>
-                            </div>
-                        </div>  
-                  </div>
-
-
-
-   
+</div>
+{{-- ===================== PRINT AREA END ===================== --}}
 
 @endsection
