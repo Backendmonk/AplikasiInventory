@@ -76,7 +76,7 @@
     });
 </script>
 
-
+@yield('scripts')
 
 </body>
 
