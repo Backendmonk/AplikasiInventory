@@ -55,7 +55,7 @@ class KasirController extends Controller
         // total keseluruhan di range
         $totalRange = array_sum($values);
 
-        return view('Admin.DashboarKasir', compact('labels','values','rows','start','end','totalRange'));
+        return view('Kasir.DashboardKasir', compact('labels','values','rows','start','end','totalRange'));
     
     }
 
