@@ -10,6 +10,7 @@ use App\Models\ModelHistoryPembayaran;
 use App\Models\ModelInvKeluar;
 use App\Models\MOdelMetodeBayar;
 use App\Models\ModelNota;
+use App\Models\ModelOperator;
 use App\Models\ModelPembayaranNota;
 use App\Models\ModelRekanan;
 use App\Models\ModelStok;
@@ -27,7 +28,8 @@ class ControllerWO extends Controller
 
             $reqdatawo  = [
                 
-                'datawo'=>ModelWO::all()
+                'datawo'=>ModelWO::all(),
+                
 
             ];
 
@@ -40,6 +42,7 @@ class ControllerWO extends Controller
         $data = [
 
                 'getdataRekanan' => ModelRekanan::all(),
+                'dataoperator'=>ModelOperator::all(),
         ] ;  
 
         return view ('Admin.Workorder.WoAdd',$data); 

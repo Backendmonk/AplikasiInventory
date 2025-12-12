@@ -135,6 +135,36 @@
             </div>
         </div>
 
+         <div class="row mb-3">
+            <div class="col-md-4">
+               <label class="form-label">Operator Cetak</label>
+                <Select autocomplete="off"  placeholder="pilih atau ketik rekanan" name="nama_pemesan" class="form-control">                
+                @foreach($dataoperator as $operator)
+                    <option value="{{ $operator->id}}">{{ $operator->nama_operator }}</option>
+                @endforeach
+                </select>
+               
+            </div>
+              <div class="col-md-4">
+               <label class="form-label">Operator Potong</label>
+                <Select autocomplete="off"  placeholder="pilih atau ketik rekanan" name="nama_pemesan" class="form-control">                
+                @foreach($dataoperator as $operator)
+                    <option value="{{ $operator->id}}">{{ $operator->nama_operator }}</option>
+                @endforeach
+                </select>
+               
+            </div>
+              <div class="col-md-4">
+               <label class="form-label">Operator Produksi</label>
+                <Select autocomplete="off"  placeholder="pilih atau ketik rekanan" name="nama_pemesan" class="form-control">                
+               @foreach($dataoperator as $operator)
+                    <option value="{{ $operator->id}}">{{ $operator->nama_operator }}</option>
+                @endforeach
+                </select>
+               
+            </div>
+        </div>
+
         <!-- Harga -->
         <div class="row mb-3">
             <div class="col-md-6">

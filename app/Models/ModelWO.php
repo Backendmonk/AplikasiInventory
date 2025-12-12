@@ -32,7 +32,11 @@ class ModelWO extends Model
         'nomoratorstart',
         'warnatinta',
         'isiperbuku',
-        'harga','status','keterangan'];
+        'harga','status','keterangan',
+        'id_operatorcetak',
+        'id_operatorpotong',
+        'id_operatorproduksi'
+    ];
 
     public $timestamps = false;
 
@@ -51,6 +55,21 @@ class ModelWO extends Model
 
            public function woinpbnota(){
         return $this->hasmany(ModelPembayaranNota::class,'idwo');
+
+    }
+
+    public function woceta(){
+        return $this->belongsTo(ModelOperator::class,'id_operatorcetak','id');
+
+    }
+
+     public function wopotong(){
+        return $this->belongsTo(ModelOperator::class,'id_operatorpotong','id');
+
+    }
+
+      public function woproduksi(){
+        return $this->belongsTo(ModelOperator::class,'id_operatorproduksi','id');
 
     }
 }

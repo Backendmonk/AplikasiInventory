@@ -118,6 +118,12 @@
                     <span>Metode Pembayaran</span></a>
             </li>
 
+          
+              <li class="nav-item">
+                <a class="nav-link" href="/Admin/Operator">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Operator</span></a>
+
 
 
             <!-- Divider -->
