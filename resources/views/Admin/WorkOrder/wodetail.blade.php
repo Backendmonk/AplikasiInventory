@@ -100,7 +100,9 @@
             <tr><th>Sistem Jilid</th><td>{{ $datawoperid->sistemjilid }}</td></tr>
             <tr><th>Status Order</th><td>{{ $datawoperid->statusorder }}</td></tr>
             <tr><th>Plat</th><td>{{ $datawoperid->plat }}</td></tr>
-            <tr><th>Isi per Buku</th><td>{{ $datawoperid->isiperbuku }}</td></tr>
+            <tr><th>Operator Cetak</th><td>{{ $datawoperid->wocetak->nama_operator ?? 'N/A' }}</td></tr>
+            <tr><th>Operator Potong</th><td>{{ $datawoperid->wopotong->nama_operator ?? 'N/A' }}</td></tr>
+            <tr><th>Operator Produksi</th><td>{{ $datawoperid->woproduksi->nama_operator ?? 'N/A' }}</td></tr>
         </table>
     </div>
 </div>

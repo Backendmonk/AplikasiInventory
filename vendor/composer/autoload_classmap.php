@@ -44,6 +44,7 @@ return array(
     'App\\Models\\ModelKategoriBarang' => $baseDir . '/app/Models/ModelKategoriBarang.php',
     'App\\Models\\ModelNota' => $baseDir . '/app/Models/ModelNota.php',
     'App\\Models\\ModelNotaPembelianBarang' => $baseDir . '/app/Models/ModelNotaPembelianBarang.php',
+    'App\\Models\\ModelOperator' => $baseDir . '/app/Models/ModelOperator.php',
     'App\\Models\\ModelPO' => $baseDir . '/app/Models/ModelPO.php',
     'App\\Models\\ModelPembayaranNota' => $baseDir . '/app/Models/ModelPembayaranNota.php',
     'App\\Models\\ModelPembelianBarang' => $baseDir . '/app/Models/ModelPembelianBarang.php',

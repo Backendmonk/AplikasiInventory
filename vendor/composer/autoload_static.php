@@ -561,6 +561,7 @@ class ComposerStaticInit5fae7f98314c6fe29f8f769ec6ac9343
         'App\\Models\\ModelKategoriBarang' => __DIR__ . '/../..' . '/app/Models/ModelKategoriBarang.php',
         'App\\Models\\ModelNota' => __DIR__ . '/../..' . '/app/Models/ModelNota.php',
         'App\\Models\\ModelNotaPembelianBarang' => __DIR__ . '/../..' . '/app/Models/ModelNotaPembelianBarang.php',
+        'App\\Models\\ModelOperator' => __DIR__ . '/../..' . '/app/Models/ModelOperator.php',
         'App\\Models\\ModelPO' => __DIR__ . '/../..' . '/app/Models/ModelPO.php',
         'App\\Models\\ModelPembayaranNota' => __DIR__ . '/../..' . '/app/Models/ModelPembayaranNota.php',
         'App\\Models\\ModelPembelianBarang' => __DIR__ . '/../..' . '/app/Models/ModelPembelianBarang.php',

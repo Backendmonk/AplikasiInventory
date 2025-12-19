@@ -138,8 +138,9 @@
          <div class="row mb-3">
             <div class="col-md-4">
                <label class="form-label">Operator Cetak</label>
-                <Select autocomplete="off"  placeholder="pilih atau ketik rekanan" name="nama_pemesan" class="form-control">                
+                <Select autocomplete="off"  placeholder="pilih atau ketik rekanan" name="operatorCetak" class="form-control">                
                 @foreach($dataoperator as $operator)
+                 <option value=" ">--Pilih--</option>
                     <option value="{{ $operator->id}}">{{ $operator->nama_operator }}</option>
                 @endforeach
                 </select>
@@ -147,8 +148,9 @@
             </div>
               <div class="col-md-4">
                <label class="form-label">Operator Potong</label>
-                <Select autocomplete="off"  placeholder="pilih atau ketik rekanan" name="nama_pemesan" class="form-control">                
+                <Select autocomplete="off"  placeholder="pilih atau ketik rekanan" name="operatorPotong" class="form-control">                
                 @foreach($dataoperator as $operator)
+                 <option value=" ">--Pilih--</option>
                     <option value="{{ $operator->id}}">{{ $operator->nama_operator }}</option>
                 @endforeach
                 </select>
@@ -156,8 +158,9 @@
             </div>
               <div class="col-md-4">
                <label class="form-label">Operator Produksi</label>
-                <Select autocomplete="off"  placeholder="pilih atau ketik rekanan" name="nama_pemesan" class="form-control">                
+                <Select autocomplete="off"  placeholder="pilih atau ketik rekanan" name="operatorProduksi" class="form-control">                
                @foreach($dataoperator as $operator)
+                    <option value=" ">--Pilih--</option>
                     <option value="{{ $operator->id}}">{{ $operator->nama_operator }}</option>
                 @endforeach
                 </select>

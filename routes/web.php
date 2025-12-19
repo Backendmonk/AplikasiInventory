@@ -6,6 +6,7 @@ use App\Http\Controllers\ControllerAuthUser;
 use App\Http\Controllers\ControllerBarangAdmin;
 use App\Http\Controllers\ControllerChartofAccount;
 use App\Http\Controllers\ControllerLaporan;
+use App\Http\Controllers\ControllerOperator;
 use App\Http\Controllers\ControllerPayment;
 use App\Http\Controllers\ControllerPreorder;
 use App\Http\Controllers\ControllerRekanan;
@@ -150,6 +151,12 @@ Route::middleware(['auth'])->group(function(){
             route::get('/Admin/metodepembayaran','Homepayment')->name('payment');
             route::post('/Admin/Payment/TambahPayment','Paymentaddform');
             route::post('/Admin/Payment/PaymentAdd','Paymentadd');
+        });
+
+        route::controller(ControllerOperator::class)->group(function(){
+            route::get('/Admin/Operator','OperatorHome')->name('OperatorHome');
+            route::post('/Admin/Operator/TambahOperator','Operatoraddform');
+            route::post('/Admin/Operator/OperatorAdd','Operatoradd');
         });
          
     });

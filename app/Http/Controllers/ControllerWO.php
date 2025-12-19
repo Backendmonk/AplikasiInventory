@@ -72,7 +72,10 @@ class ControllerWO extends Controller
                 'isiperbuku'              => $reqDataWo->isi_perbuku,
                 'harga'                   => $reqDataWo->harga,
                 'keterangan'              => $reqDataWo->keterangan,
-                'status'                  => $status
+                'status'                  => $status,
+                'OperatorCetak'          => $reqDataWo->operatorCetak,
+                'OperatorPotong'         => $reqDataWo->operatorPotong,
+                'operatorProduksi'      => $reqDataWo->operatorProduksi,
 
         ];
 
@@ -107,6 +110,9 @@ class ControllerWO extends Controller
                 'harga'                 => $dataWO['harga'] ?? null,
                 'status'                => $dataWO['status'] ?? null,
                 'keterangan'            => $dataWO['keterangan'] ?? null,
+                'id_operatorcetak'         => $dataWO['OperatorCetak'] ?? null,
+                'id_operatorpotong'        => $dataWO['OperatorPotong'] ?? null,
+                'id_operatorproduksi'     => $dataWO['operatorProduksi'] ?? null,
             ]);
 
 
@@ -131,7 +137,7 @@ class ControllerWO extends Controller
         if ($toolswo['detail'] != NULL) {
             $data  = [
 
-                'datawoperid' => ModelWO::where('id','=',$toolswo['idwo'])->first(),
+                'datawoperid' => ModelWO::where('id','=',$toolswo['idwo'])->with('wocetak')->with('wopotong')->with('woproduksi')->first(),
                 'datainvwo'=>ModelInvKeluar::where('id_wo','=',$toolswo['idwo'])->with('databarangwo')->get()
             ];
             return view('Admin.WorkOrder.wodetail',$data);

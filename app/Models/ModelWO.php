@@ -58,7 +58,7 @@ class ModelWO extends Model
 
     }
 
-    public function woceta(){
+    public function wocetak(){
         return $this->belongsTo(ModelOperator::class,'id_operatorcetak','id');
 
     }
