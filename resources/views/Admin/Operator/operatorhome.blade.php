@@ -86,7 +86,7 @@
   <form action="/Admin/Operator/TambahOperator" method="POST" class="mr-2">
     @csrf
     <button type="submit" name="tambah" value="tambah" class="btn btn-primary">
-      <i class="fa fa-folder-open" aria-hidden="true"></i> Tambah Operator
+      <i class="fa fa-user-plus" aria-hidden="true"></i> Tambah Operator
     </button>
   </form>
 
@@ -130,10 +130,9 @@
                                                               
                                                               <input type="text" hidden name = "idOperator" value="{{ $data['id'] }}">
 
-                                                              <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail Wo</button></li>
+                                                              <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail Transaksi</button></li>
 
-                                                            <li><button class="dropdown-item" type="submit" name ="edit" value = "edit">Edit</button></li>
-                                                            <li><button class="dropdown-item" type="submit" name ="hapus" value ="hapus">Hapus</button></li>
+                                                             <li><button class="dropdown-item" type="submit" name ="hapus" value ="hapus">Hapus</button></li>
                                                             
                                                           
                                                             </form>

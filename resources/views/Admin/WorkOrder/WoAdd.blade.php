@@ -159,8 +159,9 @@
               <div class="col-md-4">
                <label class="form-label">Operator Produksi</label>
                 <Select autocomplete="off"  placeholder="pilih atau ketik rekanan" name="operatorProduksi" class="form-control">                
-               @foreach($dataoperator as $operator)
                     <option value=" ">--Pilih--</option>
+                    @foreach($dataoperator as $operator)
+                    
                     <option value="{{ $operator->id}}">{{ $operator->nama_operator }}</option>
                 @endforeach
                 </select>

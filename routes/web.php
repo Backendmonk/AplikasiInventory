@@ -157,6 +157,8 @@ Route::middleware(['auth'])->group(function(){
             route::get('/Admin/Operator','OperatorHome')->name('OperatorHome');
             route::post('/Admin/Operator/TambahOperator','Operatoraddform');
             route::post('/Admin/Operator/OperatorAdd','Operatoradd');
+            route::post('/Admin/Operator/ToolsEditOperator','ToolsOperator');
+            
             
         });
          
