@@ -15,4 +15,8 @@ class ControllerOperator extends Controller
         ];
         return view('Admin.Operator.operatorhome', $operatorget);
     }
+
+    public function Operatoraddform(){
+        return view('Admin.Operator.operatoradd');
+    }
 }
