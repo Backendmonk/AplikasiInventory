@@ -41,4 +41,8 @@ class ModelBarang extends Model
         return $this->hasmany(ModelInvKeluar::class,'id_barang');
 
     }
+
+    public function barangBeli(){
+        return $this->hasmany(ModelPembelianBarang::class,'id_barang','id');
+    }
 }

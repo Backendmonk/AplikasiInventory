@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('tb_history_nota_pembelian', function (Blueprint $table) {
+            $table->unsignedBigInteger('id_nota_pembelian');
+            $table->string('totalbayar');
+            $table->string('dibayar');
+            $table->string('sisa');
+            $table->timestamps();
+
+
+                $table->foreign('id_nota_pembelian')
+                    ->references('id')->on('tb_nota_pembelian_barang')// refrensi diambil dari id yang ada pada tb kategori
+                    ->onUpdate('cascade') // Jika nama kategori diubah, foreign key tetap valid
+                    ->onDelete('restrict');// jika ada barang maka tidak bisa dihapus;
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('tb_history_nota_pembelian');
+    }
+};

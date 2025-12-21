@@ -26,5 +26,10 @@ class MOdelMetodeBayar extends Model
         return $this->hasMany(ModelHistoryPembayaran::class,'id_paymentmethod');
     }
 
+    public function historypembelian(){
+      
+        return $this->hasMany(ModelHistoryPembelianBarang::class,'id_payment');
+    }
+
 
 }

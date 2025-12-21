@@ -5,27 +5,27 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ModelPembelianBarang extends Model
+class ModelHistoryPembelianBarang extends Model
 {
     use HasFactory;
-    protected $table = 'tb_pembelian_barang';
+    protected $table = 'tb_history_pembelian';
     protected $fillable = [
-        'id_barang',
         'id_nota_pembelian',
-        'jumlah_beli',
-        'harga_beli',
-        'subtotal_harga_beli',
-        'suplier_nama',
+        'totalbayar',
+        'dibayar',
+        'sisa',
+        'id_payment',
     ];
     public $timestamps = true;
-    public $incrementing = true;
 
-    public function barangBeli(){
-        return $this->belongsTo(ModelBarang::class,'id_barang','id');
-    }
+    public $incrementing = false;
 
     public function notaPembelian(){
         return $this->belongsTo(ModelNotaPembelianBarang::class,'id_nota_pembelian','id');
+    }
+
+    public function metodePayment(){
+        return $this->belongsTo(ModelMetodeBayar::class,'id_payment','id');
     }
 
 }

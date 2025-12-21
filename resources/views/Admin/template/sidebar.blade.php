@@ -40,11 +40,11 @@
                 </div>
             </li>
                   <!-- Nav Item - Charts -->
-            {{-- <li class="nav-item">
+             <li class="nav-item">
                 <a class="nav-link" href="/Admin/Pembelian">
                     <i class="fas fa-fw fa-cart-plus"></i>
                     <span>Pembelian Barang</span></a>
-            </li> --}}
+            </li> 
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">

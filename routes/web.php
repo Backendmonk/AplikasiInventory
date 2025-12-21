@@ -8,6 +8,7 @@ use App\Http\Controllers\ControllerChartofAccount;
 use App\Http\Controllers\ControllerLaporan;
 use App\Http\Controllers\ControllerOperator;
 use App\Http\Controllers\ControllerPayment;
+use App\Http\Controllers\ControllerPembelian;
 use App\Http\Controllers\ControllerPreorder;
 use App\Http\Controllers\ControllerRekanan;
 use App\Http\Controllers\ControllerStokAdmin;
@@ -161,6 +162,11 @@ Route::middleware(['auth'])->group(function(){
             
             
         });
+
+        route::controller(ControllerPembelian::class)->group(function(){
+            route::Get('/Admin/Pembelian','PembelianView')->name('PembelianBarang');
+        });
+        
          
     });
 
