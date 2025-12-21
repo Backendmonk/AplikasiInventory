@@ -89,7 +89,7 @@
       <i class="fa fa-folder-open" aria-hidden="true"></i> Tambah Pembelian Barang
     </button>
   </form>
-
+</div>
   
 
 
@@ -111,17 +111,21 @@
                                             <th>Qty</th>
                                             <th>Harga</th>
                                             <th>Subtotal Harga</th>
+                                            <th>Tanggal</th>
                                         </tr>
                                     </thead>
                                     
                                     <tbody>
-                                        @foreach ($databarang as $data)
+                                        @foreach ($pembelianbarang as $data)
                                              <tr>
                                                     <td>{{ $data['id'] }}</td>
-                                                    <td>{{ $data['nama_barang'] }}</td>
-                                                    
-                                                     <td>{{ $data->Kategoribr->Kategori }} <!-- Memanggil Join --></td>
-                                                     <td>{{ $data['stok_barang'] }}</td>
+                                                    <td>{{ $data->barangBeli->nama_barang }}</td>
+                                                     <td>{{ $data->notaPembelian->id }} <!-- Memanggil Join --></td>
+                                                     <td>{{ $data['nama_suplier'] }}</td>
+                                                     <td>{{ $data['qty'] }}</td>
+                                                     <td>{{ $data['harga'] }}</td>
+                                                     <td>{{ $data['subtotal_harga'] }}</td>
+                                                     <td>{{ $data['created_at'] }}</td>
 
                                                     <td>
                                                       <div class="dropdown">
