@@ -87,6 +87,7 @@ class ControllerPembelian extends Controller
                                 $upPersediaan->save();
                                 $uphutang->save();
                                 $upkasbank->save();
+                                //Tambahkan  history Transaksi
 
 
 
