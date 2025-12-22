@@ -168,6 +168,7 @@ Route::middleware(['auth'])->group(function(){
             route::Get('/Admin/Pembelian/TambahPembelian','pembeliantambah');
 
             route::post('/Admin/Pembelian/Process','ProsesPembelian');
+            route::post('/Admin/Pembelian/Detail','DetailPembelian');
         });
         
          

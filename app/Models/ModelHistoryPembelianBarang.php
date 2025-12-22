@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ModelHistoryPembelianBarang extends Model
 {
     use HasFactory;
-    protected $table = 'tb_history_pembelian';
+    protected $table = 'tb_history_nota_pembelian';
     protected $fillable = [
         'id_nota_pembelian',
         'totalbayar',

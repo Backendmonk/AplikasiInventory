@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Model_chartAkun;
+use App\Models\ModelAlurStok;
 use App\Models\ModelBarang;
+use App\Models\ModelHistoryPembelianBarang;
 use App\Models\MOdelMetodeBayar;
 use App\Models\ModelNotaPembelianBarang;
 use App\Models\ModelPembelianBarang;
+use App\Models\ModelStok;
 use Illuminate\Http\Request;
 
 class ControllerPembelian extends Controller
@@ -18,6 +21,7 @@ class ControllerPembelian extends Controller
         $getpembelian = [
 
             'pembelianbarang'=>ModelPembelianBarang::with('notaPembelian')->with('barangBeli')->get(),
+            
         ];
         return view('Admin.Pembelian.pembelianbarang',$getpembelian);
     }
@@ -47,7 +51,7 @@ class ControllerPembelian extends Controller
 
         //cek saldo kas pada COA
             $idKasbank = $datareq['metodebayar'];
-            $rdm = rand(1000,9999);
+            $id = rand(1000,9999);
 
                 $cekidCOA = ModelMetodeBayar::find($idKasbank);
                 $ceksaldo  = Model_chartAkun::where('id',$cekidCOA->idcoa)->first();
@@ -67,9 +71,9 @@ class ControllerPembelian extends Controller
                  $sisa = $datareq['total']-$datareq['deposit'];
                         if ($sisa > 0) {
                                 $status = 'Hutang';
-                                ControllerJurnal::catatanjurnal($idpersediaan,$datareq['total'],0,'NotaPB-'.$rdm);
-                                ControllerJurnal::catatanjurnal($idhutang,0,$sisa,'NotaPB-'.$rdm);
-                                ControllerJurnal::catatanjurnal($idkasbannk,0,$datareq['deposit'],'NotaPB-'.$rdm);
+                                ControllerJurnal::catatanjurnal($idpersediaan,$datareq['total'],0,$id);
+                                ControllerJurnal::catatanjurnal($idhutang,0,$sisa,$id);
+                                ControllerJurnal::catatanjurnal($idkasbannk,0,$datareq['deposit'],$id);
 
                                 //updates coa
 
@@ -92,10 +96,13 @@ class ControllerPembelian extends Controller
 
 
 
+
+
+
                             }elseif ($sisa == 0) {
                                 $status = 'Selesai';
-                                 ControllerJurnal::catatanjurnal($idpersediaan,$datareq['total'],0,'NotaPB-'.$rdm);
-                                ControllerJurnal::catatanjurnal($idkasbannk,0,$datareq['deposit'],'NotaPB-'.$rdm);
+                                 ControllerJurnal::catatanjurnal($idpersediaan,$datareq['total'],0,$id);
+                                ControllerJurnal::catatanjurnal($idkasbannk,0,$datareq['deposit'],$id);
 
                                 //updates coa
 
@@ -114,6 +121,7 @@ class ControllerPembelian extends Controller
                             }
                         $inputnota->fill([
 
+                            'id'=>$id,
                             'total'=>$datareq['total'],
                             'dibayar'=>$datareq['deposit'],
                             'sisa'=> $sisa,
@@ -122,7 +130,17 @@ class ControllerPembelian extends Controller
                             
                         ])->save();
 
-                         return $this->TambahItemPembelianHandle($datareq,$inputnota->id);
+
+                        $inputhistoryTransaksi = New ModelHistoryPembelianBarang();
+                        $inputhistoryTransaksi->fill([
+
+                            'id_nota_pembelian'=>$id,
+                            'id_payment'=>$datareq['metodebayar'],
+                            'totalbayar'=>$datareq['total'],
+                            'dibayar'=>$datareq['deposit'],
+                            'sisa'=>$sisa,
+                        ])->save();
+                         return $this->TambahItemPembelianHandle($datareq,$id);
             }
        
        
@@ -135,48 +153,89 @@ class ControllerPembelian extends Controller
        
 
         try {
-            //code...
 
-             foreach ($datareq['barang'] as $key => $value) {
-            
-            $inputitem = new ModelPembelianBarang();
-            $inputitem->fill([
+    foreach ($datareq['items'] as $item) {
 
-                'id_barang'=>$datareq['barang'][$key],
-                'id_nota_pembelian'=>$notaid,
-                'suplier_nama'=>$datareq['supplier_nama'],
-                'jumlah'=>$datareq['jumlah'][$key],
-                'harga_beli'=>$datareq['harga_beli'][$key],
-                'subtotal_harga_beli'=>$datareq['subtotal'][$key],
-                'createrd_at'=>$datareq['tanggal_pembelian']
-
-
-            ])->save();
+        ModelPembelianBarang::create([
+            'id_barang' => $item['barang'],
+            'id_nota_pembelian' => $notaid,
+            'suplier_nama' => $datareq['supplier_nama'],
+            'jumlah_beli' => $item['jumlah'],
+            'harga_beli' => $item['harga_beli'],
+            'subtotal_harga_beli' => $item['subtotal'],
+            'created_at' => $datareq['tanggal_pembelian'],
+        ]);
         }
-        return  $this->updatedatabarang($datareq['barang'],$datareq['jumlah']);
 
-        } catch (\Throwable $th) {
-            //throw $th;
-            return redirect()->with('error','Gagal Menambahkan Pembelian Barang');
-        }
+        return $this->updatedatabarang(
+            array_column($datareq['items'], 'barang'),
+            array_column($datareq['items'], 'jumlah')
+        );
+
+    } catch (\Throwable $th) {
+        dd($th->getMessage());
+    }
+
        
 }
 
-        private function updatedatabarang($databarang,$datajumlah){
+      private function updatedatabarang($databarang, $datajumlah)
+{
+    foreach ($databarang as $key => $idbarang) {
 
-            foreach ($databarang as $key => $value) {
-                
-                $getbarang = ModelBarang::where('id',$databarang[$key])->first();
+        $getbarang = ModelBarang::find($idbarang);
+        if (!$getbarang) continue;
 
-                $newstok = $getbarang->stok + $datajumlah[$key];
+        $stokAwal = $getbarang->stok_barang;
+        $jumlahBeli = $datajumlah[$key];
 
-                ModelBarang::where('id',$databarang[$key])->update([
+        $stokAkhir = $stokAwal + $jumlahBeli;
 
-                    'stok'=>$newstok
-                ]);
-            }
+        // update stok barang
+        $getbarang->update([
+            'stok_barang' => $stokAkhir
+        ]);
 
-            return redirect('/Admin/Pembelian')->with('success','Berhasil Menambahkan Pembelian Barang');
+        // simpan alur stok
+        ModelAlurStok::create([
+            'idbarang'  => $idbarang,
+            'keterangan' => 'Pembelian Barang',
+            'Stok_Awal'  => $stokAwal,
+            'Stok_Akhir' => $stokAkhir,
+            'pesan'      => 'Menambahkan Stok dari Pembelian Barang',
+        ]);
+    }
+
+    $modelstok = ModelStok::where('idbarang', $databarang)->first();
+
+      $pertanggal = date('y-m-d');
+                         $modelstok->fill([
+                            'idbarang'=>$idbarang,
+                            'stok'=>$stokAkhir,
+                            'pertanggal'=>$pertanggal
+
+                         ])->save();
+
+    return redirect('/Admin/Pembelian')
+        ->with('msgdone', '');
+}
+
+
+
+public function DetailPembelian(Request $reqdata){
+
+        $datareq = $reqdata->all();
+
+        if ($datareq['pelunasan'] != NULL) {
+            # code...
+
+            echo "pelunasan";
         }
+        elseif ($datareq['detail'] !=NULL) {
+            # code...
+
+            echo "detail";
+        }
+}
 }
 

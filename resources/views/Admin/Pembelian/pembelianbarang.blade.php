@@ -124,6 +124,8 @@
                                             <th>Harga</th>
                                             <th>Subtotal Harga</th>
                                             <th>Tanggal</th>
+                                            <th>Status</th>
+                                            <th>Menus</th>
                                         </tr>
                                     </thead>
                                     
@@ -133,11 +135,12 @@
                                                     <td>{{ $data['id'] }}</td>
                                                     <td>{{ $data->barangBeli->nama_barang }}</td>
                                                      <td>{{ $data->notaPembelian->id }} <!-- Memanggil Join --></td>
-                                                     <td>{{ $data['nama_suplier'] }}</td>
-                                                     <td>{{ $data['qty'] }}</td>
-                                                     <td>{{ $data['harga'] }}</td>
-                                                     <td>{{ $data['subtotal_harga'] }}</td>
+                                                     <td>{{ $data['suplier_nama'] }}</td>
+                                                     <td>{{ $data['jumlah_beli'] }}</td>
+                                                     <td>{{ $data['harga_beli'] }}</td>
+                                                     <td>{{ $data['subtotal_harga_beli'] }}</td>
                                                      <td>{{ $data['created_at'] }}</td>
+                                                      <td>{{ $data->notaPembelian->status_nota }}</td>
 
                                                     <td>
                                                       <div class="dropdown">
@@ -147,6 +150,11 @@
                                                           <ul class="dropdown-menu">
                                                             <form action="/Admin/Pembelian/Detail" method="POST">
                                                               @csrf
+
+                                                              @if ($data->notaPembelian->status_nota == 'Hutang')
+                                                              <li><button class="dropdown-item" type="submit" name ="pelunasan" value ="detail">Lunasi</button></li>
+                                                                  
+                                                              @endif
                                                               
                                                                 <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail</button></li>
 
