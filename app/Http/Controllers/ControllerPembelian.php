@@ -65,7 +65,7 @@ class ControllerPembelian extends Controller
             }else{
 
                  $sisa = $datareq['total']-$datareq['deposit'];
-                        if ($sisa >= 0) {
+                        if ($sisa > 0) {
                                 $status = 'Hutang';
                                 ControllerJurnal::catatanjurnal($idpersediaan,$datareq['total'],0,'NotaPB-'.$rdm);
                                 ControllerJurnal::catatanjurnal($idhutang,0,$sisa,'NotaPB-'.$rdm);
@@ -87,12 +87,29 @@ class ControllerPembelian extends Controller
                                 $upPersediaan->save();
                                 $uphutang->save();
                                 $upkasbank->save();
-                                
 
 
 
-                            }else{
+
+                            }elseif ($sisa == 0) {
                                 $status = 'Selesai';
+                                 ControllerJurnal::catatanjurnal($idpersediaan,$datareq['total'],0,'NotaPB-'.$rdm);
+                                ControllerJurnal::catatanjurnal($idkasbannk,0,$datareq['deposit'],'NotaPB-'.$rdm);
+
+                                //updates coa
+
+                                $upPersediaan = Model_chartAkun::find($idpersediaan);
+                                $upkasbank  = Model_chartAkun::find($idkasbannk);
+
+                                $persediaanSaldo = $upPersediaan->saldo + $datareq['total'];
+                                $kasbanksaldo = $upkasbank->saldo - $datareq['deposit'];
+                                $upPersediaan->saldo = $persediaanSaldo;
+                                $upkasbank->saldo = $kasbanksaldo;
+                                $upPersediaan->save();
+                                $upkasbank->save();
+
+
+
                             }
                         $inputnota->fill([
 
