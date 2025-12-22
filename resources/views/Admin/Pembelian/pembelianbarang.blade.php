@@ -70,6 +70,18 @@
       
   @endif
 
+   @if (session()->has('error'))
+  <script>
+
+    Swal.fire({
+    title: "Gagal",
+    text: "Saldo Kas/Bank Tidak Mencukupi",
+    icon: "error"
+    });
+</script>
+      
+  @endif
+
 
   @if(session('msgerror'))
     <div class="alert alert-danger">

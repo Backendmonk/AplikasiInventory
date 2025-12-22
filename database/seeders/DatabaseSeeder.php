@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
                 'id' => 136,
                 'id_tipeakun' => 8,
                 'kode' => '3511',
-                'nama' => 'Hutang Usaha Belum Ditagihkan',
+                'nama' => 'Hutang Usaha',
                 'keterangan' => 'Liability',
                 'saldo_awal' => 0.00,
                 'tanggal_saldo_awal' => '2025-11-04',
