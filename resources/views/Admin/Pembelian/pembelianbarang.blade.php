@@ -83,7 +83,7 @@
     Table Kategori Barang
 -->
 <div class="d-flex">
-  <form action="/Admin/Barang/TambahBarang" method="POST" class="mr-2">
+  <form action="/Admin/Pembelian/TambahPembelian" method="GET" class="mr-2">
     @csrf
     <button type="submit" name="tambah" value="tambah" class="btn btn-primary">
       <i class="fa fa-folder-open" aria-hidden="true"></i> Tambah Pembelian Barang
@@ -133,16 +133,12 @@
                                                             Menus
                                                           </button>
                                                           <ul class="dropdown-menu">
-                                                            <form action="/Admin/Barang/ToolsEditBarang" method="POST">
+                                                            <form action="/Admin/Pembelian/Detail" method="POST">
                                                               @csrf
                                                               
-                                                              <input type="text" hidden name = "idbarang" value="{{ $data['id'] }}">
+                                                                <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail</button></li>
 
-                                                              <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail</button></li>
-
-                                                            <li><button class="dropdown-item" type="submit" name ="edit" value = "edit">Edit</button></li>
-                                                            <li><button class="dropdown-item" type="submit" name ="hapus" value ="hapus">Hapus</button></li>
-                                                             <li><button class="dropdown-item" type="submit" name ="sembunyi" value ="sembunyi">Sembunyikan</button></li>
+                                                            </li>
                                                           
                                                             </form>
                                                           </ul>
