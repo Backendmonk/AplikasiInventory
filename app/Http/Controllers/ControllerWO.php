@@ -685,14 +685,6 @@ class ControllerWO extends Controller
 
                $updatecoaAsset->save();
                $updatecoapiutang->save();
-
-
-
-
-
-
-
-
       
 
   try {
