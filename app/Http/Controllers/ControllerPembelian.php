@@ -229,9 +229,12 @@ public function DetailPembelian(Request $reqdata){
         $detail = $reqdata->detail;
         $id = $reqdata->idnota;
         if ($pelunasan != NULL) {
-            # code...
+            # code...   
+            $pem = ['pembelianbarang'=>ModelPembelianBarang::where('id_nota_pembelian','=',$id)->with('notaPembelian')->with('barangBeli')->get(),
+                'MetodeBayar'=>MOdelMetodeBayar::all(),
+        ];
 
-            echo "pelunasan";
+            return view('Admin.Pembelian.pelunasanpembelian',$pem);
         }
         elseif ($detail !=NULL) {
             # code...
@@ -240,5 +243,71 @@ public function DetailPembelian(Request $reqdata){
            return view('Admin.Pembelian.detailpembelian',$pem);
         }
 }
+
+
+public function PelunasanHutang(Request $reqdata){
+
+        $datareq = $reqdata->all();
+         return $this->PelunasanHutangHandle($datareq);
+    }
+
+
+private function PelunasanHutangHandle($datareq){
+
+        $idnota = $datareq['id_nota_pembelian'];
+        $jumlahbayar = $datareq['jumlah_bayar'];
+        $sisa_hutang = $datareq['sisa_hutang'];
+        $metode_bayar = $datareq['metode_bayar'];
+        $rand = rand(1000,9999);
+
+        $nota = ModelNotaPembelianBarang::find($idnota);
+
+        $sisaafter = $sisa_hutang - $jumlahbayar;
+
+        if ($sisaafter > 0) {
+            $status = 'Hutang';
+        }elseif ($sisaafter == 0) {
+            $status = 'Selesai';
+        }
+
+        //update nota pembelian
+        $nota->dibayar = $nota->dibayar + $jumlahbayar;
+        $nota->sisa = $sisaafter;
+        $nota->status_nota = $status;
+        $nota->save();
+
+        //tambah history pembayaran
+        $inputhistoryTransaksi = New ModelHistoryPembelianBarang();
+                        $inputhistoryTransaksi->fill([
+
+                            'id_nota_pembelian'=>$idnota,
+                            'id_payment'=>$metode_bayar,
+                            'totalbayar'=>$nota->total,
+                            'dibayar'=>$jumlahbayar,
+                            'sisa'=>$sisaafter,
+                        ])->save();
+            //catatan jurnal
+            $cekhutang = Model_chartAkun::where('nama','Hutang Usaha')->first();
+                $idhutang = $cekhutang->id;
+                $cekidCOA = ModelMetodeBayar::find($metode_bayar);
+                $ceksaldo  = Model_chartAkun::where('id',$cekidCOA->idcoa)->first();
+                $idkasbannk = $ceksaldo->id;
+                ControllerJurnal::catatanjurnal($idhutang,$jumlahbayar,0,$idnota.$rand);
+                ControllerJurnal::catatanjurnal($idkasbannk,0,$jumlahbayar,$idnota.$rand);
+            
+            //updates coa
+            $uphutang = Model_chartAkun::find($idhutang);
+            $upkasbank  = Model_chartAkun::find($idkasbannk);   
+            $hutangsaldo = $uphutang->saldo - $jumlahbayar;
+            $kasbanksaldo = $upkasbank->saldo + $jumlahbayar;
+            $uphutang->saldo = $hutangsaldo;    
+            $upkasbank->saldo = $kasbanksaldo;
+            $uphutang->save();
+            $upkasbank->save();
+                        
+        return redirect()->route('PembelianBarang')->with('msgdone','');
+    }
+
+
 }
 

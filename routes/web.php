@@ -169,6 +169,7 @@ Route::middleware(['auth'])->group(function(){
 
             route::post('/Admin/Pembelian/Process','ProsesPembelian');
             route::post('/Admin/Pembelian/Detail','DetailPembelian');
+            route::post('/Admin/Pembelian/PelunasanHutang','PelunasanHutang');
         });
         
          
