@@ -153,14 +153,14 @@
                                                               <input type="text" hidden name="idnota" value="{{ $data->notaPembelian->id }}">
                                                               
                                                                @if ($data->notaPembelian->status_nota == 'Hutang' )
-                                                              <li><button class="dropdown-item" type="submit" name ="pelunasan" value ="detail">Lunasi</button></li> 
+                                                              <li><button class="dropdown-item" type="submit" name ="pelunasan" value ="pelunasan">Lunasi</button></li> 
                                                               
                                                               @endif
                                                                   
                                                               
                                                               
                                                                 <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail</button></li>
-                                                                 <li><button class="dropdown-item" type="submit" name ="History" value ="history">Lunasi</button></li> 
+                                                                 <li><button class="dropdown-item" type="submit" name ="history" value ="history">History</button></li> 
 
                                                             </li>
                                                           

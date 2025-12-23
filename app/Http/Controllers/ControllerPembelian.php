@@ -227,6 +227,7 @@ public function DetailPembelian(Request $reqdata){
     
         $pelunasan = $reqdata->pelunasan;
         $detail = $reqdata->detail;
+        $history = $reqdata->history;
         $id = $reqdata->idnota;
         if ($pelunasan != NULL) {
             # code...   
@@ -241,6 +242,11 @@ public function DetailPembelian(Request $reqdata){
         $pem = ['pembelianbarang'=>ModelPembelianBarang::where('id_nota_pembelian','=',$id)->with('notaPembelian')->with('barangBeli')->get(),];
          
            return view('Admin.Pembelian.detailpembelian',$pem);
+        }
+        elseif ($history !=NULL) {
+            # code...
+            $pem = ['historypembelian'=>ModelHistoryPembelianBarang::where('id_nota_pembelian','=',$id)->with('notaPembelian')->with('metodeBayar')->get(),];
+              return view('Admin.Pembelian.historypembelian',$pem);
         }
 }
 
