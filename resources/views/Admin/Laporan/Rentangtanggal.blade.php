@@ -11,7 +11,7 @@
 @section('Content1')
 <div class="container-fluid d-flex justify-content-center">
     <div class="card shadow p-4" style="width: 450px; border-radius: 15px;">
-        <form action="{{ url('Admin/laporan/proses') }}" method="POST">
+        <form action="{{ url('Admin/laporan/proses') }}" method="get">
             @csrf
             <div class="mb-3">
                 <label class="form-label font-weight-bold">Dari Tanggal</label>

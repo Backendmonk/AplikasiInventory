@@ -138,7 +138,7 @@
                                                             Menus
                                                           </button>
                                                           <ul class="dropdown-menu">
-                                                            <form action="/Admin/Sales/notaview" method="POST">
+                                                            <form action="/Admin/Sales/notaview" method="GET">
                                                               @csrf
                                                               
                                                               <input type="text" hidden name = "idwo" value="{{ $data['id'] }}">

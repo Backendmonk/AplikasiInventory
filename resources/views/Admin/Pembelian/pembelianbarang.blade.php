@@ -148,7 +148,7 @@
                                                             Menus
                                                           </button>
                                                           <ul class="dropdown-menu">
-                                                            <form action="/Admin/Pembelian/Detail" method="POST">
+                                                            <form action="/Admin/Pembelian/Detail" method="GET">
                                                               @csrf
                                                               <input type="text" hidden name="idnota" value="{{ $data->notaPembelian->id }}">
                                                               

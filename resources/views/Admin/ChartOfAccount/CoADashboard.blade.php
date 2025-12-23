@@ -130,7 +130,7 @@
                                             <th>Jenis Akun</th>
                                             <th>Saldo</th>
                                             <th>Keterangan Akun</th>
-                                            <th>Tools</th>
+                                            {{-- <th>Tools</th> --}}
                                         </tr>
                                     </thead>
                                     
@@ -146,7 +146,9 @@
                                                      <td>{{ $data['keterangan'] }}</td>
 
 
-                                                    <td>
+                                                   
+                                                      {{-- 
+                                                       <td>
                                                       <div class="dropdown">
                                                           <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                                                             Menus
@@ -157,16 +159,20 @@
                                                               
                                                               <input type="text" hidden name = "idbarang" value="{{ $data['id'] }}">
 
-                                                              <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail</button></li>
+                                                              {{-- <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail</button></li> 
 
                                                       
                                                           
                                                             </form>
                                                           </ul>
                                                         </div>
+                                                        
+                                                        </td>
+                                                        
+                                                        --}}
 
                                                                                      
-                                                    </td>
+                                                    
                                             
                                             </tr>
                                         @endforeach

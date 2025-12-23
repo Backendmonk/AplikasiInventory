@@ -32,10 +32,10 @@
                                     <tbody>
                                        @foreach ($history as $data)
                                             <tr>
-                                               <td>{{ $data->idNota }}</td>
+                                              <td>{{ $data->idNota }}</td>
                                               <td>Rp {{ number_format($data->totalbayar, 0, ',', '.') }}</td>
-                                               <td>Rp {{ number_format($data->dibayarkan, 0, ',', '.') }}</td>
-                                                <td>Rp {{ number_format($data->sisa, 0, ',', '.') }}</td>
+                                              <td>Rp {{ number_format($data->dibayarkan, 0, ',', '.') }}</td>
+                                              <td>Rp {{ number_format($data->sisa, 0, ',', '.') }}</td>
                                              <td>{{$data->pertanggal}}</td>
                                                                                     
                                             </tr>

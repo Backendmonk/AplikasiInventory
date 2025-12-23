@@ -245,7 +245,7 @@ public function DetailPembelian(Request $reqdata){
         }
         elseif ($history !=NULL) {
             # code...
-            $pem = ['historypembelian'=>ModelHistoryPembelianBarang::where('id_nota_pembelian','=',$id)->with('notaPembelian')->with('metodeBayar')->get(),];
+            $pem = ['historypembelian'=>ModelHistoryPembelianBarang::where('id_nota_pembelian','=',$id)->with('notaPembelian')->with('metodePayment')->get(),];
               return view('Admin.Pembelian.historypembelian',$pem);
         }
 }

@@ -96,7 +96,7 @@
                                                             Menus
                                                           </button>
                                                           <ul class="dropdown-menu">
-                                                            <form action="/Admin/Stok/ToolsalurStok" method="POST">
+                                                            <form action="/Admin/Stok/ToolsalurStok" method="GET">
                                                               @csrf
                                                               
                                                               <input type="text" hidden name = "idbarang" value="{{ $data['id'] }}">

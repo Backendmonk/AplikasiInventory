@@ -87,18 +87,24 @@ class ControllerLaporan extends Controller
     }
 
     //fungsi memanggil Jurnal
-    Private Function PanggilJurnal($tanggal){
+  private function PanggilJurnal($tanggal) {
+    $tanggalAwal = $tanggal['tanggalAwal'];
+    $tanggalAkhir = $tanggal['tanggalAkhir'];
 
-        //
-        $tanggalAwal = $tanggal['tanggalAwal'];
-        $tanggalAkhir =$tanggal['tanggalAkhir'];
-        $data = ['Jurnal'=> MOdelJurnal::whereBetween('created_at', [$tanggalAwal, $tanggalAkhir])->with('idakun')
-            ->orderBy('idnota')
-            ->orderBy('id')
+    $data = [
+        // Mengelompokkan berdasarkan idnota agar baris debet & kredit menyatu
+        'Jurnal' => MOdelJurnal::whereBetween('created_at', [$tanggalAwal, $tanggalAkhir])
+            ->with('idakun')
+            ->orderBy('created_at', 'asc')
+            ->orderBy('idnota', 'asc')
             ->get()
-            ->groupBy('id')];
-        return view('Admin.Laporan.Jurnal',$data);
-    }
+            ->groupBy('idnota'), // KUNCI PERUBAHAN DISINI
+        'tanggalAwal' => $tanggalAwal,
+        'tanggalAkhir' => $tanggalAkhir
+    ];
+
+    return view('Admin.Laporan.Jurnal', $data);
+}
 
 
        Private Function PanggilLabaRugi($tanggal){
@@ -108,6 +114,10 @@ class ControllerLaporan extends Controller
 
     // Ambil semua akun
     $akun = Model_chartAkun::all(); 
+    $tanggal = [
+        'tanggalAwal' => $tanggalAwal,
+        'tanggalAkhir' => $tanggalAkhir
+    ];
 
     foreach ($akun as $a) {
         $idAkun = $a->id;
@@ -119,6 +129,7 @@ class ControllerLaporan extends Controller
 
         $totalDebit = $jurnal->sum('debit');
         $totalKredit = $jurnal->sum('kredit');
+
 
         // Tentukan Saldo Akhir berdasarkan saldo normal (menggunakan kolom 'keterangan')
         $keteranganAkun = strtolower($a->keterangan);
@@ -139,7 +150,7 @@ class ControllerLaporan extends Controller
     }
 
     // Mengirim semua akun (yang sudah dihitung saldonya) ke view
-    return view('Admin.Laporan.labarugi', compact('akun'));
+    return view('Admin.Laporan.labarugi', compact('akun', 'tanggal'));
 }
     
 
@@ -149,6 +160,10 @@ class ControllerLaporan extends Controller
 
     // 1. Ambil semua akun
     $akun = Model_chartAkun::all();
+      $tanggal = [
+        'tanggalAwal' => $tanggalAwal,
+        'tanggalAkhir' => $tanggalAkhir
+    ];
 
     foreach ($akun as $a) {
         // Ambil ID Akun untuk query Jurnal
@@ -189,7 +204,7 @@ class ControllerLaporan extends Controller
         // Jika saldo_awal Anda diasumsikan 0.0 seperti di gambar, maka abaikan.
     }
 
-    return view('Admin.Laporan.neraca', compact('akun'));
+    return view('Admin.Laporan.neraca', compact('akun', 'tanggal'));
 }
 
 

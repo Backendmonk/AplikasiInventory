@@ -5,6 +5,8 @@ use App\Http\Controllers\ControllerAdminPembelianBarang;
 use App\Http\Controllers\ControllerAuthUser;
 use App\Http\Controllers\ControllerBarangAdmin;
 use App\Http\Controllers\ControllerChartofAccount;
+use App\Http\Controllers\ControllerJurnal;
+use App\Http\Controllers\ControllerJurnalManual;
 use App\Http\Controllers\ControllerLaporan;
 use App\Http\Controllers\ControllerOperator;
 use App\Http\Controllers\ControllerPayment;
@@ -67,7 +69,7 @@ Route::middleware(['auth'])->group(function(){
             route::get('/Admin/Barang/DataBarang','DataBarang')->name('Barang');
             route::post('/Admin/Barang/TambahBarang','TambahBarang');
             route::post('/Admin/Barang/AddBarang','Addbarang');
-            route::post('/Admin/Barang/ToolsEditBarang','ToolsEditBarang');
+            route::get('/Admin/Barang/ToolsEditBarang','ToolsEditBarang');
             route::post('/Admin/Barang/EditBarang','EditBarang');
             route::get('/Admin/Barang/BarangOff','BarangOff');
 
@@ -76,7 +78,7 @@ Route::middleware(['auth'])->group(function(){
             route::get('/Admin/Barang/Kategori','KategoriBarangView')->name('Kategori');
             route::post('/Admin/Barang/TambahKategori','TambahKategoriBarang');
             route::post('/Admin/Barang/AddKatagori','KatagoriBarangAdd');
-            route::POST('/Admin/Barang/ToolsEdit','ToolsKategori');
+            route::GET('/Admin/Barang/ToolsEdit','ToolsKategori');
             route::post ('/Admin/Barang/EditKatagori','EditKategori');
 
             route::post('/Admin/Barang/CekStokBarang','Stokrendah');
@@ -86,7 +88,7 @@ Route::middleware(['auth'])->group(function(){
          route::controller(ControllerStokAdmin::class)->group(function(){
             route::get('/Admin/JumlahStokBarang','JumlahStokBarangView');
             route::get('/Admin/StokControll','StokControllview')->name('stokcontrol');
-            route::post('/Admin/Stok/ToolsalurStok','ToolsAlurStok');
+            route::get('/Admin/Stok/ToolsalurStok','ToolsAlurStok');
             route::post('/Admin/Stok/Opname','OpnameStok');
             
          });
@@ -96,7 +98,7 @@ Route::middleware(['auth'])->group(function(){
             route::get('/Admin/Rekanan','RekananView')->name('rekanan');
             route::post('/Admin/Rekanan/Tambahrekanan','TambahRekananView'); 
             route::post('/Admin/Rekanan/Addrekanan','Addrekanan');
-            route::post('/Admin/Barang/ToolsRekanan','ToolsRekanan');
+            route::GET('/Admin/Barang/ToolsRekanan','ToolsRekanan');
             route::post('/Admin/Rekanan/Editrekanan','Editrekanan');
             
 
@@ -110,13 +112,13 @@ Route::middleware(['auth'])->group(function(){
             route::get('/Admin/Sales/WorkOrder','Wodashboard')->name('workorder');
             route::post('/Admin/wo/Addwo','Addwo');
             route::post('/Admin/Wo/ProsesAddwo','ProsesAddWo');
-            route::post('/Admin/wo/Toolswo','toolswo');
+            route::get('/Admin/wo/Toolswo','toolswo');
             route::get('/Admin/Sales/Nota','Notadashboard')->name('nota');
             route::get('/Admin/sales/Addnota','Addnotavw')->name('notaadd');
             route::post('/Admin/Sales/NotaItems','NotaItems');
             route::post('/Admin/Sales/InputNota','inputnota');
             route::post('/Admin/WO/InvKeluar','InvKeluar');
-            route::post('/Admin/Sales/notaview','notatools');
+            route::get('/Admin/Sales/notaview','notatools');
             route::post('/Admin/Sales/Pelunasan','pelunasan');
             route::get('/Admin/sales/notaselesai','Notaselesai');
       
@@ -142,7 +144,7 @@ Route::middleware(['auth'])->group(function(){
             route::get('Admin/laporan/jurnal','Jurnalselected');
             route::get('Admin/laporan/labarugi','Labarugiselected');
             route::get('Admin/laporan/neraca','Neracaselected');
-            route::post('Admin/laporan/proses','ProsesLaporan');
+            route::get('Admin/laporan/proses','ProsesLaporan');
             route::get('/Admin/Sales/Sales','LaporanPenjualan');
 
         });
@@ -168,11 +170,13 @@ Route::middleware(['auth'])->group(function(){
             route::Get('/Admin/Pembelian/TambahPembelian','pembeliantambah');
 
             route::post('/Admin/Pembelian/Process','ProsesPembelian');
-            route::post('/Admin/Pembelian/Detail','DetailPembelian');
+            route::get('/Admin/Pembelian/Detail','DetailPembelian');
             route::post('/Admin/Pembelian/PelunasanHutang','PelunasanHutang');
         });
-        
-         
+
+       route::controller(ControllerJurnalManual::class)->group(function(){
+            route::Get('/Admin/JurnalManual','JurnalManual');
+       });
     });
 
 

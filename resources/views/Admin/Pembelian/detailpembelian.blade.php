@@ -64,7 +64,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <button onclick="window.print()" class="btn btn-primary mr-2">
-                        <i class="fas fa-print"></i> Print Landscape (Dot Matrix)
+                        <i class="fas fa-print"></i> Print Landscape
                     </button>
                     <button onclick="location.reload()" class="btn btn-secondary">
                         <i class="fas fa-sync"></i> Refresh Data

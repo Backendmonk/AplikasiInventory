@@ -93,7 +93,7 @@
                                                             Menus
                                                           </button>
                                                           <ul class="dropdown-menu">
-                                                            <form action="/Admin/Barang/ToolsEdit" method="POST">
+                                                            <form action="/Admin/Barang/ToolsEdit" method="GET">
                                                               @csrf
                                                               <input type="text" hidden name = "idKategori" value="{{ $data['id'] }}">
                                                             <li><button class="dropdown-item" type="submit" name ="edit" value = "edit">Edit</button></li>

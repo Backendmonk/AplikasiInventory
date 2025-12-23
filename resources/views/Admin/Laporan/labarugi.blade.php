@@ -10,11 +10,10 @@
 
 @section('Content1')
 
-{{-- ===================== PRINT CSS ===================== --}}
+{{-- ===================== PRINT CSS DOT MATRIX ===================== --}}
 <style>
 @media print {
 
-    /* Sembunyikan elemen yang tidak dicetak */
     .no-print,
     nav, header, aside,
     .sidebar, .navbar, .topbar,
@@ -22,126 +21,157 @@
         display: none !important;
     }
 
-    /* Area print full */
-    .print-area {
-        width: 100% !important;
+    body {
         margin: 0 !important;
         padding: 0 !important;
     }
 
-    /* Semua teks tebal */
-    .print-area,
-    .print-area * {
-        font-weight: 900 !important;
+    /* AREA CETAK */
+    .print-area {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-family: "Courier New", Courier, monospace !important;
+        font-size: 11px !important;
         color: #000 !important;
     }
 
-    /* Hilangkan tampilan DataTables yg mengganggu saat print */
+    /* HILANGKAN CARD / CONTAINER */
+    .container,
+    .card,
+    .card-body,
+    .table-responsive {
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+    }
+
+    /* TABLE */
+    table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+    }
+
+    th, td {
+        border: 1px solid #000 !important;
+        padding: 3px 5px !important;
+        white-space: nowrap !important;
+        font-weight: normal !important;
+    }
+
+    th {
+        text-align: center !important;
+        font-weight: bold !important;
+        background: none !important;
+    }
+
+    /* Hilangkan warna bootstrap */
+    .table-dark,
+    .table-secondary,
+    .table-info {
+        background: none !important;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background: none !important;
+    }
+
+    td.text-end,
+    td.text-right {
+        text-align: right !important;
+    }
+
+    h2, h3, h4, p {
+        text-align: center;
+        margin: 0;
+        padding: 2px 0;
+        font-weight: bold;
+    }
+
+    /* DataTables OFF */
     .dataTables_length,
     .dataTables_filter,
     .dataTables_info,
     .dataTables_paginate {
         display: none !important;
     }
-
-    /* Table harus full width */
-    .dataTables_wrapper {
-        overflow: visible !important;
-    }
-
-    /* BORDER TABEL TEBAL SAAT PRINT */
-    .print-area table {
-        width: 100% !important;
-        border-collapse: collapse !important;
-        table-layout: auto !important; /* mencegah kepotong */
-    }
-
-    .print-area table th,
-    .print-area table td {
-        border: 2px solid #000 !important;
-        padding: 6px !important;
-        white-space: normal !important; /* teks panjang tidak kepotong */
-    }
-
-    /* Header lebih mencolok */
-    .print-area table th {
-        background: #eaeaea !important;
-        font-weight: 900 !important;
-    }
 }
 </style>
 
-{{-- ===================== PRINT-AREA START ===================== --}}
-<div class="container my-4 print-area">
-    <h3 class="text-center mb-4">Laporan Laba Rugi<br>Nama Perusahaan Anda<br></h3>
-    
-    {{-- Tombol print tidak ikut tercetak --}}
-    <button class="btn btn-primary mb-3 no-print" onclick="window.print()">Print Laporan</button>
+<div class="print-area">
 
-    <h4 class="mb-3">Laba Rugi</h4>
-    <table class="table table-bordered table-striped table-hover">
-        <thead class="table-dark">
+    <center> 
+    Laba Rugi Duta Utama Grafika<br>
+    Periode: {{ $tanggal['tanggalAwal'] }} s/d {{ $tanggal['tanggalAkhir'] }} <br>
+   </center>
+
+    <button class="btn btn-primary mb-2 no-print" onclick="window.print()">Print Laporan</button>
+
+    <table class="table table-bordered small">
+        <thead>
             <tr>
                 <th>Keterangan</th>
-                <th class="text-end">Jumlah (Rp)</th>
+                <th>Jumlah (Rp)</th>
             </tr>
         </thead>
         <tbody>
+
             {{-- PENDAPATAN --}}
-            <tr class="table-secondary">
+            <tr>
                 <td><strong>PENDAPATAN</strong></td>
                 <td></td>
             </tr>
+
             @php $totalPendapatan = 0; @endphp
             @foreach($akun as $a)
-                {{-- Filter akun Pendapatan --}}
-                @if(strtolower($a->keterangan) == 'income') 
+                @if(strtolower($a->keterangan) == 'income')
                     <tr>
                         <td>&nbsp;&nbsp;{{ $a->nama }}</td>
-                        <td class="text-end">Rp.{{ number_format($a->saldo,0,',','.') }}</td>
+                        <td class="text-right">Rp {{ number_format($a->saldo,0,',','.') }}</td>
                     </tr>
                     @php $totalPendapatan += $a->saldo; @endphp
                 @endif
             @endforeach
-            <tr class="fw-bold">
-                <td>Total Pendapatan</td>
-                <td class="text-end border-top border-dark border-2">Rp.{{ number_format($totalPendapatan,0,',','.') }}</td>
+
+            <tr>
+                <td><strong>Total Pendapatan</strong></td>
+                <td class="text-right"><strong>Rp {{ number_format($totalPendapatan,0,',','.') }}</strong></td>
             </tr>
 
             {{-- BEBAN --}}
-            <tr class="table-secondary">
+            <tr>
                 <td><strong>BEBAN</strong></td>
                 <td></td>
             </tr>
+
             @php $totalBeban = 0; @endphp
             @foreach($akun as $a)
-                {{-- Filter akun Beban --}}
-                @if(strtolower($a->keterangan) == 'expense') 
+                @if(strtolower($a->keterangan) == 'expense')
                     <tr>
                         <td>&nbsp;&nbsp;{{ $a->nama }}</td>
-                        {{-- Beban ditampilkan sebagai nilai positif, namun dihitung sebagai pengurang --}}
-                        <td class="text-end">Rp.{{ number_format($a->saldo,0,',','.') }}</td>
+                        <td class="text-right">Rp {{ number_format($a->saldo,0,',','.') }}</td>
                     </tr>
                     @php $totalBeban += $a->saldo; @endphp
                 @endif
             @endforeach
-            <tr class="fw-bold">
-                <td>Total Beban</td>
-                <td class="text-end border-top border-dark border-2">Rp.{{ number_format($totalBeban,0,',','.') }}</td>
+
+            <tr>
+                <td><strong>Total Beban</strong></td>
+                <td class="text-right"><strong>Rp {{ number_format($totalBeban,0,',','.') }}</strong></td>
             </tr>
 
-            {{-- LABA/RUGI BERSIH --}}
+            {{-- LABA / RUGI --}}
             @php $labaRugiBersih = $totalPendapatan - $totalBeban; @endphp
 
-            <tr class="table-info fw-bold">
-                <td>{{ $labaRugiBersih >= 0 ? 'Laba Bersih' : 'Rugi Bersih' }}</td>
-                <td class="text-end border-top border-dark border-3">
-                    Rp.{{ number_format(abs($labaRugiBersih),0,',','.') }}
+            <tr>
+                <td><strong>{{ $labaRugiBersih >= 0 ? 'LABA BERSIH' : 'RUGI BERSIH' }}</strong></td>
+                <td class="text-right">
+                    <strong>Rp {{ number_format(abs($labaRugiBersih),0,',','.') }}</strong>
                 </td>
             </tr>
+
         </tbody>
     </table>
+
 </div>
-{{-- ===================== PRINT-AREA END ===================== --}}
 
 @endsection
