@@ -120,7 +120,8 @@
 
     body {
         font-family: "Courier New", Courier, monospace !important;
-        font-size: 11pt !important;
+         font-size: 15pt !important;
+        font-weight: bolder !important;
     }
 
     .table-nota {

@@ -52,7 +52,8 @@
     /* Font Monospace agar tajam di printer */
     .print-area, .print-area table {
         font-family: "Courier New", Courier, monospace !important;
-        font-size: 10pt !important;
+         font-size: 15pt !important;
+        font-weight: bolder !important;
         color: #000 !important;
     }
 
