@@ -176,6 +176,7 @@ Route::middleware(['auth'])->group(function(){
 
        route::controller(ControllerJurnalManual::class)->group(function(){
             route::Get('/Admin/JurnalManual','JurnalManual');
+            route::post('/Admin/JurnalManual/Simpan','SimpanJurnalManual');
        });
     });
 

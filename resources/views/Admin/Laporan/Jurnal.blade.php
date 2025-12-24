@@ -57,7 +57,7 @@ thead {
     }
 
     th, td {
-        border: 1px solid #000 !important;
+        border: 3px solid #000 !important;
         padding: 3px 5px !important;
         white-space: nowrap !important;
         font-weight: normal !important;
