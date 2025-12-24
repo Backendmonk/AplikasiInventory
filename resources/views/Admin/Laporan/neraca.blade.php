@@ -43,7 +43,8 @@
     .print-area {
         width: 100% !important;
         font-family: "Courier New", Courier, monospace !important;
-        font-size: 11px !important;
+        font-size: 15pt !important;
+        font-weight: bolder !important;
         color: #000 !important;
     }
 

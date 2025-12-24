@@ -51,6 +51,7 @@
         table-layout: fixed !important; /* Paksa muat dalam lebar kertas */
         font-family: "Courier New", Courier, monospace !important;
         font-size: 7.5pt !important; /* Ukuran font diperkecil agar kolom muat banyak */
+        font-weight: bolder !important;
         color: #000 !important;
     }
 
