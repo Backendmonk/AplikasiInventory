@@ -181,7 +181,7 @@ class COntrollerStokKasir extends Controller
         $addAlur->save();
 
 
-        return redirect()->route('stokcontrol')->with('msgdone','');
+        return redirect()->route('stokcontrolKasir')->with('msgdone','');
         
     }
 }

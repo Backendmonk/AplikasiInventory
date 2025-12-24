@@ -21,50 +21,62 @@ class ControllerJurnalManual extends Controller
 
 public function SimpanJurnalManual(Request $request)
 {
-    // 1. Validasi Input
     $request->validate([
         'tanggal' => 'required|date',
         'nomor_nota' => 'required|string',
         'akun_id' => 'required|array',
-        'akun_id.*' => 'required', // Memastikan setiap baris ada akun yang dipilih
+        'akun_id.*' => 'required',
         'debit' => 'required|array',
         'kredit' => 'required|array',
         'keterangan_umum' => 'nullable|string',
     ]);
 
     try {
-        // Ambil data dari request
         $akun_ids = $request->akun_id;
         $debits   = $request->debit;
         $kredits  = $request->kredit;
         $id_nota  = $request->nomor_nota;
 
-        // 2. Lakukan looping untuk menyimpan setiap baris jurnal
         foreach ($akun_ids as $index => $id_akun) {
-            
-            $nominal_debit  = $debits[$index] ?? 0;
-            $nominal_kredit = $kredits[$index] ?? 0;
 
-            // Lewati baris jika debit dan kredit sama-sama nol atau kosong
+            $nominal_debit  = (float) ($debits[$index] ?? 0);
+            $nominal_kredit = (float) ($kredits[$index] ?? 0);
+
+            // skip kalau kosong
             if ($nominal_debit == 0 && $nominal_kredit == 0) {
                 continue;
             }
 
-            /** * 3. Memanggil fungsi static dari ControllerJurnal sesuai gambar Anda:
-             * Parameter: ($id_akun, $debit, $kredit, $idnota)
-             */
+            // SIMPAN JURNAL
             \App\Http\Controllers\ControllerJurnal::catatanjurnal(
-                $id_akun, 
-                $nominal_debit, 
-                $nominal_kredit, 
+                $id_akun,
+                $nominal_debit,
+                $nominal_kredit,
                 $id_nota
             );
+
+            // ================================
+            // UPDATE SALDO COA (SESUAI LOGIKA MU)
+            // ================================
+            $coa = Model_chartAkun::find($id_akun);
+
+            if ($coa) {
+                $saldoAwal = $coa->saldo;
+
+                // debit nambah, kredit ngurang
+                $saldoAkhir = $saldoAwal + $nominal_debit - $nominal_kredit;
+
+                $coa->fill([
+                    'saldo' => $saldoAkhir
+                ]);
+
+                $coa->save();
+            }
         }
 
-        return redirect()->back()->with('msgdone', '');
+        return redirect()->back()->with('msgdone', 'Jurnal & saldo COA berhasil disimpan');
 
     } catch (\Exception $e) {
-        // Jika terjadi error, kembalikan pesan error
         return redirect()->back()->with('error', 'Gagal menyimpan jurnal: ' . $e->getMessage());
     }
 }

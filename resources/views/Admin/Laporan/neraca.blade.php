@@ -5,119 +5,106 @@
 @endsection
 
 @section('Judulisi')
-    <h2>Laporan Neraca</h2>
+    <h2 class="no-print">Laporan Neraca</h2>
 @endsection
 
 @section('Content1')
 
-{{-- ===================== PRINT CSS DOT MATRIX ===================== --}}
+{{-- ===================== PRINT CSS OPTIMIZED (PORTRAIT + NO URL) ===================== --}}
 <style>
 @media print {
+    /* 1. Paksa Orientasi Portrait & Hilangkan Header/Footer Browser */
+    @page {
+        size: A4 portrait;
+        margin: 10mm; /* Margin ini menekan URL keluar dari area cetak */
+    }
 
-    .no-print,
-    nav, header, aside,
-    .sidebar, .navbar, .topbar,
-    footer {
+    /* 2. Sembunyikan Elemen UI Web */
+    .no-print, nav, header, aside, .sidebar, .navbar, .topbar, footer, 
+    .btn, .breadcrumb, .content-header, .main-footer {
         display: none !important;
+        height: 0 !important;
     }
 
-    body {
+    /* 3. Reset Container agar Full Width & Tidak Terpotong */
+    body, .content-wrapper, .main-content, .container-fluid, .content, .container, .card {
         margin: 0 !important;
         padding: 0 !important;
+        width: 100% !important;
+        position: relative !important;
+        left: 0 !important;
+        top: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        background: none !important;
     }
 
-    /* AREA CETAK */
+    /* 4. Font & Area Cetak (Dot Matrix Friendly) */
     .print-area {
-        margin: 0 !important;
-        padding: 0 !important;
+        width: 100% !important;
         font-family: "Courier New", Courier, monospace !important;
         font-size: 11px !important;
         color: #000 !important;
     }
 
-    /* HILANGKAN CARD / CONTAINER */
-    .container,
-    .card,
-    .card-body,
-    .table-responsive {
-        margin: 0 !important;
-        padding: 0 !important;
-        border: none !important;
-    }
-
-    /* TABLE */
+    /* 5. Tabel Cetak */
     table {
         width: 100% !important;
         border-collapse: collapse !important;
+        table-layout: fixed !important; /* Mencegah tabel meluber ke samping */
     }
 
     th, td {
         border: 1px solid #000 !important;
-        padding: 3px 5px !important;
-        white-space: nowrap !important;
-        font-weight: normal !important;
+        padding: 4px 6px !important;
+        word-wrap: break-word !important;
     }
 
     th {
         text-align: center !important;
         font-weight: bold !important;
-        background: none !important;
+        background-color: #f2f2f2 !important;
+        -webkit-print-color-adjust: exact;
     }
 
-    /* Hilangkan warna bootstrap */
-    .table-dark,
-    .table-secondary,
-    .table-success {
-        background: none !important;
-    }
-
-    .table-striped tbody tr:nth-of-type(odd) {
-        background: none !important;
-    }
-
-    td.text-end,
     td.text-right {
         text-align: right !important;
     }
 
-    h2, h3, h4, p {
-        text-align: center;
-        margin: 0;
-        padding: 2px 0;
-        font-weight: bold;
-    }
-
-    /* DataTables OFF */
-    .dataTables_length,
-    .dataTables_filter,
-    .dataTables_info,
-    .dataTables_paginate {
+    /* Hilangkan URL paksa pada browser Chrome/Edge */
+    body:after, body:before {
+        content: none !important;
         display: none !important;
     }
 }
+
+/* Styling Layar Normal (UX Asli) */
+.print-area { padding: 20px; }
 </style>
 
 <div class="print-area">
 
-   <center> 
-    Neraca Duta Utama Grafika<br>
-    Periode: {{ $tanggal['tanggalAwal'] }} s/d {{ $tanggal['tanggalAkhir'] }} <br>
-   </center>
+    <center> 
+        <h3 style="margin:0; font-weight: bold;">Neraca Duta Utama Grafika</h3>
+        Periode: {{ $tanggal['tanggalAwal'] }} s/d {{ $tanggal['tanggalAkhir'] }}
+    </center>
 
-    <button class="btn btn-primary mb-2 no-print" onclick="window.print()">Print Laporan</button>
+    <button class="btn btn-primary mb-3 no-print" onclick="window.print()">
+        <i class="fas fa-print"></i> Print Laporan
+    </button>
 
     <table class="table table-bordered small">
         <thead>
             <tr>
-                <th>Akun</th>
-                <th>Debet (Rp)</th>
-                <th>Kredit (Rp)</th>
+                <th width="50%">Akun</th>
+                <th width="25%">Debet (Rp)</th>
+                <th width="25%">Kredit (Rp)</th>
             </tr>
         </thead>
         <tbody>
 
             {{-- ASET --}}
-            <tr>
+            <tr style="background-color: #f9f9f9;">
                 <td><strong>ASET</strong></td>
                 <td></td>
                 <td></td>
@@ -127,7 +114,7 @@
             @foreach($akun as $a)
                 @if(strtolower($a->keterangan) == 'asset' && $a->saldo >= 0)
                     <tr>
-                        <td>&nbsp;&nbsp;{{ $a->nama }}</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ $a->nama }}</td>
                         <td class="text-right">Rp {{ number_format($a->saldo,0,',','.') }}</td>
                         <td></td>
                     </tr>
@@ -135,14 +122,17 @@
                 @endif
             @endforeach
 
-            <tr>
-                <td><strong>Total Aset</strong></td>
-                <td class="text-right"><strong>Rp {{ number_format($totalAset,0,',','.') }}</strong></td>
+            <tr style="font-weight: bold;">
+                <td>Total Aset</td>
+                <td class="text-right">Rp {{ number_format($totalAset,0,',','.') }}</td>
                 <td></td>
             </tr>
 
+            {{-- Spasi --}}
+            <tr style="border:none;"><td colspan="3" style="border:none; padding: 5px;"></td></tr>
+
             {{-- LIABILITAS --}}
-            <tr>
+            <tr style="background-color: #f9f9f9;">
                 <td><strong>LIABILITAS</strong></td>
                 <td></td>
                 <td></td>
@@ -152,7 +142,7 @@
             @foreach($akun as $a)
                 @if(strtolower($a->keterangan) == 'liability' && $a->saldo >= 0)
                     <tr>
-                        <td>&nbsp;&nbsp;{{ $a->nama }}</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ $a->nama }}</td>
                         <td></td>
                         <td class="text-right">Rp {{ number_format($a->saldo,0,',','.') }}</td>
                     </tr>
@@ -160,14 +150,14 @@
                 @endif
             @endforeach
 
-            <tr>
-                <td><strong>Total Liabilitas</strong></td>
+            <tr style="font-weight: bold;">
+                <td>Total Liabilitas</td>
                 <td></td>
-                <td class="text-right"><strong>Rp {{ number_format($totalLiab,0,',','.') }}</strong></td>
+                <td class="text-right">Rp {{ number_format($totalLiab,0,',','.') }}</td>
             </tr>
 
             {{-- EKUITAS --}}
-            <tr>
+            <tr style="background-color: #f9f9f9;">
                 <td><strong>EKUITAS</strong></td>
                 <td></td>
                 <td></td>
@@ -177,7 +167,7 @@
             @foreach($akun as $a)
                 @if(strtolower($a->keterangan) == 'equity' && $a->saldo >= 0)
                     <tr>
-                        <td>&nbsp;&nbsp;{{ $a->nama }}</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ $a->nama }}</td>
                         <td></td>
                         <td class="text-right">Rp {{ number_format($a->saldo,0,',','.') }}</td>
                     </tr>
@@ -185,23 +175,38 @@
                 @endif
             @endforeach
 
-            <tr>
-                <td><strong>Total Ekuitas</strong></td>
+            <tr style="font-weight: bold;">
+                <td>Total Ekuitas</td>
                 <td></td>
-                <td class="text-right"><strong>Rp {{ number_format($totalEquity,0,',','.') }}</strong></td>
+                <td class="text-right">Rp {{ number_format($totalEquity,0,',','.') }}</td>
             </tr>
 
-            {{-- TOTAL --}}
-            <tr>
-                <td><strong>Total Liabilitas + Ekuitas</strong></td>
-                <td class="text-right"><strong>Rp {{ number_format($totalAset,0,',','.') }}</strong></td>
-                <td class="text-right">
-                    <strong>Rp {{ number_format($totalLiab + $totalEquity,0,',','.') }}</strong>
-                </td>
+            {{-- Spasi --}}
+            <tr style="border:none;"><td colspan="3" style="border:none; padding: 10px;"></td></tr>
+
+            {{-- TOTAL AKHIR --}}
+            <tr style="background-color: #eee !important; font-weight: bold; font-size: 12px;">
+                <td>TOTAL LIABILITAS + EKUITAS</td>
+                <td class="text-right">Rp {{ number_format($totalAset,0,',','.') }}</td>
+                <td class="text-right">Rp {{ number_format($totalLiab + $totalEquity,0,',','.') }}</td>
             </tr>
 
         </tbody>
     </table>
+
+    {{-- Tanda Tangan Cetak --}}
+    <div class="d-none d-print-block mt-5">
+        <table width="100%" style="border: none !important;">
+            <tr style="border: none !important;">
+                <td style="border: none !important; width: 60%;"></td>
+                <td style="border: none !important; text-align: center;">
+                    Dicetak pada: {{ date('d/m/Y H:i') }}<br><br><br><br>
+                    ( ..................... )<br>
+                    Bagian Keuangan
+                </td>
+            </tr>
+        </table>
+    </div>
 
 </div>
 

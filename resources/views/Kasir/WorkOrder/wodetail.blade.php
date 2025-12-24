@@ -5,7 +5,7 @@
 @endsection
 
 @section('Judulisi')
-    <h2>Detail Work Order</h2>
+    <h2 class="no-print">Detail Work Order</h2>
 @endsection
 
 @section('Content1')
@@ -51,10 +51,16 @@ Swal.fire({ title: "Gagal", text: "Kesalahan", icon: "error" });
         </div>
 
         <div class="card-body">
+            {{-- HEADER CETAK (Hanya tampil saat print) --}}
+            <div class="d-none d-print-block text-center mb-4">
+                <h3 style="margin:0;">UTAMA GRAFIKA</h3>
+                <h5 style="margin:0;">DETAIL WORK ORDER</h5>
+                <hr style="border: 1px solid #000;">
+            </div>
 
             {{-- DATA WORK ORDER --}}
             <div class="row mb-4">
-                <div class="col-md-6">
+                <div class="col-md-6 col-6">
                     <table class="table table-sm table-striped">
                         <tr><th>Diterima Tgl</th><td>{{ $datawoperid->diterimaTanggal }}</td></tr>
                         <tr><th>Selesai Tgl</th><td>{{ $datawoperid->selesaiTanggal }}</td></tr>
@@ -68,7 +74,7 @@ Swal.fire({ title: "Gagal", text: "Kesalahan", icon: "error" });
                     </table>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-6 col-6">
                     <table class="table table-sm table-striped">
                         <tr><th>Ukuran Cetak</th><td>{{ $datawoperid->ukuran_cetak }}</td></tr>
                         <tr><th>Ukuran Jadi</th><td>{{ $datawoperid->ukuran_jadi }}</td></tr>
@@ -86,10 +92,10 @@ Swal.fire({ title: "Gagal", text: "Kesalahan", icon: "error" });
 
             {{-- HARGA --}}
             <div class="mb-4">
-                <h6 class="text-primary"><i class="bi bi-cash-coin me-2"></i> Harga</h6>
+                <h6 class="text-primary no-print"><i class="bi bi-cash-coin me-2"></i> Harga</h6>
                 <div class="p-3 bg-light border rounded text-end">
                     <h4 class="mb-0 text-success">
-                        <strong>Total: Rp {{ number_format($datawoperid->harga, 0, ',', '.') }}</strong>
+                        <strong class="total-text">Total: Rp {{ number_format($datawoperid->harga, 0, ',', '.') }}</strong>
                     </h4>
                 </div>
             </div>
@@ -106,7 +112,7 @@ Swal.fire({ title: "Gagal", text: "Kesalahan", icon: "error" });
 
 <br>
 
-<div class="card shadow mb-4">
+<div class="card shadow mb-4 print-area-inventory">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Data Barang</h6>
     </div>
@@ -132,82 +138,77 @@ Swal.fire({ title: "Gagal", text: "Kesalahan", icon: "error" });
     </div>
 </div>
 
-{{-- ===================== DOT MATRIX PRINT STYLE ===================== --}}
+{{-- ===================== CSS PRINT PORTRAIT OPTIMIZED ===================== --}}
 <style>
 @media print {
+    /* 1. Atur Portrait & Hilangkan URL Web melalui Margin */
+    @page {
+        size: A4 portrait;
+        margin: 10mm 15mm; 
+    }
 
+    /* 2. Paksa Sembunyikan Sidebar & Elemen Template Admin */
+    /* Menargetkan selector umum AdminLTE / Template Laravel Admin */
+    .main-sidebar, .sidebar, .main-header, .navbar, .main-footer, footer, 
+    .no-print, aside, header, nav, .topbar, .btn, .breadcrumb {
+        display: none !important;
+    }
+
+    /* 3. Reset Container agar tidak ada margin kiri (bekas sidebar) */
+    body, .content-wrapper, .main-content, .container-fluid, .content, .container {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        position: relative !important;
+        left: 0 !important;
+        background-color: #fff !important;
+    }
+
+    /* 4. Font Styling (Khas Dot Matrix / Courier) */
     * {
         color: #000 !important;
-        background: transparent !important;
         box-shadow: none !important;
-        font-weight: 900 !important;
     }
 
     body {
         font-family: "Courier New", Courier, monospace !important;
-        font-size: 12px !important;
-        line-height: 1.4 !important;
-        margin: 0;
+        font-size: 11px !important;
     }
 
-    .no-print,
-    .sidebar,
-    .navbar,
-    footer,
-    header,
-    nav,
-    .topbar {
-        display: none !important;
-    }
-
-    .content-wrapper,
-    .container,
-    .card {
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        border: none !important;
-    }
-
+    /* 5. Tabel Formatting */
     table {
         width: 100% !important;
         border-collapse: collapse !important;
         table-layout: fixed !important;
     }
 
-    table th,
-    table td {
-        border: 2px solid #000 !important;
+    table th, table td {
+        border: 1px solid #000 !important;
         padding: 4px 6px !important;
-        vertical-align: top !important;
+        word-wrap: break-word !important;
     }
 
-    table th {
-        text-align: center !important;
-        background: #fff !important;
+    .card {
+        border: 1px solid #000 !important;
+        box-shadow: none !important;
+        margin-bottom: 5px !important;
     }
 
-    pre {
-        font-family: "Courier New", monospace !important;
-        border: 2px solid #000 !important;
-        padding: 6px !important;
-        white-space: pre-wrap !important;
-    }
+    .bg-light { background: transparent !important; }
+    .text-success { color: #000 !important; }
 
-    .dataTables_length,
-    .dataTables_filter,
-    .dataTables_info,
-    .dataTables_paginate {
+    /* 6. Hilangkan elemen DataTable */
+    .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate {
         display: none !important;
     }
 
+    /* Footer Cetak */
     body:after {
         content: "Dicetak pada {{ date('d-m-Y H:i') }}";
         display: block;
         text-align: center;
-        margin-top: 20px;
-        font-size: 10px;
-        font-weight: 700;
+        margin-top: 15px;
+        font-size: 9px;
     }
 }
 </style>

@@ -54,6 +54,10 @@
 
 <style>
 @media print {
+       @page {
+        size: A4 portrait;   /* 🔥 INI KUNCI PORTRAIT */
+        margin: 10mm;
+    }
 
      .sidebar, .navbar, .no-print {
         display: none !important;   /* Sembunyikan sidebar & navbar */

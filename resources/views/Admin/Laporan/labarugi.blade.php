@@ -5,112 +5,111 @@
 @endsection
 
 @section('Judulisi')
-    <h2>Laporan Laba Rugi</h2>
+    <h2 class="no-print">Laporan Laba Rugi</h2>
 @endsection
 
 @section('Content1')
 
-{{-- ===================== PRINT CSS DOT MATRIX ===================== --}}
+{{-- ===================== PRINT CSS OPTIMIZED (PORTRAIT + NO URL) ===================== --}}
 <style>
 @media print {
+    /* 1. Atur Kertas Portrait & Margin Browser */
+    @page {
+        size: A4 portrait;
+        margin: 10mm; 
+    }
 
-    .no-print,
-    nav, header, aside,
-    .sidebar, .navbar, .topbar,
-    footer {
+    /* 2. Paksa Sembunyikan Header/Footer/URL Bawaan Browser */
+    html, body {
+        height: auto;
+        background-color: #fff !important;
+    }
+
+    /* 3. Sembunyikan Sidebar, Navbar, dan Elemen UI Admin Template */
+    .main-sidebar, .sidebar, .main-header, .navbar, .main-footer, footer, 
+    .no-print, aside, header, nav, .topbar, .btn, .breadcrumb, .content-header {
         display: none !important;
-    }
-
-    body {
+        height: 0 !important;
         margin: 0 !important;
         padding: 0 !important;
     }
 
-    /* AREA CETAK */
+    /* 4. Reset Wrapper Template (Penting agar konten dari pojok kiri) */
+    .content-wrapper, .main-content, .container-fluid, .content, .container, .card {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        position: relative !important;
+        left: 0 !important;
+        top: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        background: none !important;
+    }
+
+    /* 5. Font & Area Cetak (Dot Matrix Style) */
     .print-area {
-        margin: 0 !important;
-        padding: 0 !important;
+        width: 100% !important;
         font-family: "Courier New", Courier, monospace !important;
         font-size: 11px !important;
         color: #000 !important;
     }
 
-    /* HILANGKAN CARD / CONTAINER */
-    .container,
-    .card,
-    .card-body,
-    .table-responsive {
-        margin: 0 !important;
-        padding: 0 !important;
-        border: none !important;
-    }
-
-    /* TABLE */
+    /* 6. Tabel Agar Tidak Terpotong */
     table {
         width: 100% !important;
         border-collapse: collapse !important;
+        table-layout: fixed !important;
     }
 
     th, td {
         border: 1px solid #000 !important;
-        padding: 3px 5px !important;
-        white-space: nowrap !important;
-        font-weight: normal !important;
+        padding: 4px 6px !important;
+        word-wrap: break-word !important;
+        overflow: hidden !important;
     }
 
     th {
         text-align: center !important;
         font-weight: bold !important;
-        background: none !important;
     }
 
-    /* Hilangkan warna bootstrap */
-    .table-dark,
-    .table-secondary,
-    .table-info {
-        background: none !important;
-    }
-
-    .table-striped tbody tr:nth-of-type(odd) {
-        background: none !important;
-    }
-
-    td.text-end,
     td.text-right {
         text-align: right !important;
     }
 
-    h2, h3, h4, p {
-        text-align: center;
-        margin: 0;
-        padding: 2px 0;
+    center {
+        margin-bottom: 15px;
         font-weight: bold;
     }
 
-    /* DataTables OFF */
-    .dataTables_length,
-    .dataTables_filter,
-    .dataTables_info,
-    .dataTables_paginate {
+    /* Hilangkan URL/Footer Paksa */
+    body:after, body:before {
+        content: none !important;
         display: none !important;
     }
 }
+
+/* Styling Layar Normal (Tetap Menjaga UX Asli) */
+.print-area { padding: 20px; background: #fff; }
 </style>
 
 <div class="print-area">
 
     <center> 
-    Laba Rugi Duta Utama Grafika<br>
-    Periode: {{ $tanggal['tanggalAwal'] }} s/d {{ $tanggal['tanggalAkhir'] }} <br>
-   </center>
+        <h4 style="margin:0;">Laba Rugi Duta Utama Grafika</h4>
+        Periode: {{ $tanggal['tanggalAwal'] }} s/d {{ $tanggal['tanggalAkhir'] }}
+    </center>
 
-    <button class="btn btn-primary mb-2 no-print" onclick="window.print()">Print Laporan</button>
+    <button class="btn btn-primary mb-2 no-print" onclick="window.print()">
+        <i class="fas fa-print"></i> Print Laporan
+    </button>
 
     <table class="table table-bordered small">
         <thead>
-            <tr>
-                <th>Keterangan</th>
-                <th>Jumlah (Rp)</th>
+            <tr class="bg-light">
+                <th width="70%">Keterangan</th>
+                <th width="30%">Jumlah (Rp)</th>
             </tr>
         </thead>
         <tbody>
@@ -125,17 +124,20 @@
             @foreach($akun as $a)
                 @if(strtolower($a->keterangan) == 'income')
                     <tr>
-                        <td>&nbsp;&nbsp;{{ $a->nama }}</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ $a->nama }}</td>
                         <td class="text-right">Rp {{ number_format($a->saldo,0,',','.') }}</td>
                     </tr>
                     @php $totalPendapatan += $a->saldo; @endphp
                 @endif
             @endforeach
 
-            <tr>
+            <tr class="table-secondary" style="background-color: #f4f4f4 !important;">
                 <td><strong>Total Pendapatan</strong></td>
                 <td class="text-right"><strong>Rp {{ number_format($totalPendapatan,0,',','.') }}</strong></td>
             </tr>
+
+            {{-- Spasi Cetak --}}
+            <tr style="border: none;"><td colspan="2" style="border: none; padding: 5px;"></td></tr>
 
             {{-- BEBAN --}}
             <tr>
@@ -147,22 +149,25 @@
             @foreach($akun as $a)
                 @if(strtolower($a->keterangan) == 'expense')
                     <tr>
-                        <td>&nbsp;&nbsp;{{ $a->nama }}</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ $a->nama }}</td>
                         <td class="text-right">Rp {{ number_format($a->saldo,0,',','.') }}</td>
                     </tr>
                     @php $totalBeban += $a->saldo; @endphp
                 @endif
             @endforeach
 
-            <tr>
+            <tr class="table-secondary" style="background-color: #f4f4f4 !important;">
                 <td><strong>Total Beban</strong></td>
                 <td class="text-right"><strong>Rp {{ number_format($totalBeban,0,',','.') }}</strong></td>
             </tr>
 
+            {{-- Spasi Cetak --}}
+            <tr style="border: none;"><td colspan="2" style="border: none; padding: 10px;"></td></tr>
+
             {{-- LABA / RUGI --}}
             @php $labaRugiBersih = $totalPendapatan - $totalBeban; @endphp
 
-            <tr>
+            <tr class="table-info" style="background-color: #d1ecf1 !important;">
                 <td><strong>{{ $labaRugiBersih >= 0 ? 'LABA BERSIH' : 'RUGI BERSIH' }}</strong></td>
                 <td class="text-right">
                     <strong>Rp {{ number_format(abs($labaRugiBersih),0,',','.') }}</strong>
@@ -171,6 +176,20 @@
 
         </tbody>
     </table>
+
+    {{-- Tanda Tangan (Opsional saat print) --}}
+    <div class="d-none d-print-block mt-5">
+        <table width="100%" style="border: none !important;">
+            <tr style="border: none !important;">
+                <td style="border: none !important; width: 70%;"></td>
+                <td style="border: none !important; text-align: center;">
+                    Dicetak pada: {{ date('d-m-Y') }}<br><br><br><br>
+                    ( ..................... )<br>
+                    Admin Keuangan
+                </td>
+            </tr>
+        </table>
+    </div>
 
 </div>
 

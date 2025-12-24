@@ -206,7 +206,7 @@ Route::middleware(['auth'])->group(function(){
 
         route::controller(COntrollerStokKasir::class)->group(function(){
             route::get('/Kasir/JumlahStokBarang','JumlahStokBarangView');
-            route::get('/Kasir/StokControll','StokControllview')->name('stokcontrol');
+            route::get('/Kasir/StokControll','StokControllview')->name('stokcontrolKasir');
             route::get('/Kasir/Stok/ToolsalurStok','ToolsAlurStok');
             route::post('/Kasir/Stok/Opname','OpnameStok');
             
@@ -216,12 +216,12 @@ Route::middleware(['auth'])->group(function(){
          
         route::controller(ControllerWOKasir::class)->group(function(){
 
-           route::get('/Kasir/Sales/WorkOrder','Wodashboard')->name('workorder');
+           route::get('/Kasir/Sales/WorkOrder','Wodashboard')->name('workorderkasir');
             route::post('/Kasir/wo/Addwo','Addwo');
             route::post('/Kasir/Wo/ProsesAddwo','ProsesAddWo');
             route::get('/Kasir/wo/Toolswo','toolswo');
-            route::get('/Kasir/Sales/Nota','Notadashboard')->name('nota');
-            route::get('/Kasir/sales/Addnota','Addnotavw')->name('notaadd');
+            route::get('/Kasir/Sales/Nota','Notadashboard')->name('notakasir');
+            route::get('/Kasir/sales/Addnota','Addnotavw')->name('notaaddkasir');
             route::post('/Kasir/Sales/NotaItems','NotaItems');
             route::post('/Kasir/Sales/InputNota','inputnota');
             route::post('/Kasir/WO/InvKeluar','InvKeluar');

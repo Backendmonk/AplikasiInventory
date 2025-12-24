@@ -427,6 +427,18 @@ class ControllerWO extends Controller
         $sisa = $totalbayar - $deposit;
 
         $totalharga  = 0;
+         $inpembayaran = new ModelPembayaranNota();
+        
+
+        $inpembayaran->fill([
+            'id'=>$nonota,
+            'totalbayar'=>$totalharga,
+            'deposit'=>$deposit,
+            'sisapembayaran'=>$sisa,
+            'idwo'=>$idwo
+        ]);
+         $inpembayaran->save();
+
         foreach ($items as $databarang ) {
             $inputketbnota = new ModelNota();
             $inputketbnota->fill([
@@ -440,7 +452,7 @@ class ControllerWO extends Controller
 
 
             ]);
-              
+            $inputketbnota->save();
 
             $totalharga+= $inputketbnota['total'];
         }
@@ -448,16 +460,7 @@ class ControllerWO extends Controller
 
         /// Input Pembayaran NOta
 
-        $inpembayaran = new ModelPembayaranNota();
-        
-
-        $inpembayaran->fill([
-            'id'=>$nonota,
-            'totalbayar'=>$totalharga,
-            'deposit'=>$deposit,
-            'sisapembayaran'=>$sisa,
-            'idwo'=>$idwo
-        ]);
+       
 
 
         //
@@ -474,8 +477,8 @@ class ControllerWO extends Controller
         ]);
 
         $inputHistory->Save();
-        $inpembayaran->save();
-        $inputketbnota->save();
+       
+      
 
 
         //update status dan total harga  di WORK ORDER jika sisa lebih dari 0 maka akan termasuk piutang
@@ -598,6 +601,7 @@ class ControllerWO extends Controller
 
             'wo'=>ModelWO::where('id','=',$idwo)->first(),
             'nota'=>ModelNota::where('nomorwo','=',$idwo)->first(),
+              
             'notadata'=>ModelNota::where('nomorwo','=',$idwo)->get(),
             'pembayaran'=>ModelPembayaranNota::where('idwo','=',$idwo)->first(),
             'datametodebayar'=>MOdelMetodeBayar::all()
