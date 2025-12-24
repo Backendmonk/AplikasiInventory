@@ -169,5 +169,20 @@ class ControllerChartofAccount extends Controller
          return redirect()->route('COAHome')->with('msgdone','');
     }
 
+    public function SaldoAwal(Request $reqSaldoAwal){
+
+        $idcoa = $reqSaldoAwal->idbarang;
+        $selectdataCOA = Model_chartAkun::where('id','=',$idcoa)->first();
+
+        $dataView = [
+            'dataCOA'=>$selectdataCOA
+        ];
+
+        return view('Admin.ChartOfAccount.CoaSaldoAwal',$dataView);
+    }
+
+
+    //udpdate nanti
+
 
 }

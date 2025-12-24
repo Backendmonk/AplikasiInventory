@@ -130,7 +130,7 @@
                                             <th>Jenis Akun</th>
                                             <th>Saldo</th>
                                             <th>Keterangan Akun</th>
-                                            {{-- <th>Tools</th> --}}
+                                            <th>Tools</th>
                                         </tr>
                                     </thead>
                                     
@@ -147,19 +147,19 @@
 
 
                                                    
-                                                      {{-- 
+                                                      
                                                        <td>
                                                       <div class="dropdown">
                                                           <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                                                             Menus
                                                           </button>
                                                           <ul class="dropdown-menu">
-                                                            <form action="/Admin/COA/DetailCOA" method="POST">
+                                                            <form action="/Admin/COA/SaldoAwal" method="POST">
                                                               @csrf
                                                               
                                                               <input type="text" hidden name = "idbarang" value="{{ $data['id'] }}">
 
-                                                              {{-- <li><button class="dropdown-item" type="submit" name ="detail" value ="detail">Detail</button></li> 
+                                                              <li><button class="dropdown-item" type="submit">Saldo Awal</button></li> 
 
                                                       
                                                           
@@ -169,7 +169,7 @@
                                                         
                                                         </td>
                                                         
-                                                        --}}
+                                                       
 
                                                                                      
                                                     
