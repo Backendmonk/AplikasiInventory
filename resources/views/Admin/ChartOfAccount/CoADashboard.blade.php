@@ -154,7 +154,7 @@
                                                             Menus
                                                           </button>
                                                           <ul class="dropdown-menu">
-                                                            <form action="/Admin/COA/SaldoAwal" method="POST">
+                                                            <form action="/Admin/COA/SaldoAwal" method="GET">
                                                               @csrf
                                                               
                                                               <input type="text" hidden name = "idbarang" value="{{ $data['id'] }}">

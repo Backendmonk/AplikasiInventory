@@ -182,7 +182,19 @@ class ControllerChartofAccount extends Controller
     }
 
 
-    //udpdate nanti
+    //udpdate nant
+     public function SimpanSaldoAwal(request $reqdataSA){
 
+
+        $getidCOA =  $reqdataSA->coaid;
+
+        $getSaldo = Model_chartAkun::where('id',$getidCOA);
+
+        $saldo = $getSaldo->saldo;
+
+        $SA = 0  ;
+        
+
+     }
 
 }

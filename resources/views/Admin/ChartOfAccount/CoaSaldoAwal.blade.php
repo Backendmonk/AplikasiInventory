@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label>Kode Akun</label>
-                            <input type="text" class="form-control" value="{{ $dataCOA->id }}" readonly>
+                            <input type="text" name = "coaid" class="form-control" value="{{ $dataCOA->id }}" readonly>
                         </div>
                         <div class="form-group">
                             <label>Nama Akun</label>

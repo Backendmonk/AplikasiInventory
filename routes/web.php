@@ -135,8 +135,8 @@ Route::middleware(['auth'])->group(function(){
                 route::get('/Admin/ChartOfAccount','Coadashboard')->name('COAHome');
                 route::post('/Admin/coa/TambahCOA','COAaddView');
                 route::post('/Admin/COA/CoaAdd','CoaAdd');
-                route::post('/Admin/COA/SaldoAwal','SaldoAwal');
-                route::post('Admin/COA/SimpanJurnalManual','SimpanJurnalManual');
+                route::get('/Admin/COA/SaldoAwal','SaldoAwal');
+                route::post('Admin/COA/SimpanSaldoAwal','SimpanSaldoAwal');
         });
 
 
