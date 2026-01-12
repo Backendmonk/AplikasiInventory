@@ -52,6 +52,7 @@ class ControllerWO extends Controller
         $status = "Open";
         
         $dataWO = [
+                'id'                      => $reqDataWo->id,
                 'diterimaTanggal'         => $reqDataWo->diterima_tgl,
                 'selesaitanggal'          => $reqDataWo->selesai_tgl,
                 'nama_pesanan'            => $reqDataWo->nama_pemesan,
@@ -89,6 +90,7 @@ class ControllerWO extends Controller
         $prosesaddtowo = new ModelWO();
 
             $prosesaddtowo -> fill([
+                'id'                    => $dataWO['id'] ?? null,
                'diterimaTanggal'       => $dataWO['diterimaTanggal'] ?? null,
                 'selesaitanggal'        => $dataWO['selesaitanggal'] ?? null,
                 'nama_pesanan'          => $dataWO['nama_pesanan'] ?? null,

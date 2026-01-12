@@ -14,7 +14,9 @@ class ModelWO extends Model
      protected $table = 'tb__wo';
 
     protected $primaryKey = 'id';
-    protected $fillable  = ['diterimaTanggal',
+    protected $fillable  = [
+        'id',    
+    'diterimaTanggal',
         'selesaiTanggal',
         'nama_pesanan',
         'jenis_pesanan',

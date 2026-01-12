@@ -10,7 +10,14 @@
    <div class="container mt-4">
     <form  method="POST" action="/Admin/Wo/ProsesAddwo">
         @csrf
+
         <!-- Tanggal -->
+          <div class="row mb-3">
+            <div class="col-md-3">
+                <label for="diterima_tgl" class="form-label">Nomor WO</label>
+                <input type="number" class="form-control" id="id" name="diterima_tgl">
+            </div>
+          </div>
        
         <div class="row mb-3">
             <div class="col-md-3">
