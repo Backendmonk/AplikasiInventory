@@ -10,9 +10,9 @@ class ModelPembayaranNota extends Model
     use HasFactory;
 
     protected $table = 'tb_pembayaran_nota';
-    protected $fillable  = ['id','totalbayar','deposit','sisapembayaran','idwo'];
+    protected $fillable  = ['id','totalbayar','deposit','sisapembayaran','idwo','created_at','updated_at'];
 
-    public $timestamps = true;
+    public $timestamps = false;
 
     public $incrementing = false;
 

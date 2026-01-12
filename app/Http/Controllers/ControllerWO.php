@@ -113,6 +113,7 @@ class ControllerWO extends Controller
                 'id_operatorcetak'         => $dataWO['OperatorCetak'] ?? null,
                 'id_operatorpotong'        => $dataWO['OperatorPotong'] ?? null,
                 'id_operatorproduksi'     => $dataWO['operatorProduksi'] ?? null,
+                
             ]);
 
 
@@ -417,6 +418,9 @@ class ControllerWO extends Controller
     private function inputnotatodb($datanota){
 
         $idwo = $datanota['idwo'];
+        $getdate = ModelWO::where('id','=',$idwo)->first();
+        $tanggalupdatesAt = $getdate['diterimaTanggal'];
+
         $metodepembayaran = $datanota['metodebayar'];
         $items = $datanota['items'];
         $tanggal = date('d');
@@ -436,7 +440,9 @@ class ControllerWO extends Controller
             'totalbayar'=>$totalharga,
             'deposit'=>$deposit,
             'sisapembayaran'=>$sisa,
-            'idwo'=>$idwo
+            'idwo'=>$idwo,
+            'created_at'=>$tanggalupdatesAt,
+            'updated_at'=>$tanggalupdatesAt
         ]);
          $inpembayaran->save();
 
@@ -449,7 +455,9 @@ class ControllerWO extends Controller
                 'barang'=>$databarang['barang'],
                 'qty'=>$databarang['jumlah'],
                 'Harga'=>$databarang['harga'],
-                'total'=>$databarang['harga']*$databarang['jumlah']
+                'total'=>$databarang['harga']*$databarang['jumlah'],
+                'created_at'=>$tanggalupdatesAt,
+                'updated_at'=>$tanggalupdatesAt
 
 
             ]);
@@ -467,14 +475,15 @@ class ControllerWO extends Controller
         //
 
         $inputHistory  = new ModelHistoryPembayaran();
-
+ 
         $inputHistory ->fill([
             'idNota'=>$nonota,
             'totalbayar'=>$totalharga,
             'dibayarkan'=>$deposit,
             'sisa'=>$sisa,
-            'pertanggal'=>$dates,
-            'id_paymentmethod'=>$metodepembayaran
+            'pertanggal'=>$tanggalupdatesAt,
+            'id_paymentmethod'=>$metodepembayaran,
+            
         ]);
 
         $inputHistory->Save();
@@ -501,9 +510,9 @@ class ControllerWO extends Controller
         $idakunPembayaran = $cekidcoaMetodebayar['idcoa'];
         $idpiutang = $cekidpiutang['id'];
         //pakaid nota
-        ControllerJurnal::catatanjurnal($idakunPembayaran,$deposit,0,$nonota);
-        ControllerJurnal::catatanjurnal($idpiutang,$deposit,0,$nonota);
-        ControllerJurnal::catatanjurnal( $idakunpenjualan,0,$totalharga,$nonota);
+        ControllerJurnal::catatanjurnal($idakunPembayaran,$deposit,0,$nonota,$tanggalupdatesAt,$tanggalupdatesAt);
+        ControllerJurnal::catatanjurnal($idpiutang,$deposit,0,$nonota,$tanggalupdatesAt,$tanggalupdatesAt);
+        ControllerJurnal::catatanjurnal( $idakunpenjualan,0,$totalharga,$nonota,$tanggalupdatesAt,$tanggalupdatesAt);
 
         //update coa besok copas dibawah
 
@@ -555,8 +564,8 @@ class ControllerWO extends Controller
         $idakunpenjualan = $cekidpenjualan['id'];
         $idakunPembayaran = $cekidcoaMetodebayar['idcoa'];
 
-        ControllerJurnal::catatanjurnal($idakunPembayaran,$totalharga,0,$nonota);
-        ControllerJurnal::catatanjurnal( $idakunpenjualan,0,$totalharga,$nonota);
+        ControllerJurnal::catatanjurnal($idakunPembayaran,$totalharga,0,$nonota,$tanggalupdatesAt,$tanggalupdatesAt);
+        ControllerJurnal::catatanjurnal( $idakunpenjualan,0,$totalharga,$nonota,$tanggalupdatesAt,$tanggalupdatesAt);
 
         //update Saldo COA
             $updatecoaAsset = Model_chartAkun::find($idakunPembayaran);
@@ -642,7 +651,8 @@ class ControllerWO extends Controller
        'sisabayar' => $reqdatapelunasan->sisabayar,
        'bayaransekarang' => $reqdatapelunasan->bayaransekarang,
        'totalharganota'=>$reqdatapelunasan->totalharganota,
-       'metodebayar'=>$reqdatapelunasan->metodebayar
+       'metodebayar'=>$reqdatapelunasan->metodebayar,
+       'tanggal'=>$reqdatapelunasan->tanggal
 
     ];
 
@@ -654,7 +664,7 @@ class ControllerWO extends Controller
     private function ProsesPelunasan($datapelunasan){
         $updateedDeposit = $datapelunasan['deposit'] + $datapelunasan['bayaransekarang'];
         $updatesisapembayaran = $datapelunasan['sisabayar']-$datapelunasan['bayaransekarang'];
-        $dates = date('y-m-d');
+        $dates = $datapelunasan['tanggal'];
 
         $metodepembayaran = $datapelunasan['metodebayar'];
 
@@ -664,8 +674,8 @@ class ControllerWO extends Controller
         $idakunPembayaran = $cekidcoaMetodebayar['idcoa'];
         $idpiutang = $cekidpiutang['id'];
         //pakaid nota
-        ControllerJurnal::catatanjurnal($idakunPembayaran,$datapelunasan['bayaransekarang'],0,$datapelunasan['idnota']);
-        ControllerJurnal::catatanjurnal( $idpiutang,0,$datapelunasan['bayaransekarang'],$datapelunasan['idnota']);
+        ControllerJurnal::catatanjurnal($idakunPembayaran,$datapelunasan['bayaransekarang'],0,$datapelunasan['idnota'],$dates,$dates);
+        ControllerJurnal::catatanjurnal( $idpiutang,0,$datapelunasan['bayaransekarang'],$datapelunasan['idnota'],$dates,$dates);
 
           $updatecoaAsset = Model_chartAkun::find($idakunPembayaran);
           $updatecoapiutang  = Model_chartAkun::find($idpiutang);

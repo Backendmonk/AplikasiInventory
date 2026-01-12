@@ -11,9 +11,9 @@ class ModelNota extends Model
     protected $table = 'tb__nota';
 
     //protected $primaryKey = 'id';
-    protected $fillable  = ['nonota','nomorwo','barang','qty','Harga','total'];
+    protected $fillable  = ['nonota','nomorwo','barang','qty','Harga','total','created_at','updated_at'];
 
-    public $timestamps = true;
+    public $timestamps = false;
 
 
 

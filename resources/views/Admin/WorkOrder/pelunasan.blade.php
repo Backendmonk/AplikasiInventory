@@ -19,7 +19,7 @@
                   
                 </div>
                 <div class="col-6 text-end">
-                    <p class="mb-0">Denpasar, {{ $nota->created_at->format('d-m-Y') }}</p>
+                    <p class="mb-0">Denpasar, {{ $nota->created_at }}</p>
                     <p class="mb-0">No Nota: <strong>{{ $nota->nonota }}</strong></p>
                     <p class="mb-0">Kpd Yth: <strong>{{ $wo->nama_pesanan }}</strong></p>
                 </div>
@@ -34,7 +34,7 @@
                         <th>Nama Barang</th>
                         <th style="width: 10%;">Qty</th>
                         <th style="width: 20%;">Harga</th>
-                        <th style="width: 20%;">Jumlah</th>
+                        <th style="width: 20%;">Jumlah</th> 
                     </tr>
                 </thead>
                 <tbody>
@@ -100,6 +100,10 @@
                                 <option value="{{ $data->id }}">{{ $data->id }} - {{ $data->nama_metode }}</option>
                             @endforeach
                         </select>
+
+                         <option value="">Pilih Tanggal Bayar</option>
+
+                        <input type = "date"   class="form-control" id="exampleInputEmail1" name = "tanggal"  aria-describedby="emailHelp">
 
                         </div>
                        <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm mt-2">Simpan</button>

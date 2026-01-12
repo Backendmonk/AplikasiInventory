@@ -11,7 +11,7 @@ class ModelHistoryPembayaran extends Model
 
     
     protected $table = 'tb_history_pembayaran';
-    protected $fillable  = ['idNota','totalbayar','dibayarkan','sisa','pertanggal','id_paymentmethod'];
+    protected $fillable  = ['idNota','totalbayar','dibayarkan','sisa','pertanggal','id_paymentmethod','created_at','updated_at'];
 
     public $timestamps = false;
 
