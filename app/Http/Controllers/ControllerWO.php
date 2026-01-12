@@ -372,6 +372,7 @@ class ControllerWO extends Controller
 
     //oreder selesai ketika sudah ada nota
     
+
     //harga keluar jika sudah ada nota
     // FUNCSI INI ADALAH FUNGSI YANGDIGUNAKAN UNTUK MELAKUKAN UPDATE TERHADAP WORK ORDER, DIMANA YANG DIUPDATE ADALAH STATUS DAN HARGA
 
@@ -601,6 +602,7 @@ class ControllerWO extends Controller
 
             'wo'=>ModelWO::where('id','=',$idwo)->first(),
             'nota'=>ModelNota::where('nomorwo','=',$idwo)->first(),
+            
               
             'notadata'=>ModelNota::where('nomorwo','=',$idwo)->get(),
             'pembayaran'=>ModelPembayaranNota::where('idwo','=',$idwo)->first(),

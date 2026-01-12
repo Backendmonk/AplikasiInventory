@@ -7,7 +7,7 @@
 @section('Content1')
 <div class="print-area-wrapper">
 
-    {{-- TOMBOL PRINT (Hanya muncul di layar laptop) --}}
+    {{-- TOMBOL PRINT --}}
     <div class="d-flex justify-content-end mb-3 no-print">
         <button class="btn btn-success btn-sm" onclick="window.print()">
             <i class="bi bi-printer"></i> Print Nota
@@ -28,7 +28,7 @@
             {{-- INFO NOTA --}}
             <table class="nota-info" width="100%">
                 <tr>
-                    <td style="width: 55%">No Nota : <strong>{{ $nota->nonota }}</strong></td>
+                    <td width="55%">No Nota : <strong>{{ $nota->nomorwo }}</strong></td>
                     <td class="text-end">Tanggal : {{ $nota->created_at->format('d-m-Y') }}</td>
                 </tr>
                 <tr>
@@ -40,11 +40,11 @@
             <table class="table-nota">
                 <thead>
                     <tr>
-                        <th style="width: 40px">No</th>
+                        <th width="40">No</th>
                         <th>Nama Barang</th>
-                        <th style="width: 60px">Qty</th>
-                        <th style="width: 120px">Harga</th>
-                        <th style="width: 140px">Jumlah</th>
+                        <th width="60">Qty</th>
+                        <th width="120">Harga</th>
+                        <th width="140">Jumlah</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,11 +61,11 @@
                 </tbody>
             </table>
 
-            {{-- TOTAL & PENERIMA --}}
+            {{-- TOTAL --}}
             <div class="total-container">
                 <table width="100%">
                     <tr>
-                        <td width="60%" rowspan="3" style="vertical-align: top; padding-top: 25px;">
+                        <td width="60%" rowspan="3" style="vertical-align: top; padding-top: 20px;">
                             <strong>Penerima,</strong><br><br><br><br>
                             (_____________________)
                         </td>
@@ -88,63 +88,102 @@
 </div>
 
 <style>
-/* --- TAMPILAN LAYAR --- */
-.nota-box { 
-    background: #fff; 
-    padding: 30px; 
-    border: 1px solid #eee; 
-    max-width: 850px; 
-    margin: 20px auto; 
+/* ===================== */
+/* TAMPILAN LAYAR */
+/* ===================== */
+.nota-box {
+    background: #fff;
+    padding: 30px;
+    border: 1px solid #eee;
+    max-width: 850px;
+    margin: 20px auto;
 }
 
-/* --- TAMPILAN PRINT --- */
+/* ===================== */
+/* MODE PRINT – DOT MATRIX */
+/* ===================== */
 @media print {
+
     @page {
         size: A4 portrait;
-        margin: 10mm; /* Mengurangi margin agar area cetak lebih luas */
+        margin: 10mm;
     }
 
-    /* Hilangkan sidebar, navbar, dan footer template secara total */
-    .main-sidebar, .sidebar, .main-header, .navbar, .main-footer, footer, 
-    .no-print, aside, header, .btn, .breadcrumb, .content-header, .footer-timestamp {
+    /* HILANGKAN TEMPLATE */
+    .main-sidebar, .sidebar, .main-header, .navbar,
+    .main-footer, footer, aside,
+    .no-print, .btn, .breadcrumb, .content-header {
         display: none !important;
     }
 
-    /* Reset Wrapper agar ke pojok kiri atas */
-    body, .content-wrapper, .main-content, .container-fluid, .content {
+    /* RESET TOTAL */
+    html, body {
         margin: 0 !important;
         padding: 0 !important;
+        height: auto !important;
+    }
+
+    body,
+    .content-wrapper,
+    .container-fluid,
+    .content,
+    .print-area-wrapper,
+    .nota-box,
+    .nota-inner {
+        margin: 0 auto !important;
+        padding: 0 !important;
         width: 100% !important;
-        position: relative !important;
+        height: auto !important;
+        min-height: 0 !important;
+        position: static !important;
+    }
+
+    /* PAKSA KE TENGAH (ANTI NYAMPING) */
+    .nota-box {
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
 
     body {
         font-family: "Courier New", Courier, monospace !important;
-        font-size: 15pt !important;
-        font-weight: bolder !important;
+        font-size: 13pt !important;
+        font-weight: bold !important;
+        color: #000 !important;
     }
 
-    .table-nota {
+    table {
         width: 100% !important;
         border-collapse: collapse !important;
-        table-layout: fixed !important;
+        page-break-inside: auto;
     }
 
-    .table-nota th, .table-nota td {
+    tr {
+        page-break-inside: avoid;
+    }
+
+    .table-nota th,
+    .table-nota td {
         border: 1px solid #000 !important;
-        padding: 6px 4px !important;
+        padding: 5px 4px !important;
     }
 
     .nota-header {
         text-align: center;
         border-bottom: 2px solid #000;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
+        padding-bottom: 5px;
     }
 
     .total-container {
-        margin-top: 20px;
+        margin-top: 15px;
         border-top: 2px solid #000;
-        padding-top: 10px;
+        padding-top: 8px;
+        page-break-inside: avoid;
+    }
+
+    * {
+        box-shadow: none !important;
+        float: none !important;
     }
 }
 </style>
