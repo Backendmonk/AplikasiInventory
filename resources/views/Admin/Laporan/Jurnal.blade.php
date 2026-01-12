@@ -16,7 +16,7 @@
     /* 1. Atur Kertas Portrait & Sembunyikan Header/Footer Browser */
     @page {
         size: A4 portrait;
-        margin: 10mm; /* Menghilangkan margin otomatis browser yang berisi URL */
+        margin: 3mm 6mm;/* Menghilangkan margin otomatis browser yang berisi URL */
     }
      /* Hilangkan sidebar, navbar, dan footer template secara total */
     .main-sidebar, .sidebar, .main-header, .navbar, .main-footer, footer, 

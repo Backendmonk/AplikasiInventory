@@ -16,7 +16,7 @@
     /* 1. Atur Kertas Portrait & Margin Browser */
     @page {
         size: A4 portrait;
-        margin: 10mm; 
+                margin: 3mm 6mm;
     }
 
     /* 2. Paksa Sembunyikan Header/Footer/URL Bawaan Browser */

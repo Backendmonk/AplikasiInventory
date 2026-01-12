@@ -16,7 +16,7 @@
     /* 1. Paksa Orientasi Portrait & Hilangkan Header/Footer Browser */
     @page {
         size: A4 portrait;
-        margin: 10mm; /* Margin ini menekan URL keluar dari area cetak */
+                margin: 3mm 6mm; /* Margin ini menekan URL keluar dari area cetak */
     }
 
     /* 2. Sembunyikan Elemen UI Web */

@@ -10,57 +10,86 @@
 
 @section('Content1')
 
-{{-- ===================== PRINT CSS OPTIMIZED (PORTRAIT + NO URL) ===================== --}}
+{{-- ===================== PRINT CSS FIX (TANPA UBAH TAMPILAN) ===================== --}}
 <style>
 @media print {
-    /* 1. Atur Kertas Portrait & Hilangkan URL Browser */
+
+    /* ===== PAGE ===== */
     @page {
         size: A4 portrait;
-        margin: 10mm;
+        margin: 3mm 6mm;
     }
 
-    /* 2. Sembunyikan elemen non-cetak */
-    .no-print, nav, header, aside, .sidebar, .navbar, .topbar, footer, 
-    .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate,
-    .breadcrumb, .content-header {
+    html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        height: auto !important;
+        min-height: 0 !important;
+        background-color: #fff !important;
+        overflow: visible !important;
+    }
+
+    /* ===== SEMBUNYIKAN UI ===== */
+    .no-print, nav, header, aside, .sidebar, .navbar, .topbar, footer,
+    .dataTables_length, .dataTables_filter, .dataTables_info,
+    .dataTables_paginate, .breadcrumb, .content-header,
+    .main-footer, .card-header, .btn {
         display: none !important;
         height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
-    /* 3. Reset Layout Wrapper agar Full Width */
-    body, .content-wrapper, .main-content, .container-fluid, .content, .container, .card {
+    /* ===== RESET WRAPPER (KUNCI PANJANG HALAMAN) ===== */
+    .content-wrapper,
+    .main-content,
+    .container-fluid,
+    .content,
+    .container,
+    .card,
+    .card-body,
+    .table-responsive {
         margin: 0 !important;
         padding: 0 !important;
         width: 100% !important;
-        position: relative !important;
-        left: 0 !important;
-        top: 0 !important;
-        background-color: #fff !important;
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: visible !important;
         border: none !important;
         box-shadow: none !important;
+        position: relative !important;
     }
 
-    /* 4. Font & Tabel Styling (Muat di Portrait) */
-    .print-area {
-        width: 100% !important;
+    /* ===== HEADER PRINT (RAPAT KE ATAS) ===== */
+    .d-print-block h4,
+    .d-print-block p {
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
+    .d-print-block hr {
+        margin: 3px 0 !important;
+    }
+
+    /* ===== TABLE (LEBAR PAS A4) ===== */
     .print-area table {
         width: 100% !important;
         border-collapse: collapse !important;
-        table-layout: fixed !important; /* Paksa muat dalam lebar kertas */
+        table-layout: fixed !important;
         font-family: "Courier New", Courier, monospace !important;
-        font-size: 7.5pt !important; /* Ukuran font diperkecil agar kolom muat banyak */
+        font-size: 7.5pt !important;
         font-weight: bolder !important;
         color: #000 !important;
     }
 
-    .print-area table th, .print-area table td {
+    .print-area table th,
+    .print-area table td {
         border: 1px solid #000 !important;
         padding: 2px !important;
         word-wrap: break-word !important;
         overflow-wrap: break-word !important;
-        white-space: normal !important; /* Biar teks panjang turun ke bawah */
+        white-space: normal !important;
+        vertical-align: middle !important;
     }
 
     th {
@@ -69,23 +98,36 @@
         text-align: center !important;
     }
 
-    /* Hilangkan URL/Footer sistem browser */
+    .text-right { text-align: right !important; }
+    .text-center { text-align: center !important; }
+
+    /* ===== KUNCI PANJANG PRINT ===== */
+    .print-area {
+        margin: 0 !important;
+        padding: 0 !important;
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+    }
+
+    /* ===== HILANGKAN FOOTER URL BROWSER ===== */
     body:after, body:before {
         content: none !important;
         display: none !important;
     }
 }
 
-/* Tampilan Normal Layar Tetap UX Asli */
+/* ===== TAMPILAN NORMAL ===== */
 .print-area { padding: 15px; }
 </style>
 
 <div class="print-area">
+
     {{-- Header Khusus Cetak --}}
-    <div class="d-none d-print-block text-center mb-3">
+    <div class="d-none d-print-block text-center mb-2">
         <h4 style="margin:0; font-weight: bold;">UTAMA GRAFIKA</h4>
         <p style="margin:0; font-size: 10pt;">Laporan Data Penjualan</p>
-        <hr style="border: 1px solid #000; margin-top: 5px;">
+        <hr style="border: 1px solid #000; margin-top: 5px; margin-bottom: 5px;">
     </div>
 
     <h3 class="text-center mb-4 no-print">Laporan Penjualan – Utama Grafika</h3>
@@ -114,7 +156,7 @@
                 </div>
                 <div class="col-md-6 d-flex align-items-end">
                     <button onclick="window.print()" class="btn btn-primary mr-2">
-                        <i class="fas fa-print"></i> Print Portrait
+                        <i class="fas fa-print"></i> Print Laporan
                     </button>
                     <button onclick="location.reload()" class="btn btn-secondary">
                         <i class="fas fa-sync"></i> Reset
@@ -152,40 +194,42 @@
                             $totaldeposit = 0;
                             $totalsisa = 0;
                         @endphp
+
                         @foreach ($nota as $data)
-                            <tr>
-                                <td>{{ date('d/m/Y', strtotime($data['created_at'])) }}</td>
-                                <td class="text-center">{{ $data['id'] }}</td>
-                                <td>{{ $data->ModelwoRS->nama_pesanan }}</td>
-                                <td>{{ $data->ModelwoRS->jenis_pesanan }}</td>
-                                <td>
-                                    @php
-                                        $detail = array_filter([
-                                            $data->ModelwoRS->jenis_kertas ? "K:{$data->ModelwoRS->jenis_kertas}" : null,
-                                            $data->ModelwoRS->warna_tinta ? "T:{$data->ModelwoRS->warna_tinta}" : null,
-                                        ]);
-                                    @endphp
-                                    {{ implode(' - ', $detail) }}
-                                </td>
-                                <td>{{ $data->nota->pluck('barang')->implode(', ') }}</td>
-                                <td class="text-center">{{ $data->ModelwoRS->plat }}</td>
-                                <td class="text-right">Rp{{ number_format($data['totalbayar'], 0, ',', '.') }}</td>
-                                <td class="text-right">Rp{{ number_format($data['deposit'], 0, ',', '.') }}</td>
-                                <td class="text-right">Rp{{ number_format($data['sisapembayaran'], 0, ',', '.') }}</td>
-                            </tr>
-                            @php
-                                $totalbayar += $data['totalbayar'];
-                                $totaldeposit += $data['deposit'];
-                                $totalsisa += $data['sisapembayaran'];
-                            @endphp
+                        <tr>
+                            <td class="text-center">{{ date('d/m/Y', strtotime($data['created_at'])) }}</td>
+                            <td class="text-center">{{ $data['id'] }}</td>
+                            <td>{{ $data->ModelwoRS->nama_pesanan }}</td>
+                            <td>{{ $data->ModelwoRS->jenis_pesanan }}</td>
+                            <td>
+                                @php
+                                    $detail = array_filter([
+                                        $data->ModelwoRS->jenis_kertas ? "K:{$data->ModelwoRS->jenis_kertas}" : null,
+                                        $data->ModelwoRS->warna_tinta ? "T:{$data->ModelwoRS->warna_tinta}" : null,
+                                    ]);
+                                @endphp
+                                {{ implode(' - ', $detail) }}
+                            </td>
+                            <td>{{ $data->nota->pluck('barang')->implode(', ') }}</td>
+                            <td class="text-center">{{ $data->ModelwoRS->plat }}</td>
+                            <td class="text-right">Rp{{ number_format($data['totalbayar'], 0, ',', '.') }}</td>
+                            <td class="text-right">Rp{{ number_format($data['deposit'], 0, ',', '.') }}</td>
+                            <td class="text-right">Rp{{ number_format($data['sisapembayaran'], 0, ',', '.') }}</td>
+                        </tr>
+
+                        @php
+                            $totalbayar += $data['totalbayar'];
+                            $totaldeposit += $data['deposit'];
+                            $totalsisa += $data['sisapembayaran'];
+                        @endphp
                         @endforeach
                     </tbody>
                     <tfoot>
-                        <tr style="background-color: #f8f9fc; font-weight: bold;">
-                            <th colspan="7" style="text-align:right">TOTAL:</th>
-                            <th id="footerTotalBayar">Rp{{ number_format($totalbayar, 0, ',', '.') }}</th>
-                            <th id="footerTotalDeposit">Rp{{ number_format($totaldeposit, 0, ',', '.') }}</th>
-                            <th id="footerTotalSisa">Rp{{ number_format($totalsisa, 0, ',', '.') }}</th>
+                        <tr style="background-color:#f8f9fc;font-weight:bold;">
+                            <th colspan="7" class="text-right">TOTAL:</th>
+                            <th class="text-right">Rp{{ number_format($totalbayar,0,',','.') }}</th>
+                            <th class="text-right">Rp{{ number_format($totaldeposit,0,',','.') }}</th>
+                            <th class="text-right">Rp{{ number_format($totalsisa,0,',','.') }}</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -194,43 +238,25 @@
     </div>
 </div>
 
-<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></cript>
 <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
 <script>
 $(document).ready(function() {
     var table = $('#dataTable').DataTable({
-        "paging": false,
-        "ordering": true,
-        "info": false,
-        "searching": true
+        paging: false,
+        ordering: true,
+        info: false,
+        searching: true
     });
 
     $('#filterMesin').on('change', function() {
         table.column(6).search(this.value).draw();
-        updateFooterTotal(table);
     });
 
     $('#filterStatus').on('change', function() {
-        // Karena kolom status tidak saya tampilkan di table (untuk menghemat space Portrait), 
-        // pastikan logic pencarian sesuai atau tambahkan kolom hidden jika perlu.
         table.search(this.value).draw();
-        updateFooterTotal(table);
     });
-
-    function updateFooterTotal(api) {
-        var totalBayar = 0; var totalDeposit = 0; var totalSisa = 0;
-        api.rows({ search: 'applied' }).every(function() {
-            var node = this.node();
-            totalBayar += parseInt($(node).find('td:eq(7)').text().replace(/[^\d]/g, '')) || 0;
-            totalDeposit += parseInt($(node).find('td:eq(8)').text().replace(/[^\d]/g, '')) || 0;
-            totalSisa += parseInt($(node).find('td:eq(9)').text().replace(/[^\d]/g, '')) || 0;
-        });
-        $('#footerTotalBayar').html('Rp' + totalBayar.toLocaleString('id-ID'));
-        $('#footerTotalDeposit').html('Rp' + totalDeposit.toLocaleString('id-ID'));
-        $('#footerTotalSisa').html('Rp' + totalSisa.toLocaleString('id-ID'));
-    }
 });
 </script>
 
