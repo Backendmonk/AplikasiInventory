@@ -208,21 +208,15 @@ class ControllerLaporan extends Controller
 }
 
 
-    private function PanggilLapJul($tanggal){
+   private function PanggilLapJul($tanggal){
+    // Pastikan format tanggal benar dan mencakup seluruh waktu dalam hari tersebut
+    $tanggalAwal = \Carbon\Carbon::parse($tanggal['tanggalAwal'])->startOfDay();
+    $tanggalAkhir = \Carbon\Carbon::parse($tanggal['tanggalAkhir'])->endOfDay();
 
-     $tanggalAwal = $tanggal['tanggalAwal'];
-    $tanggalAkhir = $tanggal['tanggalAkhir'];
-
-        $notabr = [
-            'nota' => ModelPembayaranNota::with(['ModelwoRS', 'nota'])
-                ->whereBetween('created_at', [$tanggalAwal, $tanggalAkhir])
-                ->get()
-        ];
-            # code...
+    $notabr['nota'] = ModelPembayaranNota::with(['ModelwoRS', 'nota'])
+        ->whereBetween('created_at', [$tanggalAwal, $tanggalAkhir])
+        ->get();
             
-         
-    return view('Admin.Laporan.LaporanPL',$notabr);
-
-    
-    }
+    return view('Admin.Laporan.LaporanPL', $notabr);
+}
 }
