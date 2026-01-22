@@ -10,120 +10,22 @@
 
 @section('Content1')
 
-{{-- ===================== PRINT CSS FIX (TANPA UBAH TAMPILAN) ===================== --}}
 <style>
 @media print {
-
-    /* ===== PAGE ===== */
-    @page {
-        size: A4 portrait;
-        margin: 3mm 6mm;
-    }
-
-    html, body {
-        margin: 0 !important;
-        padding: 0 !important;
-        height: auto !important;
-        min-height: 0 !important;
-        background-color: #fff !important;
-        overflow: visible !important;
-    }
-
-    /* ===== SEMBUNYIKAN UI ===== */
-    .no-print, nav, header, aside, .sidebar, .navbar, .topbar, footer,
-    .dataTables_length, .dataTables_filter, .dataTables_info,
-    .dataTables_paginate, .breadcrumb, .content-header,
-    .main-footer, .card-header, .btn {
-        display: none !important;
-        height: 0 !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    /* ===== RESET WRAPPER (KUNCI PANJANG HALAMAN) ===== */
-    .content-wrapper,
-    .main-content,
-    .container-fluid,
-    .content,
-    .container,
-    .card,
-    .card-body,
-    .table-responsive {
-        margin: 0 !important;
-        padding: 0 !important;
-        width: 100% !important;
-        height: auto !important;
-        min-height: 0 !important;
-        overflow: visible !important;
-        border: none !important;
-        box-shadow: none !important;
-        position: relative !important;
-    }
-
-    /* ===== HEADER PRINT (RAPAT KE ATAS) ===== */
-    .d-print-block h4,
-    .d-print-block p {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    .d-print-block hr {
-        margin: 3px 0 !important;
-    }
-
-    /* ===== TABLE (LEBAR PAS A4) ===== */
-    .print-area table {
-        width: 100% !important;
-        border-collapse: collapse !important;
-        table-layout: fixed !important;
-        font-family: "Courier New", Courier, monospace !important;
-        font-size: 7.5pt !important;
-        font-weight: bolder !important;
-        color: #000 !important;
-    }
-
-    .print-area table th,
-    .print-area table td {
-        border: 1px solid #000 !important;
-        padding: 2px !important;
-        word-wrap: break-word !important;
-        overflow-wrap: break-word !important;
-        white-space: normal !important;
-        vertical-align: middle !important;
-    }
-
-    th {
-        background-color: #eee !important;
-        -webkit-print-color-adjust: exact;
-        text-align: center !important;
-    }
-
+    @page { size: A4 portrait; margin: 3mm 6mm; }
+    html, body { margin: 0 !important; padding: 0 !important; height: auto !important; background-color: #fff !important; overflow: visible !important; }
+    .no-print, nav, header, aside, .sidebar, .navbar, .topbar, footer, .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate, .breadcrumb, .content-header, .main-footer, .card-header, .btn { display: none !important; }
+    .content-wrapper, .main-content, .container-fluid, .content, .container, .card, .card-body, .table-responsive { margin: 0 !important; padding: 0 !important; width: 100% !important; height: auto !important; overflow: visible !important; border: none !important; box-shadow: none !important; }
+    .print-area table { width: 100% !important; border-collapse: collapse !important; table-layout: fixed !important; font-family: "Courier New", Courier, monospace !important; font-size: 7.5pt !important; font-weight: bolder !important; color: #000 !important; }
+    .print-area table th, .print-area table td { border: 1px solid #000 !important; padding: 2px !important; word-wrap: break-word !important; }
+    th { background-color: #eee !important; -webkit-print-color-adjust: exact; text-align: center !important; }
     .text-right { text-align: right !important; }
     .text-center { text-align: center !important; }
-
-    /* ===== KUNCI PANJANG PRINT ===== */
-    .print-area {
-        margin: 0 !important;
-        padding: 0 !important;
-        height: auto !important;
-        min-height: 0 !important;
-        overflow: visible !important;
-    }
-
-    /* ===== HILANGKAN FOOTER URL BROWSER ===== */
-    body:after, body:before {
-        content: none !important;
-        display: none !important;
-    }
 }
-
-/* ===== TAMPILAN NORMAL ===== */
 .print-area { padding: 15px; }
 </style>
 
 <div class="print-area">
-
-    {{-- Header Khusus Cetak --}}
     <div class="d-none d-print-block text-center mb-2">
         <h4 style="margin:0; font-weight: bold;">UTAMA GRAFIKA</h4>
         <p style="margin:0; font-size: 10pt;">Laporan Data Penjualan</p>
@@ -176,25 +78,21 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th width="10%">Tanggal</th>
+                            <th width="9%">Tanggal</th>
                             <th width="5%">Nota</th>
                             <th width="12%">Pemesan</th>
-                            <th width="10%">Jenis</th>
-                            <th width="15%">Detail WO</th>
-                            <th width="10%">Penjualan</th>
+                            <th width="8%">Jenis</th>
+                            <th width="10%">Detail WO</th>
+                            <th width="12%">Penjualan</th>
+                            <th width="9%">Ongkos Cetak</th>
                             <th width="7%">Mesin</th>
                             <th width="10%">Total</th>
                             <th width="10%">Bayar</th>
                             <th width="11%">Sisa</th>
+                            <th class="d-none">Status Hidden</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @php
-                            $totalbayar = 0;
-                            $totaldeposit = 0;
-                            $totalsisa = 0;
-                        @endphp
-
                         @foreach ($nota as $data)
                         <tr>
                             <td class="text-center">{{ date('d/m/Y', strtotime($data['created_at'])) }}</td>
@@ -210,26 +108,32 @@
                                 @endphp
                                 {{ implode(' - ', $detail) }}
                             </td>
-                            <td>{{ $data->nota->pluck('barang')->implode(', ') }}</td>
+                            <td>{{ $data->nota->where('barang', '!=', 'Ongkos Cetak')->pluck('barang')->implode(', ') }}</td>
+                            
+                            <td class="text-right">
+                                @php
+                                    $itemOngkos = $data->nota->where('barang', 'Ongkos Cetak')->first();
+                                    $valOngkos = $itemOngkos ? ($itemOngkos->Harga * $itemOngkos->qty) : 0;
+                                @endphp
+                                Rp{{ number_format($valOngkos, 0, ',', '.') }}
+                            </td>
+
                             <td class="text-center">{{ $data->ModelwoRS->plat }}</td>
                             <td class="text-right">Rp{{ number_format($data['totalbayar'], 0, ',', '.') }}</td>
                             <td class="text-right">Rp{{ number_format($data['deposit'], 0, ',', '.') }}</td>
                             <td class="text-right">Rp{{ number_format($data['sisapembayaran'], 0, ',', '.') }}</td>
+                            <td class="d-none">{{ $data['sisapembayaran'] <= 0 ? 'Selesai' : 'Piutang' }}</td>
                         </tr>
-
-                        @php
-                            $totalbayar += $data['totalbayar'];
-                            $totaldeposit += $data['deposit'];
-                            $totalsisa += $data['sisapembayaran'];
-                        @endphp
                         @endforeach
                     </tbody>
                     <tfoot>
                         <tr style="background-color:#f8f9fc;font-weight:bold;">
-                            <th colspan="7" class="text-right">TOTAL:</th>
-                            <th class="text-right">Rp{{ number_format($totalbayar,0,',','.') }}</th>
-                            <th class="text-right">Rp{{ number_format($totaldeposit,0,',','.') }}</th>
-                            <th class="text-right">Rp{{ number_format($totalsisa,0,',','.') }}</th>
+                            <th colspan="6" class="text-right">TOTAL:</th>
+                            <th class="text-right" id="totalOngkosFooter">Rp0</th> {{-- Total Ongkos Cetak --}}
+                            <th></th> {{-- Kosongkan kolom mesin --}}
+                            <th class="text-right" id="totalSemuaFooter">Rp0</th> {{-- Total Penjualan --}}
+                            <th class="text-right" id="totalBayarFooter">Rp0</th>
+                            <th class="text-right" id="totalSisaFooter">Rp0</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -238,7 +142,7 @@
     </div>
 </div>
 
-<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></cript>
+<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
@@ -247,15 +151,42 @@ $(document).ready(function() {
         paging: false,
         ordering: true,
         info: false,
-        searching: true
+        searching: true,
+        footerCallback: function (row, data, start, end, display) {
+            var api = this.api();
+
+            var intVal = function (i) {
+                return typeof i === 'string' ? i.replace(/[\Rp.]/g, '') * 1 : typeof i === 'number' ? i : 0;
+            };
+
+            // Hitung Total Ongkos Cetak (Kolom index 6)
+            var totalOngkos = api.column(6, { page: 'current' }).data().reduce((a, b) => intVal(a) + intVal(b), 0);
+            
+            // Hitung Total Penjualan (Kolom index 8)
+            var totalSemua = api.column(8, { page: 'current' }).data().reduce((a, b) => intVal(a) + intVal(b), 0);
+            
+            // Hitung Total Bayar (Kolom index 9)
+            var totalBayar = api.column(9, { page: 'current' }).data().reduce((a, b) => intVal(a) + intVal(b), 0);
+            
+            // Hitung Total Sisa (Kolom index 10)
+            var totalSisa = api.column(10, { page: 'current' }).data().reduce((a, b) => intVal(a) + intVal(b), 0);
+
+            var formatIDR = (n) => 'Rp' + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+            // Update footer
+            $('#totalOngkosFooter').html(formatIDR(totalOngkos));
+            $('#totalSemuaFooter').html(formatIDR(totalSemua));
+            $('#totalBayarFooter').html(formatIDR(totalBayar));
+            $('#totalSisaFooter').html(formatIDR(totalSisa));
+        }
     });
 
     $('#filterMesin').on('change', function() {
-        table.column(6).search(this.value).draw();
+        table.column(7).search(this.value).draw();
     });
 
     $('#filterStatus').on('change', function() {
-        table.search(this.value).draw();
+        table.column(11).search(this.value).draw();
     });
 });
 </script>
