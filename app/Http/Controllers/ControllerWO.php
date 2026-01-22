@@ -418,6 +418,7 @@ class ControllerWO extends Controller
 
 
     private function inputnotatodb($datanota){
+        //  dd($datanota['items']);
 
         $idwo = $datanota['idwo'];
         $getdate = ModelWO::where('id','=',$idwo)->first();
@@ -434,7 +435,7 @@ class ControllerWO extends Controller
         $sisa = $totalbayar - $deposit;
 
         $totalharga  = 0;
-         $inpembayaran = new ModelPembayaranNota();
+        $inpembayaran = new ModelPembayaranNota();
         
 
         $inpembayaran->fill([
@@ -463,7 +464,8 @@ class ControllerWO extends Controller
 
 
             ]);
-            $inputketbnota->save();
+             $inputketbnota->save();
+            
 
             $totalharga+= $inputketbnota['total'];
         }
@@ -488,7 +490,7 @@ class ControllerWO extends Controller
             
         ]);
 
-        $inputHistory->Save();
+         $inputHistory->Save();
        
       
 
@@ -545,9 +547,9 @@ class ControllerWO extends Controller
                     'saldo'=>$totalsaldopiutang
                ]);
 
-               $updatecoaAsset->save();
-               $updatecoaPenjualan->save();
-               $updatecoapiutang->save();
+                $updatecoaAsset->save();
+                $updatecoaPenjualan->save();
+                $updatecoapiutang->save();
         
 
         
@@ -589,7 +591,7 @@ class ControllerWO extends Controller
                ]);
 
                $updatecoaAsset->save();
-               $updatecoaPenjualan->save();
+                $updatecoaPenjualan->save();
          return $this->updateworkroderHrS($dataupwo);
 
         }
