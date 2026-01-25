@@ -100,15 +100,15 @@ class ControllerChartofAccount extends Controller
                  ];
                 
                 if ($balanceakunNormal =="Debit") {
-                ControllerJurnal::catatanjurnal($datacoa['id'],$datacoa['saldoawal'],0,$randomNota);
-                ControllerJurnal::catatanjurnal( $idSaldo,0,$datacoa['saldoawal'],$randomNota);
+                ControllerJurnal::catatanjurnal($datacoa['id'],$datacoa['saldoawal'],0,$randomNota,$datacoa['tgl'],$datacoa['tgl']);
+                ControllerJurnal::catatanjurnal( $idSaldo,0,$datacoa['saldoawal'],$randomNota,$datacoa['tgl'],$datacoa['tgl']);
                 
                 return $this->UpdateSaldoAwal($dataSaldoAwalJurnal); //untuk mengupdate dan menambahkan saldo awal
                 
                 }elseif ($balanceakunNormal =="Credit") {
                     # code...
-                    ControllerJurnal::catatanjurnal($datacoa['id'],0,$datacoa['saldoawal'],$randomNota);
-                    ControllerJurnal::catatanjurnal( $idSaldo,$datacoa['saldoawal'],0,$randomNota);
+                    ControllerJurnal::catatanjurnal($datacoa['id'],0,$datacoa['saldoawal'],$randomNota,$datacoa['tgl'],$datacoa['tgl']);
+                    ControllerJurnal::catatanjurnal( $idSaldo,$datacoa['saldoawal'],0,$randomNota,$datacoa['tgl'],$datacoa['tgl']);
                     return $this->UpdateSaldoAwal($dataSaldoAwalJurnal);//untuk mengupdate dan menambahkan saldo awal
                 }else{
                     return redirect()->route('COAHome')->with('gagal','');
@@ -183,18 +183,60 @@ class ControllerChartofAccount extends Controller
 
 
     //udpdate nant
-     public function SimpanSaldoAwal(request $reqdataSA){
+    public function SimpanSaldoAwal(Request $reqdataSA)
+{
+    $getidCOA   = $reqdataSA->coaid;
+    $tanggal   = $reqdataSA->tanggal;
+    $nomornota = $reqdataSA->nomor_nota;
 
+    // validasi isi field
+    $debitFilled  = $reqdataSA->filled('debit');
+    $kreditFilled = $reqdataSA->filled('kredit');
 
-        $getidCOA =  $reqdataSA->coaid;
+    if (
+        ($debitFilled && $kreditFilled) ||
+        (!$debitFilled && !$kreditFilled)
+    ) {
+        return redirect()->route('COAHome')
+            ->with('gagal', 'Isi salah satu: Debit atau Kredit');
+    }
 
-        $getSaldo = Model_chartAkun::where('id',$getidCOA);
+    // parsing angka (aman format ribuan)
+    $debit  = $debitFilled
+        ? (float) str_replace('.', '', $reqdataSA->debit)
+        : 0;
 
-        $saldo = $getSaldo->saldo;
+    $kredit = $kreditFilled
+        ? (float) str_replace('.', '', $reqdataSA->kredit)
+        : 0;
 
-        $SA = 0  ;
-        
+    $getSaldo = Model_chartAkun::findOrFail($getidCOA);
+    $saldosekarang = (float) $getSaldo->saldo;
 
-     }
+    // hitung saldo
+    $newSaldo = $debit > 0
+        ? $saldosekarang + $debit
+        : $saldosekarang - $kredit;
+
+    // update COA
+    $getSaldo->update([
+        'saldo' => $newSaldo,
+        'saldo_awal' => $newSaldo,
+        'tanggal_saldo_awal' => $tanggal
+    ]);
+
+    // jurnal
+    ControllerJurnal::catatanjurnal(
+        $getidCOA,
+        $debit,
+        $kredit,
+        $nomornota,
+        $tanggal,
+        $tanggal
+    );
+
+    return redirect()->route('COAHome')->with('msgdone', 'Saldo awal tersimpan');
+}
+
 
 }

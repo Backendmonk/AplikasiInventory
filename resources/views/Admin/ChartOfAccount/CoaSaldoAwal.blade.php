@@ -43,13 +43,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Saldo Debit</label>
-                                    <input type="number" name="debit[]" class="form-control" placeholder="0" step="any">
+                                    <input type="number" name="debit" class="form-control" placeholder="0" step="any">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Saldo Kredit</label>
-                                    <input type="number" name="kredit[]" class="form-control" placeholder="0" step="any">
+                                    <input type="number" name="kredit" class="form-control" placeholder="0"  step="any">
                                 </div>
                             </div>
                         </div>

@@ -49,7 +49,7 @@
 
     Swal.fire({
     title: "Gagal",
-    text: "Kesalahan",
+    text: "Debit dan Kredit Tidak Boleh Sama Terisi",
     icon: "error"
     });
 </script>
