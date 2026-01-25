@@ -20,7 +20,7 @@ class ControllerPembelian extends Controller
 
         $getpembelian = [
 
-            'pembelianbarang'=>ModelPembelianBarang::with('notaPembelian')->with('barangBeli')->get(),
+            'pembelianbarang'=>ModelNotaPembelianBarang::with('pembelianBarang')->get(),
             
         ];
         return view('Admin.Pembelian.pembelianbarang',$getpembelian);

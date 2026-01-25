@@ -116,13 +116,10 @@
  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>id</th>
-                                            <th>Nama Barang</th>
                                             <th>Nomor Nota</th>
-                                            <th>Nama Suplier</th>
-                                            <th>Qty</th>
-                                            <th>Harga</th>
-                                            <th>Subtotal Harga</th>
+                                            <th>Total Harga</th>
+                                            <th>Dibayarkan</th>
+                                            <th>Sisa</th>
                                             <th>Tanggal</th>
                                             <th>Status</th>
                                             <th>Menus</th>
@@ -132,15 +129,15 @@
                                     <tbody>
                                         @foreach ($pembelianbarang as $data)
                                              <tr>
-                                                    <td>{{ $data['id'] }}</td>
-                                                    <td>{{ $data->barangBeli->nama_barang }}</td>
-                                                     <td>{{ $data->notaPembelian->id }} <!-- Memanggil Join --></td>
-                                                     <td>{{ $data['suplier_nama'] }}</td>
-                                                     <td>{{ $data['jumlah_beli'] }}</td>
-                                                     <td>{{ $data['harga_beli'] }}</td>
-                                                     <td>{{ $data['subtotal_harga_beli'] }}</td>
+                                                    {{-- <td>{{ $data['id'] }}</td> --}}
+                                                    
+                                                     <td>{{ $data->id }} <!-- Memanggil Join --></td>
+                                                        <td>Rp {{ number_format($data['total'], 0, ',', '.') }}</td>
+                                                      <td>Rp {{ number_format($data['dibayar'], 0, ',', '.') }}</td>
+                                                      <td>Rp {{ number_format($data['sisa'], 0, ',', '.') }}</td>
+
                                                      <td>{{ $data['created_at'] }}</td>
-                                                      <td>{{ $data->notaPembelian->status_nota }}</td>
+                                                      <td>{{ $data->status_nota }}</td>
 
                                                     <td>
                                                       <div class="dropdown">
@@ -150,9 +147,9 @@
                                                           <ul class="dropdown-menu">
                                                             <form action="/Admin/Pembelian/Detail" method="GET">
                                                               @csrf
-                                                              <input type="text" hidden name="idnota" value="{{ $data->notaPembelian->id }}">
+                                                              <input type="text" hidden name="idnota" value="{{ $data->id }}">
                                                               
-                                                               @if ($data->notaPembelian->status_nota == 'Hutang' )
+                                                               @if ($data->status_nota == 'Hutang' )
                                                               <li><button class="dropdown-item" type="submit" name ="pelunasan" value ="pelunasan">Lunasi</button></li> 
                                                               
                                                               @endif
