@@ -68,8 +68,10 @@
                 <table width="100%">
                     <tr>
                         <td width="60%" rowspan="3" style="vertical-align: top; padding-top: 20px;">
-                            <strong>Penerima,</strong><br><br>
-                            (_____________________)
+                            <strong>Penerima,</strong><br>
+                                <div class="ttd-line">
+                                    (_____________________)
+                                </div>
                         </td>
                         <td width="15%">Total</td>
                         <td class="text-end">Rp {{ number_format($wo->harga,0,',','.') }}</td>
@@ -99,6 +101,9 @@
     border: 1px solid #eee;
     max-width: 850px;
     margin: 10px auto;
+}
+.ttd-line {
+    margin-top: 35px; /* atur jarak turun garis */
 }
 
 /* ===================== */
@@ -139,6 +144,10 @@
         min-height: 0 !important;
         position: static !important;
     }
+    .ttd-line {
+        margin-top: 40px !important;
+    }
+    
 
     /* PAKSA KE TENGAH (ANTI NYAMPING) */
     .nota-box {

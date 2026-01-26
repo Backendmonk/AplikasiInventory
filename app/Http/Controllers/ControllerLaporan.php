@@ -214,6 +214,7 @@ private function PanggilLapJul($tanggal){
 
     $notabr['nota'] = ModelPembayaranNota::with(['ModelwoRS', 'nota'])
         ->whereBetween('created_at', [$tanggalAwal, $tanggalAkhir])
+        ->orderBy('created_at', 'asc')
         ->get();
             
     return view('Admin.Laporan.LaporanPL', $notabr);

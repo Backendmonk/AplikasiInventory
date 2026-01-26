@@ -95,7 +95,9 @@
                     <tbody>
                         @foreach ($nota as $data)
                         <tr>
-                            <td class="text-center">{{ date('d/m/Y', strtotime($data['created_at'])) }}</td>
+                            <td class="text-center" data-order="{{ date('Y-m-d H:i:s', strtotime($data['created_at'])) }}">
+                                {{ date('d/m/Y', strtotime($data['created_at'])) }}
+                            </td>
                             <td class="text-center">{{ $data['id'] }}</td>
                             <td>{{ $data->ModelwoRS->nama_pesanan }}</td>
                             <td>{{ $data->ModelwoRS->jenis_pesanan }}</td>
