@@ -216,8 +216,9 @@ class ControllerWO extends Controller
                                 cek apakah qty keluar apakah lebih besar dari stok yang ada di sistem ?
                         */
                     if ($item['jumlah'] > $Stoksistem) {
+                        
                          return redirect()->route('workorder')->with('Gagalinputbsr',' ');
-                        break;
+                       
                     }else{
                          $stokupdate = $Stoksistem - $item['jumlah'];
 
@@ -725,10 +726,11 @@ class ControllerWO extends Controller
             'totalbayar'=>$datapelunasan['totalharganota'],
             'dibayarkan'=>$datapelunasan['bayaransekarang'],
             'sisa'=>$updatesisapembayaran,
-            'pertanggal'=>$dates
+            'pertanggal'=>$dates,
+            'id_paymentmethod'=>$datapelunasan['metodebayar']
 
         ]);
-
+         $inputtotbHistory->save();
         //get id wo from data pembayaran Nota UNTUK UPDATE STATUS DI WO, TIDAK PERLU UPDATE HARGA KARENA HARGA KAN SUDAH KETEMU
 
         $getidwo = ModelPembayaranNota::where('id','=',$datapelunasan['idnota'])->first();
@@ -753,7 +755,7 @@ class ControllerWO extends Controller
         
         $updatedatawosthr->save();
          $updatedataNota->save();
-        $inputtotbHistory->save();
+      
          return redirect()->route('nota')->with('msgdone','');
 
 
