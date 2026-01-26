@@ -53,10 +53,11 @@ Swal.fire({ title: "Gagal", text: "Kesalahan", icon: "error" });
         <div class="card-body">
             {{-- HEADER CETAK (Hanya tampil saat print) --}}
             <div class="d-none d-print-block text-center mb-4">
-                <h3 style="margin:0;">UTAMA GRAFIKA</h3>
+                <h3 style="margin:0;">DUTA UTAMA GRAFIKA</h3>
                 <h5 style="margin:0;">DETAIL WORK ORDER</h5>
                 <hr style="border: 1px solid #000;">
             </div>
+            
 
             {{-- DATA WORK ORDER --}}
             <div class="row mb-4">
@@ -141,76 +142,126 @@ Swal.fire({ title: "Gagal", text: "Kesalahan", icon: "error" });
 {{-- ===================== CSS PRINT PORTRAIT OPTIMIZED ===================== --}}
 <style>
 @media print {
-    /* 1. Atur Portrait & Hilangkan URL Web melalui Margin */
+
+    /* ================= PAGE ================= */
     @page {
         size: A4 portrait;
-        margin: 10mm 15mm; 
+        margin: 6mm;
     }
 
-    /* 2. Paksa Sembunyikan Sidebar & Elemen Template Admin */
-    /* Menargetkan selector umum AdminLTE / Template Laravel Admin */
-    .main-sidebar, .sidebar, .main-header, .navbar, .main-footer, footer, 
-    .no-print, aside, header, nav, .topbar, .btn, .breadcrumb {
-        display: none !important;
+    /* ================= RESET TOTAL ================= */
+    * {
+        color: #000 !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        outline: none !important;
     }
 
-    /* 3. Reset Container agar tidak ada margin kiri (bekas sidebar) */
-    body, .content-wrapper, .main-content, .container-fluid, .content, .container {
+    /* ================= BODY ================= */
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 11pt !important;
+        line-height: 1.35 !important;
+    }
+
+    /* ================= MATIKAN GRID BOOTSTRAP ================= */
+    .container,
+    .container-fluid,
+    .row,
+    [class*="col-"] {
         margin: 0 !important;
         padding: 0 !important;
         width: 100% !important;
-        position: relative !important;
-        left: 0 !important;
-        background-color: #fff !important;
     }
 
-    /* 4. Font Styling (Khas Dot Matrix / Courier) */
-    * {
-        color: #000 !important;
-        box-shadow: none !important;
+    /* ================= CARD JADI TEKS ================= */
+    .card,
+    .card-header,
+    .card-body {
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
-    body {
-        font-family: "Courier New", Courier, monospace !important;
-        font-size: 11px !important;
-    }
-
-    /* 5. Tabel Formatting */
+    /* ================= TABLE ================= */
     table {
         width: 100% !important;
         border-collapse: collapse !important;
-        table-layout: fixed !important;
     }
 
-    table th, table td {
-        border: 1px solid #000 !important;
-        padding: 4px 6px !important;
-        word-wrap: break-word !important;
+    th,
+    td {
+        font-size: 11pt !important;
+        line-height: 1.35 !important;
+
+        padding-left: 8mm !important;
+        padding-right: 5mm !important;
+        padding-top: 1.2mm !important;
+        padding-bottom: 1.2mm !important;
+
+        vertical-align: top !important;
+        text-align: left !important;
+        border: none !important;
     }
 
-    .card {
-        border: 1px solid #000 !important;
-        box-shadow: none !important;
-        margin-bottom: 5px !important;
+    th {
+        font-weight: bold !important;
     }
 
-    .bg-light { background: transparent !important; }
-    .text-success { color: #000 !important; }
+    /* ================= TOTAL JADI TEKS BIASA ================= */
+    h4,
+    .total-text {
+        font-size: 11pt !important;
+        font-weight: normal !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
 
-    /* 6. Hilangkan elemen DataTable */
-    .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate {
+    /* ================= HILANGKAN DATA BARANG ================= */
+    .print-area-inventory {
         display: none !important;
     }
 
-    /* Footer Cetak */
-    body:after {
-        content: "Dicetak pada {{ date('d-m-Y H:i') }}";
-        display: block;
-        text-align: center;
-        margin-top: 15px;
-        font-size: 9px;
+    /* ================= MATIKAN WARNA ================= */
+    .bg-light,
+    .bg-primary,
+    .bg-success,
+    .text-primary,
+    .text-success,
+    .badge {
+        background: transparent !important;
+        color: #000 !important;
+    }
+
+    /* ================= HIDE UI ================= */
+    .no-print,
+    .btn,
+    nav,
+    aside,
+    header,
+    footer,
+    .navbar,
+    .sidebar,
+    .breadcrumb {
+        display: none !important;
+    }
+
+    /* ================= DATATABLE OFF ================= */
+    .dataTables_length,
+    .dataTables_filter,
+    .dataTables_info,
+    .dataTables_paginate,
+    hr {
+        display: none !important;
     }
 }
+
+
+
 </style>
+
+
+
 
 @endsection
