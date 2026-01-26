@@ -66,7 +66,7 @@
                 <table width="100%">
                     <tr>
                         <td width="60%" rowspan="3" style="vertical-align: top; padding-top: 20px;">
-                            <strong>Penerima,</strong><br><br><br><br>
+                            <strong>Penerima,</strong><br><br>
                             (_____________________)
                         </td>
                         <td width="15%">Total</td>
@@ -89,14 +89,14 @@
 
 <style>
 /* ===================== */
-/* TAMPILAN LAYAR */
+/* TAMPILAN LAYAR (Frontend) */
 /* ===================== */
 .nota-box {
     background: #fff;
-    padding: 30px;
+    padding: 20px;
     border: 1px solid #eee;
     max-width: 850px;
-    margin: 20px auto;
+    margin: 10px auto;
 }
 
 /* ===================== */
@@ -142,6 +142,7 @@
     .nota-box {
         margin-left: auto !important;
         margin-right: auto !important;
+        border: none !important; /* Hapus border kotak saat print */
     }
 
     body {
@@ -161,6 +162,10 @@
         page-break-inside: avoid;
     }
 
+    .table-nota {
+        margin-bottom: 0 !important; /* Mepetkan tabel barang ke bawah */
+    }
+
     .table-nota th,
     .table-nota td {
         border: 1px solid #000 !important;
@@ -174,11 +179,23 @@
         padding-bottom: 5px;
     }
 
+    /* MODIFIKASI AGAR MEPEET KE ATAS */
     .total-container {
-        margin-top: 15px;
+        margin-top: 0 !important; /* Menghilangkan jarak antar tabel */
         border-top: 2px solid #000;
-        padding-top: 8px;
+        padding-top: 2px !important; /* Jarak minimal setelah garis */
         page-break-inside: avoid;
+    }
+
+    .total-container td {
+        padding-top: 2px !important;
+        padding-bottom: 2px !important;
+    }
+
+    /* Paksa kolom "Penerima" mengabaikan padding inline 20px saat print */
+    .total-container td[rowspan="3"] {
+        padding-top: 0 !important;
+        vertical-align: top !important;
     }
 
     * {

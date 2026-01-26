@@ -27,7 +27,7 @@
 
 <div class="print-area">
     <div class="d-none d-print-block text-center mb-2">
-        <h4 style="margin:0; font-weight: bold;">UTAMA GRAFIKA</h4>
+        <h4 style="margin:0; font-weight: bold;">DUTA UTAMA GRAFIKA</h4>
         <p style="margin:0; font-size: 10pt;">Laporan Data Penjualan</p>
         <hr style="border: 1px solid #000; margin-top: 5px; margin-bottom: 5px;">
     </div>

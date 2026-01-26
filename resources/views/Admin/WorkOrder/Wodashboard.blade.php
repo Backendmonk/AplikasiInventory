@@ -104,6 +104,22 @@
     </div>
 @endif
 
+  @if (session()->has('gagalinput'))
+  <script>
+
+    Swal.fire({
+    title: "Data Gagal Diinput",
+    text: "Id Tidak Boleh Double",
+    icon: "error"
+    });
+</script>
+      
+  @endif
+
+
+    
+
+
 
 <!--        
 
