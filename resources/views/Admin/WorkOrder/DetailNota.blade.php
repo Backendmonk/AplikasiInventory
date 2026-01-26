@@ -29,7 +29,9 @@
             <table class="nota-info" width="100%">
                 <tr>
                     <td width="55%">No Nota : <strong>{{ $nota->nomorwo }}</strong></td>
-                    <td class="text-end">Tanggal : {{ $nota->created_at }}</td>
+                    <td class="text-end">
+    Tanggal : {{ \Carbon\Carbon::parse($nota->created_at)->format('d-m-Y') }}
+</td>
                 </tr>
                 <tr>
                     <td colspan="2">Kepada Yth : <strong>{{ $wo->nama_pesanan }}</strong></td>
