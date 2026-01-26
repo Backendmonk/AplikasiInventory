@@ -15,7 +15,7 @@
           <div class="row mb-3">
             <div class="col-md-3">
                 <label for="diterima_tgl" class="form-label">Nomor WO</label>
-                <input type="number" class="form-control" id="id" name="diterima_tgl">
+                <input type="number" class="form-control" id="id" name="id">
             </div>
           </div>
        

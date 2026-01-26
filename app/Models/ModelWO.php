@@ -42,7 +42,7 @@ class ModelWO extends Model
 
     public $timestamps = false;
 
-    public $incrementing = true;
+    // public $incrementing = true;
 
 
       public function adadetailwo(){
