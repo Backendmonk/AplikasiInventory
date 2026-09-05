@@ -89,6 +89,11 @@ class ControllerWO extends Controller
 
         $prosesaddtowo = new ModelWO();
 
+        $cekketersediaan = ModelWO::where('id','=',$dataWO['id'])->count();
+        if ($cekketersediaan > 0) {
+            return redirect()->route('workorder')->with('gagalinput','');
+        }else{
+
             $prosesaddtowo -> fill([
                 'id'                    => $dataWO['id'] ?? null,
                'diterimaTanggal'       => $dataWO['diterimaTanggal'] ?? null,
@@ -121,6 +126,7 @@ class ControllerWO extends Controller
            
             $prosesaddtowo->save();
             return redirect()->route('workorder')->with('msgdone','');
+            }
     }
 
 
